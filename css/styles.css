@@ -1,0 +1,19 @@
+/*hide the div */
+.hidden {
+    display: none;
+}
+
+.hidden-options {
+    display: none;
+  }
+
+.show-more {
+    cursor: pointer;
+    display: block;
+    padding: 8px;
+}
+
+.select2-results__options {
+  max-height: 200px; /* Adjust the max height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
