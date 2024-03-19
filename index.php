@@ -1,7 +1,8 @@
 <?php
 require_once("src/info.php");
 // Load up the LTI Support code
-require_once 'ims-blti/blti.php';
+require_once('ims-blti/blti.php');
+require_once('src/BLE.php');
 
 // Session will have partitioned parameter that required for Chrome like browsers
 // Other browsers that does not support partitioned cookie, will still work under Samesite=None
@@ -17,6 +18,10 @@ if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
 
     if($context->complete) exit(); //True if redirect was done by BLTI class
     if($context->valid) { //True if LTI request was verified
+
+        $orgUnitId = $context->info['context_id'];
+        shareWithOrgUnit($orgUnitId);
+
         //main page
         include 'src/home.php';
     }
