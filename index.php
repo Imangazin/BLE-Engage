@@ -10,7 +10,7 @@ require_once('src/BLE.php');
 session_start();
 $session_id = session_id();
 header("Set-Cookie: PHPSESSID=$session_id; Secure; Path=$cookie_loation; HttpOnly; SameSite=None; Partitioned;");
-
+echo "Outside LTI";
 //All of the LTI Launch data gets passed through in $_REQUEST
 if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
     //LTI tool declared with session data
