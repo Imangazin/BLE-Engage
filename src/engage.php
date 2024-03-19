@@ -6,6 +6,7 @@ function experienceBUcall($url){
     global $config;
 
     $ch = curl_init($config['engageUrl'] . $url);
+    echo $config['engageUrl'] . $url;
     $headers = array (
         'Accept: application/json',
         'X-Engage-Api-Key: ' . $config['engageToken']

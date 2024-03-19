@@ -14,13 +14,12 @@ session_start();
 if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
     $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
     $userName = $_SESSION['_basic_lti_context']['ext_d2l_username'];
-    echo $userName;
     if (isset($_GET['organizationId'])){
         $events_response = getEvents($_GET['organizationId']);
-        echo json_decode($events_response);
+        echo json_encode($events_response);
     }else{
         $orgs_response = getOrganizationsByUsername($userName);
-        echo json_decode($orgs_response);
+        echo json_encode($orgs_response);
     }
 
 } else {
