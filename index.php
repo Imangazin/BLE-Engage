@@ -16,6 +16,8 @@ if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
     //LTI tool declared with session data
     $context = new BLTI($lti_auth['secret'], true, false);
 
+    echo $context->info['context_id'];
+
     if($context->complete) exit(); //True if redirect was done by BLTI class
     if($context->valid) { //True if LTI request was verified
         echo "valid";
