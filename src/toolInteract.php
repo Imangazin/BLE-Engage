@@ -12,7 +12,7 @@ if (isSafari()) session_id($_POST["session_id"]);
 session_start();
 
 if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
-    
+    echo "test";
     $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
     $userName = $_SESSION['_basic_lti_context']['ext_d2l_username'];
     if (isset($_GET['organizationId'])){
