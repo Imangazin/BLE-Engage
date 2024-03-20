@@ -11,7 +11,6 @@ function shareWithOrgUnit($orgUnitId) {
         "ShareWithDescendants" => false
     );
     $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/'.$orgUnitId.'/29/sharing/', $data);
-    echo $response;
 }
 
 ?>
