@@ -59,7 +59,7 @@ function getEvents($organizationId){
     while($isMore){
         $response = experienceBUcall('/v3.0/events/event/?organizationId='. $organizationId . '&take=' . $take . '&skip=' . $skip);
         foreach ($response->items as $each){  
-            if (isEventDateInPast($each->endsOn)){
+            if (!isEventDateInPast($each->endsOn)){
                 $result[] = array(
                     "id"   => $each->id,
                     "name" => $each->name
