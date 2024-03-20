@@ -10,7 +10,7 @@ function shareWithOrgUnit($orgUnitId) {
         "ShareWithOrgUnit" => true,
         "ShareWithDescendants" => false
     );
-    $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/'.$orgUnitId.'/29/sharing/', $data);
+    $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/29/sharing/', $data);
     echo json_encode($response['response']);
 }
 
