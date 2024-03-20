@@ -17,7 +17,7 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
     $userName = $_SESSION['_basic_lti_context']['ext_d2l_username'];
     
     if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])){
-        createSection($orgUnitId, $eventId);
+        createSection($orgUnitId, $_POST['ebuEvent']);
     }
     elseif (isset($_GET['organizationId'])){
         $events_response = getEvents($_GET['organizationId']);
