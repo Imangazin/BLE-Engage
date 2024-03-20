@@ -5,7 +5,8 @@
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/select2.min.4.1.0.css">
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script></script>
-<script type="text/javascript" src="js/bootstrap.5.0.2.min.js"></script>
+<!--<script type="text/javascript" src="js/bootstrap.5.0.2.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="js/select2-4.1.0.min.js"></script>
 
 </head>
