@@ -12,7 +12,7 @@
 <body>
     <div class="container-fluid">
         <h2>Link experience BU event with this Course offering</h2><br>
-        <form id = "ebuForm">
+        <form id = "ebuForm" method="POST">
         <input type="hidden" name="session_id" value='<?php echo $session_id; ?>'>
             <div class="mb-3">
               <label for="ebuOrganization" class="form-label">Experience BU Organization</label>
