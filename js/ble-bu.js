@@ -31,13 +31,18 @@ $(document).ready(function() {
     event.preventDefault();
     var formData = $(this).serialize();
     // Make the POST request
-    $.post('src/toolInteract.php', formData, function(response) {
-      console.log('Form submitted successfully:', response);
-    }).fail(function(xhr, status, error) {
-      console.error('Error submitting form:', error);
+    $.ajax({
+      type: 'POST',
+      url: 'src/toolInteract.php',
+      data: formData,
+      success: function(response) {
+        console.log('Form submitted successfully:', response);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error submitting form:', error);
+      }
     });
   });
-
 });
 
   //Load BU events for given organization
