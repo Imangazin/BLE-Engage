@@ -1,6 +1,14 @@
 <?php
 require_once("info.php");
 
+//checks if provided date in UTC is in the past
+function isEventDateInPast($datetime){
+    date_default_timezone_set('UTC');    
+    $currentDateTime = new DateTime();
+    $providedDateTime = new DateTime($datetime);
+    return $providedDateTime < $currentDateTime;
+}
+
 //Engage API calls (GET only), returns php array
 function experienceBUcall($url){
     global $config;
@@ -51,10 +59,11 @@ function getEvents($organizationId){
     while($isMore){
         $response = experienceBUcall('/v3.0/events/event/?organizationId='. $organizationId . '&take=' . $take . '&skip=' . $skip);
         foreach ($response->items as $each){  
-            $result[] = array(
-                "id"   => $each->id,
-                "name" => $each->name
-            );
+            if (isEventDateInPast($each->endsOn))
+                $result[] = array(
+                    "id"   => $each->id,
+                    "name" => $each->name
+                );
         }
         $skip = $skip + $take;
         if ($skip > $response->totalItems) $isMore = false;
