@@ -4,13 +4,30 @@ let gradeItem = document.getElementById("gradeItem");
 let orgSelectTag = document.getElementById("ebuOrganization");
 let eventSelectTag = document.getElementById("ebuEvent");
 
-//searchable select
 $(document).ready(function() {
   $('.select2').select2({
     placeholder: 'Select an option', // Placeholder text
     width: '100%', // Adjust the width as needed
   });
   
+  // Form submit: Creates a new section and enrolls engage users to current org unit
+  $('#ebuForm').submit(function(event) {
+    event.preventDefault();
+    var formData = $(this).serialize();
+    // Make the POST request
+    $.ajax({
+      type: 'POST',
+      url: 'src/toolInteract.php',
+      data: formData,
+      success: function(response) {
+        console.log('Form submitted successfully:', response);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error submitting form:', error);
+      }
+    });
+  });
+
   //Load BU Organizations
   $.get('src/toolInteract.php', function (data) {
     eventSelectTag.innerHTML = '<option></option>';
@@ -26,24 +43,6 @@ $(document).ready(function() {
     console.error('GET request failed:', status, error);
   });
 
-  // Form submit: Creates a new section and enrolls engage users to current org unit
-  $('#ebuForm').submit(function(event) {
-    event.preventDefault();
-    var formData = $(this).serialize();
-    // Make the POST request
-    $.ajax({
-      type: 'POST',
-      url: 'src/toolInteract.php',
-      data: formData,
-      dataType: 'json',
-      success: function(response) {
-        console.log('Form submitted successfully:', response);
-      },
-      error: function(xhr, status, error) {
-        console.error('Error submitting form:', error);
-      }
-    });
-  });
 });
 
   //Load BU events for given organization
