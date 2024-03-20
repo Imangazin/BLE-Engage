@@ -35,6 +35,7 @@ $(document).ready(function() {
       type: 'POST',
       url: 'src/toolInteract.php',
       data: formData,
+      dataType: 'json',
       success: function(response) {
         console.log('Form submitted successfully:', response);
       },
