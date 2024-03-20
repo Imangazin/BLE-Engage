@@ -21,7 +21,7 @@ function createSection($orgUnitId, $eventId){
         "Description"=> array ("Content"=>"","Type"=>"Html")
     );
     $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
-    echo $response['Code'];
+    return $response['response']->SectionId;
 }
 
 

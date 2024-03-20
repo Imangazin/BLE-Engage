@@ -71,4 +71,9 @@ function getEvents($organizationId){
     }
     return $result;
 }
+
+//get event rsvp's
+function getEventUsers($eventId){
+
+}
 ?>
