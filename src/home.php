@@ -12,7 +12,7 @@
 <body>
     <div class="container-fluid">
         <h2>Link experience BU event with this Course offering</h2><br>
-        <form>
+        <form id = "ebuForm">
         <input type="hidden" name="session_id" value='<?php echo $session_id; ?>'>
             <div class="mb-3">
               <label for="ebuOrganization" class="form-label">Experience BU Organization</label>
@@ -27,7 +27,7 @@
                 </select>
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="ebuGradeSync">
+              <input type="checkbox" class="form-check-input" id="ebuGradeSync" disabled>
               <label class="form-check-label" for="ebuGradesync">Sync event with grade item (Attendance)</label>
             </div>
             <div class="mb-3 hidden" id="ebuGradeSyncDiv">

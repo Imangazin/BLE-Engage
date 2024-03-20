@@ -26,6 +26,18 @@ $(document).ready(function() {
     console.error('GET request failed:', status, error);
   });
 
+  // Form submit: Creates a new section and enrolls engage users to current org unit
+  $('#ebuForm').submit(function(event) {
+    event.preventDefault();
+    var formData = $(this).serialize();
+    // Make the POST request
+    $.post('src/toolInteract.php', formData, function(response) {
+      console.log('Form submitted successfully:', response);
+    }).fail(function(xhr, status, error) {
+      console.error('Error submitting form:', error);
+    });
+  });
+
 });
 
   //Load BU events for given organization
@@ -47,26 +59,28 @@ $('#ebuOrganization').on('select2:select', function (e) {
   });
 });
 
+
+
 // Add an event listener to the checkbox
-ebuGradeSyncCheck.addEventListener("change", function () {
-  if (ebuGradeSyncCheck.checked) {
-    gradeItem.innerHTML = '<option></option>';
-    $.get('src/toolInteract.php', function (data) {
-      data = JSON.parse(data); 
-      data.forEach(function(each){
-        const optionElement = document.createElement("option");
-        optionElement.value = each.id;
-        optionElement.text = each.name;
-        gradeItem.appendChild(optionElement);
-      });
-    }).fail(function (xhr, status, error) {
-      console.error('GET request failed:', status, error);
-    });
-    divHidden.classList.remove("hidden");
-    gradeItem.setAttribute('required', '');
-  } else {
-    divHidden.classList.add("hidden");
-    gradeItem.removeAttribute('required');
-    gradeItem.innerHTML = '<option></option>';
-  }
-});
+// ebuGradeSyncCheck.addEventListener("change", function () {
+//   if (ebuGradeSyncCheck.checked) {
+//     gradeItem.innerHTML = '<option></option>';
+//     $.get('src/toolInteract.php', function (data) {
+//       data = JSON.parse(data); 
+//       data.forEach(function(each){
+//         const optionElement = document.createElement("option");
+//         optionElement.value = each.id;
+//         optionElement.text = each.name;
+//         gradeItem.appendChild(optionElement);
+//       });
+//     }).fail(function (xhr, status, error) {
+//       console.error('GET request failed:', status, error);
+//     });
+//     divHidden.classList.remove("hidden");
+//     gradeItem.setAttribute('required', '');
+//   } else {
+//     divHidden.classList.add("hidden");
+//     gradeItem.removeAttribute('required');
+//     gradeItem.innerHTML = '<option></option>';
+//   }
+// });

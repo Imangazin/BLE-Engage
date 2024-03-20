@@ -1,6 +1,7 @@
 <?php
 require_once("info.php");
 require_once("engage.php");
+require_once("BLE.php");
 
 // Checks user's browser, returns true if it is Safari
 function isSafari() {
@@ -14,7 +15,11 @@ session_start();
 if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
     $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
     $userName = $_SESSION['_basic_lti_context']['ext_d2l_username'];
-    if (isset($_GET['organizationId'])){
+    
+    if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])){
+        createSection($orgUnitId, $eventId);
+    }
+    elseif (isset($_GET['organizationId'])){
         $events_response = getEvents($_GET['organizationId']);
         echo json_encode($events_response);
     }else{
