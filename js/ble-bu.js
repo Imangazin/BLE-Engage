@@ -3,6 +3,7 @@ let divHidden = document.getElementById("ebuGradeSyncDiv");
 let gradeItem = document.getElementById("gradeItem");
 let orgSelectTag = document.getElementById("ebuOrganization");
 let eventSelectTag = document.getElementById("ebuEvent");
+let responseContainer = document.getElementById("responseContainer");
 
 $(document).ready(function() {
   $('.select2').select2({
@@ -16,9 +17,15 @@ $(document).ready(function() {
     var formData = $(this).serialize();
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
-      console.log('Form submitted successfully:', response);
+      responseContainer.className = 'alert alert-success';
+      responseContainer.innerHTML = response;
+      createFeedback.focus();
+      document.getElementById("ebuForm").reset();
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
+      responseContainer.className = 'alert alert-danger';
+      responseContainer.innerHTML = response;
+      createFeedback.focus();
     });
   });
 

@@ -39,6 +39,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Sync</button>
           </form>
+          <div id="responseContainer" tabindex="-1"></div>
     </div>
 <script type="text/javascript" src="js/ble-bu.js"></script>
 </body>
