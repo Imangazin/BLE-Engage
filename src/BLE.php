@@ -24,7 +24,18 @@ function createSection($orgUnitId, $eventId){
     return $response['response']->SectionId;
 }
 
+function isSectionExist($orgUnitId, $eventId){
+    global $config;
+    $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
 
+    foreach ($response['response'] as $section) {
+        // Check if search string exists in SectionId
+        if ($section->SectionId == $eventId) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 ?>
