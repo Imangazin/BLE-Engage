@@ -25,7 +25,8 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
             $sectionId = createSection($orgUnitId, $_POST['ebuEvent']);
             echo $sectionId;
             //get engage users
-            $engageUsers = array();
+            $engageUsers = getEventUsers($_POST['ebuEvent']);
+            print_r($engageUsers);
         }
 
     }

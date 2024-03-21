@@ -74,6 +74,18 @@ function getEvents($organizationId){
 
 //get event rsvp's
 function getEventUsers($eventId){
-
+    $result = array();
+    $isMore = true;
+    $skip = 0;
+    $take = 20;
+    while($isMore){
+        $response = experienceBUcall('/v3.0/events/event/'. $eventId . '&take=' . $take . '&skip=' . $skip);
+        foreach ($response->items as $each){  
+            array_push($result, $each->userId->username);
+        }
+        $skip = $skip + $take;
+        if ($skip > $response->totalItems) $isMore = false;
+    }
+    return $result;
 }
 ?>
