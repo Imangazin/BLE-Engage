@@ -17,12 +17,14 @@ $(document).ready(function() {
     var formData = $(this).serialize();
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
+      responseContainer.className = '';
       responseContainer.className = 'alert alert-success';
       responseContainer.innerHTML = response;
       responseContainer.focus();
       document.getElementById("ebuForm").reset();
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
+      responseContainer.className = '';
       responseContainer.className = 'alert alert-danger';
       responseContainer.innerHTML = response;
       responseContainer.focus();
