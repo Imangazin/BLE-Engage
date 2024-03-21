@@ -44,6 +44,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
             "UserId"=> $user
         );
         $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $data); 
+        echo $response['Code'];
     }
 }
 ?>
