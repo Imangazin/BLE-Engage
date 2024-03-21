@@ -23,10 +23,10 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
         }else{
             //create a section and get its Id
             $sectionId = createSection($orgUnitId, $_POST['ebuEvent']);
-            echo $sectionId;
+            echo "The selected event successfully linked.";
             //get engage users
             $engageUsers = getEventUsers($_POST['ebuEvent']);
-            print_r($engageUsers);
+            echo var_dump($engageUsers);
         }
 
     }
