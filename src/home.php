@@ -37,7 +37,9 @@
                   <option></option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Sync</button>
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary">Sync</button>
+            </div>
           </form>
           <div id="responseContainer" tabindex="-1"></div>
     </div>
