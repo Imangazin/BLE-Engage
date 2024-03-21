@@ -39,7 +39,6 @@ function isSectionExist($orgUnitId, $eventId){
 
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config;
-    echo '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/';
     foreach($usersToEnroll as $user){
         $data = array(
             "UserId"=> $user
