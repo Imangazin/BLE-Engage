@@ -78,9 +78,9 @@ function getEventUsers($eventId){
     $isMore = true;
     $skip = 0;
     $take = 20;
-    echo '/v3.0/events/event/'. $eventId . '/rsvp&take=' . $take . '&skip=' . $skip;
     while($isMore){
         $response = experienceBUcall('/v3.0/events/event/'. $eventId . '/rsvp&take=' . $take . '&skip=' . $skip);
+        echo $response['Code'];
         foreach ($response->items as $each){  
             array_push($result, $each->userId->username);
         }
