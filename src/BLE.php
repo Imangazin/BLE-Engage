@@ -37,5 +37,13 @@ function isSectionExist($orgUnitId, $eventId){
     return false;
 }
 
-
+function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
+    global $config;
+    foreach($usersToEnroll as $user){
+        $data = array(
+            "UserId"=> $user
+        );
+        $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $data); 
+    }
+}
 ?>
