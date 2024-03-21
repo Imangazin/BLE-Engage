@@ -30,7 +30,7 @@ function isSectionExist($orgUnitId, $eventId){
 
     foreach ($response['response'] as $section) {
         // Check if search string exists in SectionId
-        if ($section->SectionId == $eventId) {
+        if ($section->Code == $eventId) {
             return true;
         }
     }
