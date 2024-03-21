@@ -19,13 +19,13 @@ $(document).ready(function() {
     $.post('src/toolInteract.php', formData, function(response) {
       responseContainer.className = 'alert alert-success';
       responseContainer.innerHTML = response;
-      createFeedback.focus();
+      responseContainer.focus();
       document.getElementById("ebuForm").reset();
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
       responseContainer.className = 'alert alert-danger';
       responseContainer.innerHTML = response;
-      createFeedback.focus();
+      responseContainer.focus();
     });
   });
 
