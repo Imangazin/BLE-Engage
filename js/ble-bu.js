@@ -22,6 +22,8 @@ $(document).ready(function() {
       responseContainer.innerHTML = response;
       responseContainer.focus();
       document.getElementById("ebuForm").reset();
+      $('#ebuOrganization').val(null).trigger('change');
+      $('#ebuEvent').val(null).trigger('change');
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
