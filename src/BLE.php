@@ -41,7 +41,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config;
     foreach($usersToEnroll as $userName){
         $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');
-        echo '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local';
+        echo $userId['response'];
         // $data = array(
         //     "UserId"=> $userId[0]->UserId
         // );
