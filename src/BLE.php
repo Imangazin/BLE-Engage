@@ -40,7 +40,7 @@ function isSectionExist($orgUnitId, $eventId){
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config;
     foreach($usersToEnroll as $username){
-        $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail'.$userName.'@localhost.local')['response'];
+        $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail'.$userName.'@localhost.local');
         echo var_dump($userId);
         // $data = array(
         //     "UserId"=> $userId[0]->UserId

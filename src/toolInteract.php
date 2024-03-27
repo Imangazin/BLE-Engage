@@ -26,7 +26,7 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
             echo "The selected event successfully linked.";
             //get engage users
             $engageUsers = getEventUsers($_POST['ebuEvent']);
-            enrollEngageEventUsers($orgUnitId, $sectionId, $engageUsers);
+            //enrollEngageEventUsers($orgUnitId, $sectionId, $engageUsers);
         }
 
     }
