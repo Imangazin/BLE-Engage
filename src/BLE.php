@@ -42,12 +42,18 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     foreach($usersToEnroll as $userName){
         $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');
         if($userId['Code']==200){
-            $data = array(
+            $parentData = array(
+                "OrgUnitId"=> $orgUnitId,
+                "UserId"=> $userId['response'][0]->UserId,
+                "RoleId"=> 110
+            );
+            $sectionData = array(
                 "UserId"=> $userId['response'][0]->UserId
             );
         }
-        $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $data); 
-        echo '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/';
+        $enrollToParent = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $parentData);
+        $enrollToSection = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $sectionData); 
+
     }
 }
 ?>
