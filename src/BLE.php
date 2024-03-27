@@ -47,7 +47,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
             );
         }
         $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $data); 
-        echo var_dump($response);
+        echo '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/';
     }
 }
 ?>
