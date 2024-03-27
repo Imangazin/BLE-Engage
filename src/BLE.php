@@ -41,12 +41,12 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config;
     foreach($usersToEnroll as $userName){
         $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');
-        echo $userId['response'][0]->UserId;
-        // $data = array(
-        //     "UserId"=> $userId[0]->UserId
-        // );
-        // echo var_dump($data);
-        // $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $data); 
+        if($userId['Code']==200){
+            $data = array(
+                "UserId"=> $userId['response'][0]->UserId
+            );
+        }
+        $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $data); 
     }
 }
 ?>
