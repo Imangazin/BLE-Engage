@@ -73,7 +73,7 @@ $('#ebuOrganization').on('select2:select', function (e) {
 function formatDateTime(dateString) {
   const date = new Date(dateString);
   const formattedDate = date.toLocaleDateString(); 
-  const formattedTime = date.toLocaleTimeString();
+  const formattedTime = date.toLocaleTimeString([], {hour12:true, hour:'2-digit', minute:'2-digit'});
   return {
       date: formattedDate,
       time: formattedTime
