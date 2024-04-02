@@ -45,7 +45,7 @@
           <h2>Linked Engage events</h2><br>
           <table id="linked_events" class="d2l-table">
           <tbody>
-            <tr><th>Event Name</th><th>Start and End Dates</th><th class="student_timeslot_actions">Actions</th></tr><br>
+            <tr><th>Event Name</th><th>Start and End Dates</th><th>Actions</th></tr><br>
           </tbody>
           </table>
           
