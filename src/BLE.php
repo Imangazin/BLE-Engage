@@ -27,19 +27,19 @@ function shareWithOrgUnit($orgUnitId) {
 //     return $response['response']->SectionId;
 // }
 
-// function isSectionExist($orgUnitId, $eventInfo){
-//     global $config;
-//     $eventId = strToArray($eventInfo)[0];
-//     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
+function isSectionExist($orgUnitId, $eventInfo){
+    global $config;
+    $eventId = strToArray($eventInfo)[0];
+    $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
 
-//     foreach ($response['response'] as $section) {
-//         // Check if search string exists in SectionId
-//         if (strToArray($section->Code)[1] == $eventId) {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
+    foreach ($response['response'] as $section) {
+        // Check if search string exists in SectionId
+        if (strToArray($section->Code)[1] == $eventId) {
+            return true;
+        }
+    }
+    return false;
+}
 
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config;
