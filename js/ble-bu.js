@@ -61,7 +61,8 @@ $('#ebuOrganization').on('select2:select', function (e) {
     data.forEach(function(each){
       const optionElement = document.createElement("option");
       optionElement.value = each.id;
-      optionElement.text = each.name+'('+each.startDate+'/'+each.endDate+')';
+      const dateTime=formatDateTime(each.startDate);
+      optionElement.text = each.name+' ('+dateTime.date+'  @ '+dateTime.time+')';
       eventSelectTag.appendChild(optionElement);
     });
   }).fail(function (xhr, status, error) {
@@ -69,6 +70,15 @@ $('#ebuOrganization').on('select2:select', function (e) {
   });
 });
 
+function formatDateTime(dateString) {
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString(); 
+  const formattedTime = date.toLocaleTimeString();
+  return {
+      date: formattedDate,
+      time: formattedTime
+  };
+}
 
 
 // Add an event listener to the checkbox
