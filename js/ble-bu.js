@@ -60,7 +60,7 @@ $('#ebuOrganization').on('select2:select', function (e) {
     data = JSON.parse(data); 
     data.forEach(function(each){
       const optionElement = document.createElement("option");
-      optionElement.value = each.id;
+      optionElement.value = each.id+'-'+each.name+'-'+each.startDate;
       const dateTime=formatDateTime(each.startDate);
       optionElement.text = each.name+' ('+dateTime.date+'  @ '+dateTime.time+')';
       eventSelectTag.appendChild(optionElement);

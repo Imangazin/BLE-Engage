@@ -13,24 +13,28 @@ function shareWithOrgUnit($orgUnitId) {
     $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/29/sharing/', $data);
 }
 
-function createSection($orgUnitId, $eventId){
+function createSection($orgUnitId, $eventInfo){
     global $config;
+    $eventId = strToArray($eventInfo)[0];
+    $eventName = strToArray($eventInfo)[1];
+    $eventDate = strToArray($eventInfo)[2];
     $data = array(
-        "Name"=> $eventId,
-        "Code"=> $eventId,
+        "Name"=> $eventName." (".$eventDate.")",
+        "Code"=> "engage-".$eventId,
         "Description"=> array ("Content"=>"","Type"=>"Html")
     );
     $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
     return $response['response']->SectionId;
 }
 
-function isSectionExist($orgUnitId, $eventId){
+function isSectionExist($orgUnitId, $eventInfo){
     global $config;
+    $eventId = strToArray($eventInfo)[0];
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
 
     foreach ($response['response'] as $section) {
         // Check if search string exists in SectionId
-        if ($section->Code == $eventId) {
+        if (strToArray($section->Code)[1] == $eventId) {
             return true;
         }
     }
@@ -55,6 +59,11 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
         $enrollToSection = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $sectionData); 
 
     }
+}
+
+function strToArray($str){
+    $splitArray = explode('-', $string);
+    return $splitArray;
 }
 
 function getLinkedEvents($orgUnitId){
