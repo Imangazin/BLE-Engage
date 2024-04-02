@@ -61,7 +61,7 @@ $('#ebuOrganization').on('select2:select', function (e) {
     data.forEach(function(each){
       const optionElement = document.createElement("option");
       optionElement.value = each.id;
-      optionElement.text = each.name;
+      optionElement.text = each.name+'('+each.startDate+'/'+each.endDate+')';
       eventSelectTag.appendChild(optionElement);
     });
   }).fail(function (xhr, status, error) {

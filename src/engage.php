@@ -62,7 +62,9 @@ function getEvents($organizationId){
             if (!isEventDateInPast($each->endsOn)){
                 $result[] = array(
                     "id"   => $each->id,
-                    "name" => $each->name
+                    "name" => $each->name,
+                    "startDate" => $each->startsOn,
+                    "endDate" => $each->endsOn
                 );
             }
         }
