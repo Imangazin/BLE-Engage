@@ -56,4 +56,9 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
 
     }
 }
+
+function getLinkedEvents($orgUnitId){
+    global $config;
+    
+}
 ?>

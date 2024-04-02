@@ -42,6 +42,13 @@
             </div>
           </form>
           <div id="responseContainer" tabindex="-1"></div>
+          <h2>Linked Engage events</h2><br>
+          <table id="linked_events" class="d2l-table">
+          <tbody>
+            <tr><th>Event Name</th><th>Start and End Dates</th><th class="student_timeslot_actions">Actions</th></tr><br>
+          </tbody>
+          </table>
+          
     </div>
 <script type="text/javascript" src="js/ble-bu.js"></script>
 </body>
