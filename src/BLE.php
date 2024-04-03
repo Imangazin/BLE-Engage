@@ -70,7 +70,7 @@ function getLinkedEvents($orgUnitId){
         if (strpos($section->SectionId, 'engage') !== false) {
             $eventId = explode('-', $section->SectionId)[1];
             $event = getEventById($eventId);
-            $tablerows .= "<tr><td>".$event->name."</td><td>".$event->startsOn."</td></tr>";
+            $tablerows .= "<tr><td>".$event->name."</td><td>".dateToString($event->startsOn)."</td></tr>";
         }
     }
     return $tablerows;
