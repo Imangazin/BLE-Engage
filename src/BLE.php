@@ -65,7 +65,7 @@ function dateToString($date){
     date_default_timezone_set('America/New_York');
     $dateTime = new DateTime($date);
     $dateTime->setTimezone(new DateTimeZone('America/New_York'));
-    $formattedDateTime = $dateTime->format('Y-m-d H:i');
+    $formattedDateTime = $dateTime->format('Y-m-d H:i A');
     return (string) $formattedDateTime;
 }
 ?>
