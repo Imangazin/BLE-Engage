@@ -73,6 +73,7 @@ function getLinkedEvents($orgUnitId){
             $tablerows .= "<tr><td>".$event->name."</td><td>".dateToString($event->startsOn)."</td></tr>";
         }
     }
+    echo $tablerows;
     return $tablerows;
 }
 
