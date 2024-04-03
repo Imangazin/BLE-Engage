@@ -21,12 +21,13 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
         if (isSectionExist($orgUnitId, $_POST['ebuEvent'])){
             echo "The selected event is already linked.";
         }else{
-            //create a section and get its Id
-            $sectionId = createSection($orgUnitId, $_POST['ebuEvent']);
-            echo "The selected event successfully linked.";
-            //get engage users
-            $engageUsers = getEventUsers($_POST['ebuEvent']);
-            enrollEngageEventUsers($orgUnitId, $sectionId, $engageUsers);
+            echo $_POST['ebuEvent'];
+            // //create a section and get its Id
+            // $sectionId = createSection($orgUnitId, $_POST['ebuEvent']);
+            // echo "The selected event successfully linked.";
+            // //get engage users
+            // $engageUsers = getEventUsers($_POST['ebuEvent']);
+            // enrollEngageEventUsers($orgUnitId, $sectionId, $engageUsers);
         }
 
     }
