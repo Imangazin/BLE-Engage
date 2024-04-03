@@ -68,8 +68,8 @@ function getLinkedEvents($orgUnitId){
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
     foreach ($response['response'] as $section) {
         if (strpos($section->SectionId, 'engage') !== false) {
-            $eventId = explode('-', $section->SectionId)[1];
-            $event = getEventById($eventId);
+            $eventId = explode('-', $section->SectionId);
+            $event = getEventById($eventId[1]);
             $tablerows .= "<tr><td>".$event->name."</td><td>".dateToString($event->startsOn)."</td></tr>";
         }
     }
