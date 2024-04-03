@@ -63,6 +63,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
 }
 
 function dateToString($date){
+    date_default_timezone_set('UTC');
     $dateTime = new DateTime($date);
     $formattedDateTime = $dateTime->format('Y-m-d H:i:s');
     return (string) $formattedDateTime;
