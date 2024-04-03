@@ -2,6 +2,7 @@
 // collection of functions
 require_once("info.php");
 require_once("doValence.php");
+require_once("engage.php");
 
 function shareWithOrgUnit($orgUnitId) {
     global $config;
@@ -13,33 +14,33 @@ function shareWithOrgUnit($orgUnitId) {
     $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/29/sharing/', $data);
 }
 
-// function createSection($orgUnitId, $eventInfo){
-//     global $config;
-//     $eventId = strToArray($eventInfo)["0"];
-//     $eventName = strToArray($eventInfo)["1"];
-//     $eventDate = strToArray($eventInfo)["2"];
-//     $data = array(
-//         "Name"=> $eventName." (".$eventDate.")",
-//         "Code"=> "engage-".$eventId,
-//         "Description"=> array ("Content"=>"","Type"=>"Html")
-//     );
-//     $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
-//     return $response['response']->SectionId;
-// }
+function createSection($orgUnitId, $eventId){
+    global $config;
+    $engageEvent = getEventById($eventId);
+    $eventName = $engageEvent->name;
+    $eventDate = $engageEvent->startsOn;
+    $data = array(
+        "Name"=> $eventName." (".$eventDate.")",
+        "Code"=> "engage-".$eventId,
+        "Description"=> array ("Content"=>"","Type"=>"Html")
+    );
+    $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
+    return $response['response']->SectionId;
+}
 
-// function isSectionExist($orgUnitId, $eventInfo){
-//     global $config;
-//     $eventId = strToArray($eventInfo)[0];
-//     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
+function isSectionExist($orgUnitId, $eventId){
+    global $config;
+    $eventId = strToArray($eventInfo)[0];
+    $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
 
-//     foreach ($response['response'] as $section) {
-//         // Check if search string exists in SectionId
-//         if (strToArray($section->Code)["1"] == $eventId) {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
+    foreach ($response['response'] as $section) {
+        // Check if search string exists in SectionId
+        if ($section->Code == $eventId) {
+            return true;
+        }
+    }
+    return false;
+}
 
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config;

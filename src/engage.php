@@ -90,4 +90,11 @@ function getEventUsers($eventId){
     }
     return $result;
 }
+
+//returns engage event by id
+function getEventById($eventId){
+    $response = experienceBUcall('/v3.0/events/event/' . $eventId);
+    return $response;
+}
+
 ?>
