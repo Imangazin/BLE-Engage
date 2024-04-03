@@ -18,7 +18,7 @@ function createSection($orgUnitId, $eventId){
     global $config;
     $engageEvent = getEventById($eventId);
     $eventName = $engageEvent->name;
-    $eventDate = $engageEvent->startsOn;
+    $eventDate = dateToString($engageEvent->startsOn);
     $data = array(
         "Name"=> $eventName." (".$eventDate.")",
         "Code"=> "engage-".$eventId,
@@ -59,5 +59,11 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
         $enrollToSection = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $sectionData); 
 
     }
+}
+
+function dateToString($date){
+    $dateTime = new DateTime($date);
+    $formattedDateTime = $dateTime->format('Y-m-d H:i:s');
+    return (string) $formattedDateTime;
 }
 ?>
