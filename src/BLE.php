@@ -30,7 +30,6 @@ function shareWithOrgUnit($orgUnitId) {
 
 function isSectionExist($orgUnitId, $eventId){
     global $config;
-    $eventId = strToArray($eventInfo)[0];
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
 
     foreach ($response['response'] as $section) {
@@ -60,15 +59,5 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
         $enrollToSection = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $sectionData); 
 
     }
-}
-
-function strToArray($str){
-    $splitArray = explode('-', $string);
-    return $splitArray;
-}
-
-function getLinkedEvents($orgUnitId){
-    global $config;
-    
 }
 ?>
