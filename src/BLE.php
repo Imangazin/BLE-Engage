@@ -13,19 +13,19 @@ function shareWithOrgUnit($orgUnitId) {
     $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/29/sharing/', $data);
 }
 
-// function createSection($orgUnitId, $eventInfo){
-//     global $config;
-//     $eventId = strToArray($eventInfo)[0];
-//     $eventName = strToArray($eventInfo)[1];
-//     $eventDate = strToArray($eventInfo)[2];
-//     $data = array(
-//         "Name"=> $eventName." (".$eventDate.")",
-//         "Code"=> "engage-".$eventId,
-//         "Description"=> array ("Content"=>"","Type"=>"Html")
-//     );
-//     $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
-//     return $response['response']->SectionId;
-// }
+function createSection($orgUnitId, $eventInfo){
+    global $config;
+    $eventId = strToArray($eventInfo)["0"];
+    $eventName = strToArray($eventInfo)["1"];
+    $eventDate = strToArray($eventInfo)["2"];
+    $data = array(
+        "Name"=> $eventName." (".$eventDate.")",
+        "Code"=> "engage-".$eventId,
+        "Description"=> array ("Content"=>"","Type"=>"Html")
+    );
+    $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
+    return $response['response']->SectionId;
+}
 
 function isSectionExist($orgUnitId, $eventInfo){
     global $config;
@@ -34,7 +34,7 @@ function isSectionExist($orgUnitId, $eventInfo){
 
     foreach ($response['response'] as $section) {
         // Check if search string exists in SectionId
-        if (strToArray($section->Code)[1] == $eventId) {
+        if (strToArray($section->Code)["1"] == $eventId) {
             return true;
         }
     }
