@@ -35,7 +35,7 @@ function isSectionExist($orgUnitId, $eventId){
 
     foreach ($response['response'] as $section) {
         // Check if search string exists in SectionId
-        if ($section->Code == $eventId) {
+        if ($section->Code == 'engage-'.$eventId) {
             return true;
         }
     }
@@ -65,7 +65,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
 function dateToString($date){
     date_default_timezone_set('UTC');
     $dateTime = new DateTime($date);
-    $formattedDateTime = $dateTime->format('Y-m-d H:i:s');
+    $formattedDateTime = $dateTime->format('Y-m-d H:i');
     return (string) $formattedDateTime;
 }
 ?>
