@@ -19,7 +19,6 @@ function createSection($orgUnitId, $eventId){
     $engageEvent = getEventById($eventId);
     $eventName = $engageEvent->name;
     $eventDate = dateToString($engageEvent->startsOn);
-    echo $eventName . "<br />" . $eventDate;
     $data = array(
         "Name"=> $eventName." (".$eventDate.")",
         "Code"=> "engage-".$eventId,
