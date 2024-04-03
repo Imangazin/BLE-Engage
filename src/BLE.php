@@ -61,6 +61,22 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     }
 }
 
+
+function getLinkedEvents($orgUnitId){
+    global $config;
+    $tablerows='';
+    $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
+    foreach ($response['response'] as $section) {
+        if (strpos($section->SectionId, 'engage') !== false) {
+            $eventId = explode('-', $section->SectionId)[1];
+            $event = getEventById($eventId);
+            $tablerows .= "<tr><td>".$event->name."</td><td>".$event->startsOn."</td></tr>";
+        }
+    }
+    return $tablerows;
+}
+
+//converts given UTC time to EDT and  returns the formatted string.
 function dateToString($date){
     date_default_timezone_set('America/New_York');
     $dateTime = new DateTime($date);

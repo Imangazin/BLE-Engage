@@ -19,6 +19,9 @@ if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
     if($context->complete) exit(); //True if redirect was done by BLTI class
     if($context->valid) { //True if LTI request was verified
         $orgUnitId = $context->info['context_id'];
+
+        $linkedEvents = getLinkedEvents($orgUnitId);
+
         shareWithOrgUnit($orgUnitId);
 
         //main page
