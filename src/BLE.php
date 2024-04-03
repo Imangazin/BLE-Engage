@@ -18,7 +18,7 @@ function createSection($orgUnitId, $eventId){
     global $config;
     $engageEvent = getEventById($eventId);
     $eventName = $engageEvent->name;
-    $eventDate = $engageEvent->startsOn;
+    $eventDate = dateToString($engageEvent->startsOn);
     echo $eventName . "<br />" . $eventDate;
     $data = array(
         "Name"=> $eventName." (".$eventDate.")",
