@@ -11,7 +11,7 @@
 
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid"><br>
         <h2>Link experience BU event with this Course offering</h2><br>
         <form id = "ebuForm">
         <input type="hidden" name="session_id" value='<?php echo $session_id; ?>'>
