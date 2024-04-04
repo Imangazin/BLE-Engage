@@ -45,7 +45,7 @@
           <h2>Linked Engage events</h2><br>
           <table id="linked_events" class="d2l-table">
           <tbody>
-            <tr><th>Event Name</th><th>Start and End Dates</th><th>Actions</th></tr>
+            <tr><th>Event Name</th><th>Starts on</th><th>Actions</th></tr>
             <?php echo  $linkedEvents;?>
             <br>
           </tbody>
