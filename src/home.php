@@ -31,7 +31,7 @@
               <input type="checkbox" class="form-check-input" id="ebuGradeSync" disabled>
               <label class="form-check-label" for="ebuGradesync">Sync event with grade item (Attendance)</label>
             </div>
-            <div class="mb-3 hidden" id="ebuGradeSyncDiv">
+            <div class="mb-3 hidden" id="ebuGradeSyncDiv" hidden>
                 <label for="gradeItem" class="form-label">Grade Item (must exist)</label>
                 <select class="form-select select2" id="gradeItem" name="gradeItem">
                   <option></option>
