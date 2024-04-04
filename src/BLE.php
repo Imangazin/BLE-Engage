@@ -66,7 +66,8 @@ function getLinkedEvents($orgUnitId){
     global $config;
     $tablerows='';
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
-    foreach ($response['response'] as $section) {
+    $sections = array_reverse($response['response']);
+    foreach ($sections as $section) {
         if (strpos($section->Code, 'engage') !== false) {
             $eventId = explode('-', $section->Code);
             $event = getEventById($eventId[1]);
