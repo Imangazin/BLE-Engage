@@ -14,6 +14,7 @@ function shareWithOrgUnit($orgUnitId) {
     $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/29/sharing/', $data);
 }
 
+//creates a new section in BLD (links engage event with an offering)
 function createSection($orgUnitId, $eventId){
     global $config;
     $engageEvent = getEventById($eventId);
@@ -28,6 +29,13 @@ function createSection($orgUnitId, $eventId){
     return $response['response']->SectionId;
 }
 
+//deletes BLE section (unlinks engave event from the offering)
+function deleteSection($orgUnitId, $sectionId){
+    global $config;
+    $response = doValenceRequest('DELETE', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId); 
+}
+
+//returns if a section exist in BLE (engage event is already linked if exist)
 function isSectionExist($orgUnitId, $eventId){
     global $config;
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
@@ -41,6 +49,7 @@ function isSectionExist($orgUnitId, $eventId){
     return false;
 }
 
+//enrolls engage RSVP users into the offering and to specific section dedicated to engage event
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config;
     foreach($usersToEnroll as $userName){
@@ -61,7 +70,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     }
 }
 
-
+// returns a row of table with BLE sections informations and delet action button. 
 function getLinkedEvents($orgUnitId){
     global $config;
     $tablerows='';
