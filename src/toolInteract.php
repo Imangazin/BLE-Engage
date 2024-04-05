@@ -33,6 +33,9 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
     elseif (isset($_GET['organizationId'])){
         $events_response = getEvents($_GET['organizationId']);
         echo json_encode($events_response);
+    }
+    elseif(isset($_POST['sectionId'])){
+        echo $_POST['sectionId'];
     }else{
         $orgs_response = getOrganizationsByUsername($userName);
         echo json_encode($orgs_response);

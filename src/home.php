@@ -31,7 +31,7 @@
               <input type="checkbox" class="form-check-input" id="ebuGradeSync" disabled>
               <label class="form-check-label" for="ebuGradesync">Sync event with grade item (Attendance)</label>
             </div>
-            <div class="mb-3 hidden" id="ebuGradeSyncDiv" hidden>
+            <div class="mb-3 hidden" id="ebuGradeSyncDiv">
                 <label for="gradeItem" class="form-label">Grade Item (must exist)</label>
                 <select class="form-select select2" id="gradeItem" name="gradeItem">
                   <option></option>
@@ -45,7 +45,7 @@
           <h2>Linked Engage events</h2><br>
           <table id="linked_events" class="d2l-table">
           <tbody>
-            <tr><th>Event Name</th><th>Starts on</th><th>Actions</th></tr>
+            <tr><th style="display:none;">SectionId</th><th>Event Name</th><th>Starts on</th><th>Actions</th></tr>
             <?php echo  $linkedEvents;?>
             <br>
           </tbody>

@@ -48,6 +48,29 @@ $(document).ready(function() {
     console.error('GET request failed:', status, error);
   });
 
+  // handling delete button for linked events
+  function handleButtonClick() {
+    // Get data from the corresponding row
+    var row = $(this).closest('tr');
+    var sectionId = row.find('td:eq(0)').text();
+
+    // Construct the data to be sent
+    var requestData = {
+      sectionId: sectionId 
+    };
+
+    $.post('src/toolInteract.php', requestData, function(response){
+      console.log(response);
+    }
+    ).fail(function(xhr, status, error) {
+      console.error('Error submitting form:', error);
+    });
+  }
+
+  // Delegate click event to handle dynamically added buttons
+  $(document).on('click', '.actionButton', handleButtonClick);
+
+
 });
 
   //Load BU events for given organization
