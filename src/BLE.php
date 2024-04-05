@@ -69,9 +69,10 @@ function getLinkedEvents($orgUnitId){
     $sections = array_reverse($response['response']);
     foreach ($sections as $section) {
         if (strpos($section->Code, 'engage') !== false) {
+            $sectionId = $section->SectionId;
             $eventId = explode('-', $section->Code);
             $event = getEventById($eventId[1]);
-            $tablerows .= "<tr><td style='display:none;'>".$eventId[1]."</td><td>".$event->name."</td><td>".dateToString($event->startsOn)."</td><td><button type='button' class='btn btn-red actionButton'>Delete</button></td></tr>";
+            $tablerows .= "<tr><td style='display:none;'>".$sectionId."</td><td>".$event->name."</td><td>".dateToString($event->startsOn)."</td><td><button type='button' class='btn btn-red actionButton'>Delete</button></td></tr>";
         }
     }
     return $tablerows;
