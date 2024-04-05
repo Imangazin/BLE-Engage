@@ -71,7 +71,7 @@ function getLinkedEvents($orgUnitId){
         if (strpos($section->Code, 'engage') !== false) {
             $eventId = explode('-', $section->Code);
             $event = getEventById($eventId[1]);
-            $tablerows .= "<tr><td>".$eventId[1]."</td><td>".$event->name."</td><td>".dateToString($event->startsOn)."</td><td><button type='button' class='btn btn-red actionButton'>Delete</button></td></tr>";
+            $tablerows .= "<tr><td style='display:none;'>".$eventId[1]."</td><td>".$event->name."</td><td>".dateToString($event->startsOn)."</td><td><button type='button' class='btn btn-red actionButton'>Delete</button></td></tr>";
         }
     }
     return $tablerows;
