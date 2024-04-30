@@ -15,14 +15,14 @@ function shareWithOrgUnit($orgUnitId) {
 }
 
 //creates a new section in BLD (links engage event with an offering)
-function createSection($orgUnitId, $eventId){
+function createSection($orgUnitId, $eventId, $gradeId){
     global $config;
     $engageEvent = getEventById($eventId);
     $eventName = $engageEvent->name;
     $eventDate = dateToString($engageEvent->startsOn);
     $data = array(
         "Name"=> $eventName." (".$eventDate.")",
-        "Code"=> "engage-".$eventId,
+        "Code"=> "engage-".$eventId."-".$gradeId,
         "Description"=> array ("Content"=>"","Type"=>"Html")
     );
     $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
@@ -79,9 +79,16 @@ function getLinkedEvents($orgUnitId){
     foreach ($sections as $section) {
         if (strpos($section->Code, 'engage') !== false) {
             $sectionId = $section->SectionId;
-            $eventId = explode('-', $section->Code);
-            $event = getEventById($eventId[1]);
-            $tablerows .= "<tr><td style='display:none;'>".$sectionId."</td><td>".$event->name."</td><td>".dateToString($event->startsOn)."</td><td><button type='button' class='btn btn-red actionButton'>Delete</button></td></tr>";
+            $sectionCode = explode('-', $section->Code);
+            $event = getEventById($sectionCode[1]);
+            $gradeId = $sectionCode[2];
+            $tablerows .= "<tr><td style='display:none;'>".$sectionId."</td>
+                            <td>".$event->name."</td>
+                            <td>".dateToString($event->startsOn)."</td>
+                            <td style='display:none;'>gradeIdComing</td>
+                            <td>".$gradeId."</td>
+                            <td><button type='button' class='btn btn-red actionButton'>Delete</button></td>
+                            </tr>";
         }
     }
     return $tablerows;
