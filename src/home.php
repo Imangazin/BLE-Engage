@@ -28,7 +28,7 @@
                 </select>
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="ebuGradeSync" disabled>
+              <input type="checkbox" class="form-check-input" id="ebuGradeSync">
               <label class="form-check-label" for="ebuGradeSync">Sync event with grade item (Attendance)</label>
             </div>
             <div class="mb-3 hidden" id="ebuGradeSyncDiv">

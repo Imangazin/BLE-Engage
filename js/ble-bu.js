@@ -103,26 +103,26 @@ function formatDateTime(dateString) {
   };
 }
 
-// Add an event listener to the checkbox
-// ebuGradeSyncCheck.addEventListener("change", function () {
-//   if (ebuGradeSyncCheck.checked) {
-//     gradeItem.innerHTML = '<option></option>';
-//     $.get('src/toolInteract.php', function (data) {
-//       data = JSON.parse(data); 
-//       data.forEach(function(each){
-//         const optionElement = document.createElement("option");
-//         optionElement.value = each.id;
-//         optionElement.text = each.name;
-//         gradeItem.appendChild(optionElement);
-//       });
-//     }).fail(function (xhr, status, error) {
-//       console.error('GET request failed:', status, error);
-//     });
-//     divHidden.classList.remove("hidden");
-//     gradeItem.setAttribute('required', '');
-//   } else {
-//     divHidden.classList.add("hidden");
-//     gradeItem.removeAttribute('required');
-//     gradeItem.innerHTML = '<option></option>';
-//   }
-// });
+//Add an event listener to the checkbox
+ebuGradeSyncCheck.addEventListener("change", function () {
+  if (ebuGradeSyncCheck.checked) {
+    gradeItem.innerHTML = '<option></option>';
+    $.get('src/toolInteract.php', function (data) {
+      data = JSON.parse(data); 
+      data.forEach(function(each){
+        const optionElement = document.createElement("option");
+        optionElement.value = each.id;
+        optionElement.text = each.name;
+        gradeItem.appendChild(optionElement);
+      });
+    }).fail(function (xhr, status, error) {
+      console.error('GET request failed:', status, error);
+    });
+    divHidden.classList.remove("hidden");
+    gradeItem.setAttribute('required', '');
+  } else {
+    divHidden.classList.add("hidden");
+    gradeItem.removeAttribute('required');
+    gradeItem.innerHTML = '<option></option>';
+  }
+});
