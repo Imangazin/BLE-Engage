@@ -95,4 +95,21 @@ function dateToString($date){
     $formattedDateTime = $dateTime->format('Y-m-d H:i A');
     return (string) $formattedDateTime;
 }
+
+
+//returns all the grade items  for a given orgUnitId
+function getGradeItems($orgUnitId){
+    global $config;
+    $response = doValenceRequest('GET', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/');
+    $result = array();
+    foreach ($response['response'] as $each){
+        $orgs = experienceBUcall('/v3.0/organizations/organization/?ids=' . $each->organizationId);  
+        $result[] = array(
+            "id"   => $each->Id,
+            "name" => $each->Name
+        );
+    }
+    return  $result;
+}
+
 ?>

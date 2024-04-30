@@ -107,7 +107,7 @@ function formatDateTime(dateString) {
 ebuGradeSyncCheck.addEventListener("change", function () {
   if (ebuGradeSyncCheck.checked) {
     gradeItem.innerHTML = '<option></option>';
-    $.get('src/toolInteract.php', function (data) {
+    $.get('src/toolInteract.php?gradeSyncEnabled=true', function (data) {
       data = JSON.parse(data); 
       data.forEach(function(each){
         const optionElement = document.createElement("option");

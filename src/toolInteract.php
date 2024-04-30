@@ -34,6 +34,10 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
         $events_response = getEvents($_GET['organizationId']);
         echo json_encode($events_response);
     }
+    elseif (isset($_GET['gradeSyncEnabled'])){
+        $gradesList = getGradeItems($orgUnitId);
+        echo json_encode($gradesList);
+    }
     elseif(isset($_POST['sectionId'])){
         deleteSection($orgUnitId, $_POST['sectionId']);
     }else{
