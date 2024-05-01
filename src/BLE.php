@@ -127,7 +127,7 @@ function getGradeItemById($orgUnitId, $gradeId){
 }
 
 // grades user with value 1 for numeric type item
-function gradeEventAttendence($orgUnitId, $gradeId){
+function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
     global $config;
     $data = array(
         "Comments"=> array ("Content"=>"","Type"=>"Html"),

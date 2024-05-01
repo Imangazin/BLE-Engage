@@ -29,7 +29,7 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
             enrollEngageEventUsers($orgUnitId, $sectionId, $engageUsers);
 
             if (!empty($_POST['gradeItem'])){
-                gradeEventAttendence($orgUnitId, $_POST['gradeItem']);
+                gradeEventAttendence($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem']);
             }
         }
 
