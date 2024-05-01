@@ -126,4 +126,16 @@ function getGradeItemById($orgUnitId, $gradeId){
     return $response['response'];
 }
 
+// grades user with value 1 for numeric type item
+function gradeUserAttendence($orgUnitId, $gradeId, $userId){
+    global $config;
+    $data = array(
+        "Comments"=> array ("Content"=>"","Type"=>"Html"),
+        "PrivateComments"=> array ("Content"=>"","Type"=>"Html"),
+        "GradeObjectType"=> 1,
+        "PointsNumerator"=> 1
+    );
+    $response = doValenceRequest('PUT', '/d2l/api/le/'.$config['LP_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$userId, $data);
+}
+
 ?>
