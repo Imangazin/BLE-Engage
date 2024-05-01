@@ -139,6 +139,7 @@ function gradeEventAttendence($orgUnitId, $gradeId){
     
     foreach($eventAttendees as $userName){
         $user = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');
+        echo $user['response'];
         if($user['Code']==200){
             doValenceRequest('PUT', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$user['response'][0]->UserId, $data);
             echo '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$user['response'][0]->UserId;
