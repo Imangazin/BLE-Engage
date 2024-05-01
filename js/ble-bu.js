@@ -40,7 +40,8 @@ $(document).ready(function() {
       sectionId: document.getElementById("sessionIdToBedeleted").value
     };
     $.post('src/toolInteract.php', requestData, function(response){
-      document.getElementById("deleteConfirmModal").hide();
+      //document.getElementById("deleteConfirmModal").hide();
+      $('#deleteConfirmModal').modal('hide');
     }
     ).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
