@@ -82,11 +82,12 @@ function getLinkedEvents($orgUnitId){
             $sectionCode = explode('-', $section->Code);
             $event = getEventById($sectionCode[1]);
             $gradeId = $sectionCode[2];
+            $gradeObject = getGradeItemById($orgUnitId, $gradeId);
             $tablerows .= "<tr><td style='display:none;'>".$sectionId."</td>
                             <td>".$event->name."</td>
                             <td>".dateToString($event->startsOn)."</td>
-                            <td style='display:none;'>gradeIdComing</td>
-                            <td>".$gradeId."</td>
+                            <td style='display:none;'>".$gradeId."</td>
+                            <td>".$gradeObject->Name."</td>
                             <td><button type='button' class='btn btn-red actionButton'>Delete</button></td>
                             </tr>";
         }
@@ -117,6 +118,12 @@ function getGradeItems($orgUnitId){
         );
     }
     return  $result;
+}
+
+function getGradeItemById($orgUnitId, $gradeId){
+    global $config;
+    $response = doValenceRequest('GET', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId);
+    return $response['response'];
 }
 
 ?>
