@@ -35,9 +35,10 @@ $(document).ready(function() {
   });
 
   // event delete form submit
-  $("eventDeleteForm").submit(function(event){
-    event.preventDefault();
-    var formData = $(this).serialize();
+  $("#deleteEventButton").click(function(){
+    var requestData = {
+      sectionId: document.getElementById("sessionIdToBedeleted").value
+    };
     $.post('src/toolInteract.php', requestData, function(response){
       console.log(response);
     }
