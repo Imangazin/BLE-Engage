@@ -41,8 +41,8 @@ function isSectionExist($orgUnitId, $eventId){
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
 
     foreach ($response['response'] as $section) {
-        // Check if search string exists in SectionId
-        if ($section->Code == 'engage-'.$eventId) {
+        // Check if search string exists in SectionCode
+        if (strpos($section->Code, $eventId)!==false) {
             return true;
         }
     }
