@@ -88,7 +88,7 @@ function getLinkedEvents($orgUnitId){
                             <td>".dateToString($event->startsOn)."</td>
                             <td style='display:none;'>".$gradeId."</td>
                             <td>".$gradeObject->Name."</td>
-                            <td><button type='button' class='btn btn-red actionButton'>Delete</button></td>
+                            <td><button type='button' class='btn btn-red' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button></td>
                             </tr>";
         }
     }

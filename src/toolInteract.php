@@ -27,7 +27,7 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
             //get engage users
             $engageUsers = getEventUsers($_POST['ebuEvent']);
             enrollEngageEventUsers($orgUnitId, $sectionId, $engageUsers);
-
+            //if the event linked to the grade item, then grade this section users with according to attendance in engage
             if (!empty($_POST['gradeItem'])){
                 gradeEventAttendence($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem']);
             }
