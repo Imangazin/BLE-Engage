@@ -127,7 +127,7 @@ function getGradeItemById($orgUnitId, $gradeId){
 }
 
 // grades user with value 1 for numeric type item
-function gradeUserAttendence($orgUnitId, $gradeId, $userId){
+function gradeEventAttendence($orgUnitId, $gradeId){
     global $config;
     $data = array(
         "Comments"=> array ("Content"=>"","Type"=>"Html"),
@@ -135,7 +135,14 @@ function gradeUserAttendence($orgUnitId, $gradeId, $userId){
         "GradeObjectType"=> 1,
         "PointsNumerator"=> 1
     );
-    $response = doValenceRequest('PUT', '/d2l/api/le/'.$config['LP_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$userId, $data);
+    $eventAttendees = getEventAttendees($eventId);
+    
+    foreach($eventAttendees as $userName){
+        $user = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');
+        if($user['Code']==200){
+            doValenceRequest('PUT', '/d2l/api/le/'.$config['LP_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$user['response'][0]->UserId, $data);
+        }
+    }
 }
 
 ?>

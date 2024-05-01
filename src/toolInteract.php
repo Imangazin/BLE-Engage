@@ -28,11 +28,8 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
             $engageUsers = getEventUsers($_POST['ebuEvent']);
             enrollEngageEventUsers($orgUnitId, $sectionId, $engageUsers);
 
-            if (empty($_POST['gradeItem'])){
-                echo "Grade Item is set";
-            }
-            else {
-                echo "Grade item is not set";
+            if (!empty($_POST['gradeItem'])){
+                gradeEventAttendence($orgUnitId, $gradeId);
             }
         }
 
