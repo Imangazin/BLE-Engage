@@ -30,7 +30,6 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
 
             if (!empty($_POST['gradeItem'])){
                 gradeEventAttendence($orgUnitId, $_POST['gradeItem']);
-                echo "Grade sync called";
             }
         }
 

@@ -136,7 +136,7 @@ function gradeEventAttendence($orgUnitId, $gradeId){
         "PointsNumerator"=> 1
     );
     $eventAttendees = getEventAttendees($eventId);
-    
+    echo var_dump($eventAttendees);
     foreach($eventAttendees as $userName){
         $user = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');
         echo $user['response'];
