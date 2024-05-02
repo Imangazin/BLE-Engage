@@ -17,6 +17,7 @@ $(document).ready(function() {
     var formData = $(this).serialize();
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
+      location.reload();
       responseContainer.className = '';
       responseContainer.className = 'alert alert-success';
       responseContainer.innerHTML = response;
@@ -25,7 +26,6 @@ $(document).ready(function() {
       $('#ebuOrganization').val(null).trigger('change');
       $('#ebuEvent').val(null).trigger('change');
       $('#gradeItem').val(null).trigger('change');
-      location.reload();
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
