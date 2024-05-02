@@ -25,7 +25,7 @@ $(document).ready(function() {
       $('#ebuOrganization').val(null).trigger('change');
       $('#ebuEvent').val(null).trigger('change');
       $('#gradeItem').val(null).trigger('change');
-      reloadPageAfterDelay(5000);
+      reloadPageAfterDelay(4000);
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
