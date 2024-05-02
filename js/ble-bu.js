@@ -87,6 +87,7 @@ $('#ebuOrganization').on('select2:select', function (e) {
   });
 });
 
+// formats the UTC date 
 function formatDateTime(dateString) {
   const date = new Date(dateString);
   const formattedDate = date.toLocaleDateString(); 
@@ -121,6 +122,7 @@ ebuGradeSyncCheck.addEventListener("change", function () {
   }
 });
 
+//looks for the closest row where  the button was clicked and gets the sessionId from the row
 function setSessionId(button) {
   // Find the closest row to the button
   var closestRow = $(button).closest('tr');
