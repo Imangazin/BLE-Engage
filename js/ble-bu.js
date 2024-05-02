@@ -17,7 +17,6 @@ $(document).ready(function() {
     var formData = $(this).serialize();
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
-      location.reload();
       responseContainer.className = '';
       responseContainer.className = 'alert alert-success';
       responseContainer.innerHTML = response;
@@ -26,6 +25,7 @@ $(document).ready(function() {
       $('#ebuOrganization').val(null).trigger('change');
       $('#ebuEvent').val(null).trigger('change');
       $('#gradeItem').val(null).trigger('change');
+      reloadPageAfterDelay(5000);
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
@@ -127,4 +127,11 @@ function setSessionId(button) {
   var sessionId = $(closestRow).find('td:eq(0)').text();
   // Set the sessionIdToBedeleted input value
   document.getElementById("sessionIdToBedeleted").value = sessionId;
+}
+
+// Function to reload the page after a delay
+function reloadPageAfterDelay(delay) {
+  setTimeout(function() {
+    location.reload();
+  }, delay);
 }
