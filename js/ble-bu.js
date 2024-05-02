@@ -25,6 +25,7 @@ $(document).ready(function() {
       $('#ebuOrganization').val(null).trigger('change');
       $('#ebuEvent').val(null).trigger('change');
       $('#gradeItem').val(null).trigger('change');
+      location.reload();
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
@@ -42,6 +43,7 @@ $(document).ready(function() {
     $.post('src/toolInteract.php', requestData, function(response){
       //document.getElementById("deleteConfirmModal").hide();
       $('#deleteConfirmModal').modal('hide');
+      location.reload();
     }
     ).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
