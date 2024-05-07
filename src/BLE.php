@@ -131,10 +131,26 @@ function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
     global $config;
     $data = array(
         "Comments"=> array ("Content"=>"","Type"=>"Html"),
-        "PrivateComments"=> array ("Content"=>"","Type"=>"Html"),
-        "GradeObjectType"=> 1,
-        "PointsNumerator"=> 1
+        "PrivateComments"=> array ("Content"=>"","Type"=>"Html")
     );
+
+    $gradeInfo = doValenceRequest('GET', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId);
+    $gradeType = $gradeInfo['response']->GradeType;
+
+    switch ($gradeType) {
+        case 'Numeric':
+            $data['GradeObjectType'] = 1;
+            $data['PointsNumerator'] = $gradeInfo->MaxPoints;
+            break;
+        case 'PassFail':
+            $data['GradeObjectType'] = 2;
+            $data['Pass'] = true;
+            break;
+        default:
+            //break out from the function
+            return;
+    }
+
     $eventAttendees = getEventAttendees($eventId);
     foreach($eventAttendees as $userName){
         $user = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');

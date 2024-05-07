@@ -32,7 +32,7 @@
               <label class="form-check-label" for="ebuGradeSync">Sync event with grade item (Attendance)</label>
             </div>
             <div class="mb-3 hidden" id="ebuGradeSyncDiv">
-                <label for="gradeItem" class="form-label">Grade Item (must exist)</label>
+                <label for="gradeItem" class="form-label">Grade Item (must exist and supports Numeric and Pass/Fail type)</label>
                 <select class="form-select select2" id="gradeItem" name="gradeItem">
                   <option></option>
                 </select>
