@@ -140,7 +140,7 @@ function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
     switch ($gradeType) {
         case 'Numeric':
             $data['GradeObjectType'] = 1;
-            $data['PointsNumerator'] = $gradeInfo->MaxPoints;
+            $data['PointsNumerator'] = $gradeInfo['response']->MaxPoints;
             break;
         case 'PassFail':
             $data['GradeObjectType'] = 2;
