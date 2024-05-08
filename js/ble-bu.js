@@ -25,7 +25,7 @@ $(document).ready(function() {
       $('#ebuOrganization').val(null).trigger('change');
       $('#ebuEvent').val(null).trigger('change');
       $('#gradeItem').val(null).trigger('change');
-      reloadPageAfterDelay(4000);
+      reloadPageAfterDelay(3000);
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
@@ -36,19 +36,19 @@ $(document).ready(function() {
   });
 
   // event delete form submit
-  $("#deleteEventButton").click(function(){
-    var requestData = {
-      sectionId: document.getElementById("sessionIdToBedeleted").value
-    };
-    $.post('src/toolInteract.php', requestData, function(response){
-      //document.getElementById("deleteConfirmModal").hide();
-      $('#deleteConfirmModal').modal('hide');
-      location.reload();
-    }
-    ).fail(function(xhr, status, error) {
-      console.error('Error submitting form:', error);
-    });
-  });
+  // $("#deleteEventButton").click(function(){
+  //   var requestData = {
+  //     sectionId: document.getElementById("sessionIdToBedeleted").value
+  //   };
+  //   $.post('src/toolInteract.php', requestData, function(response){
+  //     //document.getElementById("deleteConfirmModal").hide();
+  //     $('#deleteConfirmModal').modal('hide');
+  //     location.reload();
+  //   }
+  //   ).fail(function(xhr, status, error) {
+  //     console.error('Error submitting form:', error);
+  //   });
+  // });
 
   //Load BU Organizations
   $.get('src/toolInteract.php', function (data) {
@@ -123,12 +123,21 @@ ebuGradeSyncCheck.addEventListener("change", function () {
 });
 
 //looks for the closest row where  the button was clicked and gets the sessionId from the row
-function setSessionId(button) {
+function deleteEvent(button) {
   // Find the closest row to the button
   var closestRow = $(button).closest('tr');
-  var sessionId = $(closestRow).find('td:eq(0)').text();
-  // Set the sessionIdToBedeleted input value
-  document.getElementById("sessionIdToBedeleted").value = sessionId;
+  var sectionId = $(closestRow).find('td:eq(0)').text();
+  var requestData = {
+    sectionId: sectionId
+  };
+  $.post('src/toolInteract.php', requestData, function(response){
+    //document.getElementById("deleteConfirmModal").hide();
+    $('#deleteConfirmModal').modal('hide');
+    location.reload();
+  }
+  ).fail(function(xhr, status, error) {
+    console.error('Error submitting form:', error);
+  });
 }
 
 // Function to reload the page after a delay
@@ -136,4 +145,11 @@ function reloadPageAfterDelay(delay) {
   setTimeout(function() {
     location.reload();
   }, delay);
+}
+
+function updateEventById(button){
+  // Find the closest row to the button
+  var closestRow = $(button).closest('tr');
+  var sectionId = $(closestRow).find('td:eq(0)').text();
+
 }
