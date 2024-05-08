@@ -122,24 +122,41 @@ ebuGradeSyncCheck.addEventListener("change", function () {
   }
 });
 
-//looks for the closest row where  the button was clicked and gets the sessionId from the row
-function deleteEvent(event, button) {
-  event.preventDefault();
+//delete buttons events
+$('#linked_events').on('click', 'button.deleteButton', function(event) {
+  event.preventDefault(); // Prevent default form submission
   // Find the closest row to the button
-  var closestRow = $(button).closest('tr');
-  var sectionId = $(closestRow).find('td:eq(0)').text();
+  var closestRow = $(this).closest('tr');
+  var sectionId = $(closestRow).find('td:eq(0)').text(); // Adjust this selector based on your table structure
   var requestData = {
     sectionId: sectionId
   };
   $.post('src/toolInteract.php', requestData, function(response){
-    //document.getElementById("deleteConfirmModal").hide();
     $('#deleteConfirmModal').modal('hide');
     location.reload();
-  }
-  ).fail(function(xhr, status, error) {
+  }).fail(function(xhr, status, error) {
     console.error('Error submitting form:', error);
   });
-}
+});
+
+// //looks for the closest row where  the button was clicked and gets the sessionId from the row
+// function deleteEvent(event, button) {
+//   event.preventDefault();
+//   // Find the closest row to the button
+//   var closestRow = $(button).closest('tr');
+//   var sectionId = $(closestRow).find('td:eq(0)').text();
+//   var requestData = {
+//     sectionId: sectionId
+//   };
+//   $.post('src/toolInteract.php', requestData, function(response){
+//     //document.getElementById("deleteConfirmModal").hide();
+//     $('#deleteConfirmModal').modal('hide');
+//     location.reload();
+//   }
+//   ).fail(function(xhr, status, error) {
+//     console.error('Error submitting form:', error);
+//   });
+// }
 
 // Function to reload the page after a delay
 function reloadPageAfterDelay(delay) {
