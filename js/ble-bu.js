@@ -123,7 +123,8 @@ ebuGradeSyncCheck.addEventListener("change", function () {
 });
 
 //looks for the closest row where  the button was clicked and gets the sessionId from the row
-function deleteEvent(button) {
+function deleteEvent(event, button) {
+  event.preventDefault();
   // Find the closest row to the button
   var closestRow = $(button).closest('tr');
   var sectionId = $(closestRow).find('td:eq(0)').text();
