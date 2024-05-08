@@ -83,13 +83,15 @@ function getLinkedEvents($orgUnitId){
             $event = getEventById($sectionCode[1]);
             $gradeId = $sectionCode[2];
             $gradeObject = getGradeItemById($orgUnitId, $gradeId);
-            $tablerows .= "<tr><td style='display:none;'>".$sectionId."</td>
+            $tablerows .= "<tr>
+                            <td style='display:none;'>".$sectionId."</td>
+                            <td style='display:none;'>".$sectionCode[1]."</td>
                             <td>".$event->name."</td>
                             <td>".dateToString($event->startsOn)."</td>
                             <td style='display:none;'>".$gradeId."</td>
                             <td>".$gradeObject->Name."</td>
                             <td>
-                                <button type='button' class='btn btn-secondary btn-sm' onclick=''>Update</button>
+                                <button type='button' class='btn btn-secondary btn-sm' onclick='updateEventById(this)'>Update</button>
                                 <button type='button' class='btn btn-red btn-sm deleteButton' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
                             </td>
                             </tr>";

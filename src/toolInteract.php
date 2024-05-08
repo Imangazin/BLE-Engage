@@ -43,7 +43,18 @@ if($_SESSION['_basic_lti_context']['oauth_consumer_key'] == $lti_auth['key']){
         echo json_encode($gradesList);
     }
     elseif(isset($_POST['sectionId'])){
-        deleteSection($orgUnitId, $_POST['sectionId']);
+        if(isset($_GET['updateEvent'])){
+            $engageUsers = getEventUsers($_POST['eventId']);
+            enrollEngageEventUsers($orgUnitId, $_POST['sectionId'], $engageUsers);
+            //if the event linked to the grade item, then grade this section users with according to attendance in engage
+            if (!empty($_POST['gradeId'])){
+                gradeEventAttendence($orgUnitId, $_POST['eventId'], $_POST['gradeId']);
+            }
+            echo "Event successfully updated";
+        }else{
+            deleteSection($orgUnitId, $_POST['sectionId']);
+        }
+        
     }else{
         $orgs_response = getOrganizationsByUsername($userName);
         echo json_encode($orgs_response);

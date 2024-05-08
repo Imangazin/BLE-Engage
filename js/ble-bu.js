@@ -45,7 +45,7 @@ $(document).ready(function() {
       location.reload();
     }
     ).fail(function(xhr, status, error) {
-      console.error('Error submitting form:', error);
+      console.error('Error submitting delete form:', error);
     });
   });
 
@@ -140,5 +140,18 @@ function updateEventById(button){
   // Find the closest row to the button
   var closestRow = $(button).closest('tr');
   var sectionId = $(closestRow).find('td:eq(0)').text();
+  var eventId = $(closestRow).find('td:eq(1)').text();
+  var gradeId = $(closestRow).find('td:eq(4)').text();
+  var requestData = {
+    sectionId: sectionId,
+    eventId : eventId,
+    gradeId : gradeId
+  };
+  $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
+    console.log(response);
+  }
+  ).fail(function(xhr, status, error) {
+    console.error('Error submitting form:', error);
+  });
 
 }
