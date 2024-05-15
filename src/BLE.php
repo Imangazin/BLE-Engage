@@ -208,7 +208,13 @@ function syncEngageBLE($orgUnitId){
     $linkedEvents = getLinkedEvents($orgUnitId);
     foreach($linkedEvents as $event){
         $eventRsvps = getEventUsers($event['eventId']);
-        echo var_dump($eventRsvps);
+        enrollEngageEventUsers($orgUnitId, $event['sectionId'], $eventRsvps);
+        if (!empty($event['gradeId'])){
+            echo 'not empty';
+        }
+        else {
+            echo 'empty';
+        }
     }
 }
 
