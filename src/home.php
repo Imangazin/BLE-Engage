@@ -42,7 +42,7 @@
             </div>
           </form>
           <div id="responseContainer" tabindex="-1"></div>
-          <h2>Linked Engage events</h2><br>
+          <h2>Linked experience BU events</h2><br>
           <table id="linked_events" class="d2l-table">
           <tbody>
             <tr>
