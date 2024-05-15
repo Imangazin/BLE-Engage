@@ -71,7 +71,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
 }
 
 // returns a row of table with BLE sections informations and delet action button. 
-function getLinkedEvents($orgUnitId){
+function printLinkedEvents($orgUnitId){
     global $config;
     $tablerows='';
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
@@ -163,6 +163,47 @@ function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
             doValenceRequest('PUT', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$user['response'][0]->UserId, $data);
         }
     }
+}
+
+
+// returns linked event infos 
+function getLinkedEvents($orgUnitId){
+    global $config;
+    $linkedEvents = array();
+    $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
+    $sections = array_reverse($response['response']);
+    foreach ($sections as $section) {
+        if (strpos($section->Code, 'engage') !== false) {
+            $event = array();
+            $sectionCode = explode('-', $section->Code);
+            $engageEvent = getEventById($sectionCode[1]);
+        
+            $event['sectionId'] = $section->SectionId;
+            $event['eventId'] = $sectionCode[1];
+            $event['eventName'] = $engageEvent->name;
+            $event['startDate'] = $engageEvent->startsOn;
+            $event['endDate'] = $engageEvent->endsOn;
+            $event['gradeId'] = $sectionCode[2];
+        }
+        $linkedEvents[] = $event;
+    }
+    return $linkedEvents;
+}
+
+//Returns orgUnitId type 3 that usign the tool provider
+function getSharedOrgUnitIds($ltiToolProviderId){
+    $sharedOrgUnitIds = array();
+    $response =  doValenceRequest('GET', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/'.$ltiToolProviderId.'/sharing/');
+    foreach($response['response'] as $each){
+        $sharedOrgUnitIds[] = $each->SharingOrgUnitId;
+    }
+    return $sharedOrgUnitIds;
+}
+
+function syncEngageBLE($orgUnitId){
+    global $config;
+    $linkedEvents = getLinkedEvents($orgUnitId);
+    echo var_dump($linkedEvents);
 }
 
 ?>
