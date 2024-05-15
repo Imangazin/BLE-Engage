@@ -184,8 +184,8 @@ function getLinkedEvents($orgUnitId){
             $event['startDate'] = $engageEvent->startsOn;
             $event['endDate'] = $engageEvent->endsOn;
             $event['gradeId'] = $sectionCode[2];
+            $linkedEvents[] = $event;
         }
-        $linkedEvents[] = $event;
     }
     return $linkedEvents;
 }
