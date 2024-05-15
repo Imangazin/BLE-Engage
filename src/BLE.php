@@ -203,18 +203,18 @@ function getSharedOrgUnitIds($ltiToolProviderId){
     return $sharedOrgUnitIds;
 }
 
+// syncs engage RSVP and attendance with BLE for linked events. Skippes events which ended 30 days ago.
 function syncEngageBLE($orgUnitId){
     global $config;
     $linkedEvents = getLinkedEvents($orgUnitId);
     foreach($linkedEvents as $event){
-        $eventRsvps = getEventUsers($event['eventId']);
-        enrollEngageEventUsers($orgUnitId, $event['sectionId'], $eventRsvps);
-        if (!empty($event['gradeId'])){
-            echo 'not empty';
-        }
-        else {
-            echo 'empty';
-        }
+        if (isDate30DaysOrMoreInPast($event['endsOn'])){
+            $eventRsvps = getEventUsers($event['eventId']);
+            enrollEngageEventUsers($orgUnitId, $event['sectionId'], $eventRsvps);
+            if (!empty($event['gradeId'])){
+                gradeEventAttendence($orgUnitId, $event['eventId'], $event['gradeId']);
+            }
+        }  
     }
 }
 

@@ -9,6 +9,20 @@ function isEventDateInPast($datetime){
     return $providedDateTime < $currentDateTime;
 }
 
+function isDate30DaysOrMoreInPast($datetime) {
+    // Ensure the default timezone is UTC
+    date_default_timezone_set('UTC');
+    $currentDateTime = new DateTime();
+    $providedDateTime = new DateTime($datetime);
+
+    // Calculate the date 30 days ago from now
+    $date30DaysAgo = clone $currentDateTime;
+    $date30DaysAgo->sub(new DateInterval('P30D'));
+
+    // Return true if the provided date is 30 days or more in the past, false otherwise
+    return $providedDateTime <= $date30DaysAgo;
+}
+
 //Engage API calls (GET only), returns php array
 function experienceBUcall($url){
     global $config;
