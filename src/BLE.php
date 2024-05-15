@@ -196,7 +196,9 @@ function getSharedOrgUnitIds($ltiToolProviderId){
     $sharedOrgUnitIds = array();
     $response =  doValenceRequest('GET', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/'.$ltiToolProviderId.'/sharing/');
     foreach($response['response'] as $each){
-        $sharedOrgUnitIds[] = $each->SharingOrgUnitId;
+        if ($each->SharingOrgUnitId!=6606){
+            $sharedOrgUnitIds[] = $each->SharingOrgUnitId;
+        }
     }
     return $sharedOrgUnitIds;
 }
