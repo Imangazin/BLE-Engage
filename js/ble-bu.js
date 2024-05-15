@@ -4,6 +4,7 @@ let gradeItem = document.getElementById("gradeItem");
 let orgSelectTag = document.getElementById("ebuOrganization");
 let eventSelectTag = document.getElementById("ebuEvent");
 let responseContainer = document.getElementById("responseContainer");
+var loadingIcon = document.getElementById('loadingIcon');
 
 $(document).ready(function() {
   $('.select2').select2({
@@ -15,10 +16,12 @@ $(document).ready(function() {
   $('#ebuForm').submit(function(event) {
     event.preventDefault();
     var formData = $(this).serialize();
+    loadingIcon.innerHTML = '<img src="img/progress.gif" alt="Loading...">';
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
       responseContainer.className = '';
       responseContainer.className = 'alert alert-success';
+      loadingIcon.innerHTML = '';
       responseContainer.innerHTML = response;
       responseContainer.focus();
       document.getElementById("ebuForm").reset();
