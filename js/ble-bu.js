@@ -11,7 +11,7 @@ $(document).ready(function() {
     placeholder: 'Select an option', // Placeholder text
     width: '100%', // Adjust the width as needed
   });
-  responseContainer.classList.add('d2l-iframe-loading-container')
+  responseContainer.className ='d2l-iframe-loading-container';
   // Form submit: Creates a new section and enrolls engage users to current org unit
   $('#ebuForm').submit(function(event) {
     event.preventDefault();

@@ -95,7 +95,7 @@ tr:first-child th:last-child{
 
 .d2l-iframe-loading-container{
     display: block;
-    background-image: url('/img/loading.gif');
+    background-image: url('img/loading.gif');
     background-position: center center;
     background-repeat: no-repeat;
     width: 100%;
