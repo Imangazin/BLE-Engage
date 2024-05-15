@@ -4,24 +4,23 @@ let gradeItem = document.getElementById("gradeItem");
 let orgSelectTag = document.getElementById("ebuOrganization");
 let eventSelectTag = document.getElementById("ebuEvent");
 let responseContainer = document.getElementById("responseContainer");
-let engageSyncButton =document.getElementById("engageSyncButton");
+
 
 $(document).ready(function() {
   $('.select2').select2({
     placeholder: 'Select an option', // Placeholder text
     width: '100%', // Adjust the width as needed
   });
-  
+  responseContainer.classList.add('d2l-iframe-loading-container')
   // Form submit: Creates a new section and enrolls engage users to current org unit
   $('#ebuForm').submit(function(event) {
     event.preventDefault();
     var formData = $(this).serialize();
-    engageSyncButton.classList.add('loading');
+
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
       responseContainer.className = '';
       responseContainer.className = 'alert alert-success';
-      engageSyncButton.classList.remove('loading');
       responseContainer.innerHTML = response;
       responseContainer.focus();
       document.getElementById("ebuForm").reset();
@@ -33,7 +32,7 @@ $(document).ready(function() {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
       responseContainer.className = 'alert alert-danger';
-      engageSyncButton.classList.remove('loading');
+
       responseContainer.innerHTML = response;
       responseContainer.focus();
     });

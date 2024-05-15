@@ -93,8 +93,11 @@ tr:first-child th:last-child{
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-#engageSyncButton.loading {
-    background-image: url('img/progress.gif'); /* URL to your loading GIF */
+.d2l-iframe-loading-container{
+    display: block;
+    background-image: url('/img/loading.gif');
+    background-position: center center;
     background-repeat: no-repeat;
-    background-position: center;
+    width: 100%;
+    height: 50px;
 }
