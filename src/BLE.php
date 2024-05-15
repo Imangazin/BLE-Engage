@@ -206,7 +206,10 @@ function getSharedOrgUnitIds($ltiToolProviderId){
 function syncEngageBLE($orgUnitId){
     global $config;
     $linkedEvents = getLinkedEvents($orgUnitId);
-    echo var_dump($linkedEvents);
+    foreach($linkedEvents as $event){
+        $eventRsvps = getEventUsers($event['eventId']);
+        echo var_dump($eventRsvps);
+    }
 }
 
 ?>
