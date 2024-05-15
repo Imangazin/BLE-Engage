@@ -103,5 +103,5 @@ tr:first-child th:last-child{
 
 /* Change the color of the loading icon to light grey */
 #loadingIcon {
-    filter: brightness(30%); /* Adjust brightness for desired shade */
+    filter: brightness(80%); /* Adjust brightness for desired shade */
 }
