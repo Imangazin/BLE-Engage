@@ -89,7 +89,7 @@ function printLinkedEvents($orgUnitId){
                         </td>
                     </tr>";
     }
-
+    return $tablerows;
 }
 
 //converts given UTC time to EDT and  returns the formatted string.
