@@ -45,7 +45,16 @@
           <h2>Linked Engage events</h2><br>
           <table id="linked_events" class="d2l-table">
           <tbody>
-            <tr><th style="display:none;"></th><th style="display:none;"></th><th>Event Name</th><th>Starts on</th><th style="display:none;">GradeId</th><th>Grade Item</th><th>Actions</th></tr>
+            <tr>
+              <th style="display:none;"></th>
+              <th style="display:none;"></th>
+              <th>Event Name</th>
+              <th>Starts on</th>
+              <th>Ends on</th>
+              <th style="display:none;">GradeId</th>
+              <th>Grade Item</th>
+              <th>Actions</th>
+            </tr>
             <?php echo  $linkedEvents;?>
             <br>
           </tbody>

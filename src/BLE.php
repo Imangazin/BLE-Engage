@@ -72,32 +72,24 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
 
 // returns a row of table with BLE sections informations and delet action button. 
 function printLinkedEvents($orgUnitId){
-    global $config;
     $tablerows='';
-    $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
-    $sections = array_reverse($response['response']);
-    foreach ($sections as $section) {
-        if (strpos($section->Code, 'engage') !== false) {
-            $sectionId = $section->SectionId;
-            $sectionCode = explode('-', $section->Code);
-            $event = getEventById($sectionCode[1]);
-            $gradeId = $sectionCode[2];
-            $gradeObject = getGradeItemById($orgUnitId, $gradeId);
-            $tablerows .= "<tr>
-                            <td style='display:none;'>".$sectionId."</td>
-                            <td style='display:none;'>".$sectionCode[1]."</td>
-                            <td>".$event->name."</td>
-                            <td>".dateToString($event->startsOn)."</td>
-                            <td style='display:none;'>".$gradeId."</td>
-                            <td>".$gradeObject->Name."</td>
-                            <td>
-                                <button type='button' class='btn btn-secondary btn-sm' onclick='updateEventById(this)'>Update</button>
-                                <button type='button' class='btn btn-red btn-sm deleteButton' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
-                            </td>
-                            </tr>";
-        }
+    $linkedEvents = getLinkedEvents($orgUnitId);
+    foreach($linkedEvents as $event){
+        $tablerows .= "<tr>
+                        <td style='display:none;'>".$event['sectionId']."</td>
+                        <td style='display:none;'>".$event['eventId']."</td>
+                        <td>".$event['eventName']."</td>
+                        <td>".dateToString($event['startDate'])."</td>
+                        <td>".dateToString($event['endDate'])."</td>
+                        <td style='display:none;'>".$event['gradeId']."</td>
+                        <td>".$event['gradeObjectName']."</td>
+                        <td>
+                            <button type='button' class='btn btn-secondary btn-sm' onclick='updateEventById(this)'>Update</button>
+                            <button type='button' class='btn btn-red btn-sm deleteButton' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
+                        </td>
+                    </tr>";
     }
-    return $tablerows;
+
 }
 
 //converts given UTC time to EDT and  returns the formatted string.
@@ -177,13 +169,16 @@ function getLinkedEvents($orgUnitId){
             $event = array();
             $sectionCode = explode('-', $section->Code);
             $engageEvent = getEventById($sectionCode[1]);
-        
+            $gradeObject = getGradeItemById($orgUnitId, $sectionCode[2]);
+
             $event['sectionId'] = $section->SectionId;
             $event['eventId'] = $sectionCode[1];
             $event['eventName'] = $engageEvent->name;
             $event['startDate'] = $engageEvent->startsOn;
             $event['endDate'] = $engageEvent->endsOn;
             $event['gradeId'] = $sectionCode[2];
+            $event['gradeObjectName'] = $gradeObject->Name;
+            
             $linkedEvents[] = $event;
         }
     }
