@@ -93,15 +93,8 @@ tr:first-child th:last-child{
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-/* Optional: Styling for the loading icon */
-#loadingIcon {
-    width: 50px; /* Adjust size as needed */
-    height: 50px; /* Adjust size as needed */
-    background-image: url('img/progress.gif'); /* URL to your loading GIF */
-    background-size: cover;
-}
 
 /* Change the color of the loading icon to light grey */
-#loadingIcon {
+#responseContainer {
     filter: brightness(80%); /* Adjust brightness for desired shade */
 }

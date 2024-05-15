@@ -15,7 +15,7 @@ $(document).ready(function() {
   $('#ebuForm').submit(function(event) {
     event.preventDefault();
     var formData = $(this).serialize();
-    responseContainer.innerHTML = '<img src="img/progress.gif" alt="Loading...">';
+    responseContainer.innerHTML = '<img src="img/progress.gif" alt="Loading..." style="width:20px;height:20px;">';
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
       responseContainer.className = '';
