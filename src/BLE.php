@@ -192,6 +192,7 @@ function getLinkedEvents($orgUnitId){
 
 //Returns orgUnitId type 3 that usign the tool provider
 function getSharedOrgUnitIds($ltiToolProviderId){
+    global $config;
     $sharedOrgUnitIds = array();
     $response =  doValenceRequest('GET', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/'.$ltiToolProviderId.'/sharing/');
     foreach($response['response'] as $each){
