@@ -11,12 +11,11 @@ $(document).ready(function() {
     placeholder: 'Select an option', // Placeholder text
     width: '100%', // Adjust the width as needed
   });
-  responseContainer.innerHTML = '<img src="img/loading.gif" alt="Loading...">';
   // Form submit: Creates a new section and enrolls engage users to current org unit
   $('#ebuForm').submit(function(event) {
     event.preventDefault();
     var formData = $(this).serialize();
-
+    responseContainer.innerHTML = '<img src="img/loading.gif" alt="Loading...">';
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
       responseContainer.className = '';
