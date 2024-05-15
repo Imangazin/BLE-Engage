@@ -3,6 +3,7 @@
 require_once("info.php");
 require_once("doValence.php");
 require_once("engage.php");
+require_once("BLE.php");
 
 // Check if the script is run from the command line
 if (php_sapi_name() !== 'cli') {
