@@ -15,11 +15,12 @@ $(document).ready(function() {
   $('#ebuForm').submit(function(event) {
     event.preventDefault();
     var formData = $(this).serialize();
-    responseContainer.innerHTML = '<img src="img/progress.gif" alt="Loading..." style="width:20px;height:20px;">';
+    loadingButton.classList.add('loading');
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
       responseContainer.className = '';
       responseContainer.className = 'alert alert-success';
+      loadingButton.classList.remove('loading');
       responseContainer.innerHTML = response;
       responseContainer.focus();
       document.getElementById("ebuForm").reset();

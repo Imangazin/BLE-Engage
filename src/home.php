@@ -38,7 +38,7 @@
                 </select>
             </div>
             <div class="mb-3">
-              <button type="submit" class="btn btn-primary">Sync</button>
+              <button type="submit" class="btn btn-primary" id="engageSyncButton">Sync</button>
             </div>
           </form>
           <div id="responseContainer" tabindex="-1"></div>
