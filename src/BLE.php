@@ -84,8 +84,11 @@ function printLinkedEvents($orgUnitId){
                         <td style='display:none;'>".$event['gradeId']."</td>
                         <td>".$event['gradeObjectName']."</td>
                         <td>
-                            <button type='button' class='btn btn-secondary btn-sm' onclick='updateEventById(this)'>Update</button>
-                            <button type='button' class='btn btn-red btn-sm deleteButton' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
+                            <div class='action-container'>
+                                <img src='loading.gif' alt='Loading...' class='loading-gif'>
+                                <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
+                                <button type='button' class='btn btn-red btn-sm delete-btn' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
+                            </div>
                         </td>
                     </tr>";
     }

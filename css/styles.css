@@ -93,11 +93,24 @@ tr:first-child th:last-child{
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-/* .d2l-iframe-loading-container{
-    display: block;
-    background-image: url('img/loading.gif');
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 50px;
-} */
+.action-container {
+    display: grid;
+    grid-template-columns: auto auto; /* Two columns */
+    gap: 10px; /* Space between grid items */
+    align-items: center; /* Center items vertically */
+}
+/* Ensure the image is properly sized */
+.loading-gif {
+    grid-column: 1; /* Place in the first column */
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+}
+
+.update-btn {
+    grid-column: 2; /* Place in the second column */
+}
+
+.delete-btn {
+    grid-column: 2; /* Place in the second column */
+    grid-row: 2; /* Place in the second row */
+}

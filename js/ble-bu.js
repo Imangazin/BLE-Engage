@@ -157,3 +157,13 @@ function updateEventById(button){
   });
 
 }
+
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('update-btn')) {
+      const wrapper = event.target.closest('.action-container');
+      const img = wrapper.querySelector('.loading-gif');
+      if (img) {
+          img.style.display = img.style.display === 'none' ? 'inline' : 'none';
+      }
+  }
+});
