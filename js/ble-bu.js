@@ -141,6 +141,9 @@ function reloadPageAfterDelay(delay) {
 function updateEventById(button){
   // Find the closest row to the button
   var closestRow = $(button).closest('tr');
+  const wrapper = closestRow.closest('.action-container');
+  const img = wrapper.querySelector('.loading-gif');
+  img.style.display = 'inline';
   var sectionId = $(closestRow).find('td:eq(0)').text();
   var eventId = $(closestRow).find('td:eq(1)').text();
   var gradeId = $(closestRow).find('td:eq(4)').text();
@@ -150,6 +153,7 @@ function updateEventById(button){
     gradeId : gradeId
   };
   $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
+    img.style.display = 'none';
     console.log(response);
   }
   ).fail(function(xhr, status, error) {
@@ -158,12 +162,12 @@ function updateEventById(button){
 
 }
 
-document.addEventListener('click', function(event) {
-  if (event.target.classList.contains('update-btn')) {
-      const wrapper = event.target.closest('.action-container');
-      const img = wrapper.querySelector('.loading-gif');
-      if (img) {
-          img.style.display = img.style.display === 'none' ? 'inline' : 'none';
-      }
-  }
-});
+// document.addEventListener('click', function(event) {
+//   if (event.target.classList.contains('update-btn')) {
+//       const wrapper = event.target.closest('.action-container');
+//       const img = wrapper.querySelector('.loading-gif');
+//       if (img) {
+//           img.style.display = img.style.display === 'none' ? 'inline' : 'none';
+//       }
+//   }
+// });
