@@ -56,7 +56,6 @@
               <th>Actions</th>
             </tr>
             <?php echo  $linkedEvents;?>
-            <br>
           </tbody>
           </table>
           <!-- Modal -->
