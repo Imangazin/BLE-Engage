@@ -89,11 +89,11 @@ function handleInitialOrganizationList($userName) {
 
 // Route conditions to handlers
 $routes = [
-    'mainSync' => function() use ($orgUnitId) { handleMainSync($orgUnitId); },
+    'mainSync' => 'handleMainSync',
     'organizationSelection' => 'handleOrganizationSelection',
-    'gradeItemSelection' => function() use ($orgUnitId) { handleGradeItemSelection($orgUnitId); },
-    'sectionUpdateOrDelete' => function() use ($orgUnitId) { handleSectionUpdateOrDelete($orgUnitId); },
-    'initialOrganizationList' => function() use ($userName) { handleInitialOrganizationList($userName); }
+    'gradeItemSelection' => 'handleGradeItemSelection',
+    'sectionUpdateOrDelete' => 'handleSectionUpdateOrDelete',
+    'initialOrganizationList' => 'handleInitialOrganizationList',
 ];
 
 // Determine which route to take
@@ -111,7 +111,8 @@ if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])) {
 
 // Execute the handler for the determined route
 if (isset($routes[$route])) {
-    call_user_func($routes[$route]);
+    // Pass necessary variables to the handler
+    call_user_func($routes[$route], $orgUnitId, $userName);
 } else {
     echo 'No valid route found.';
 }
