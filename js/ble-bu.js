@@ -142,7 +142,6 @@ function updateEventById(button){
   // Find the closest row to the button
   var closestRow = $(button).closest('tr');
   var img = $(button).prev()[0];
-  //const img = wrapper.querySelector('.loading-gif');
   img.style.display = 'inline';
   var sectionId = $(closestRow).find('td:eq(0)').text();
   var eventId = $(closestRow).find('td:eq(1)').text();
@@ -157,17 +156,8 @@ function updateEventById(button){
     console.log(response);
   }
   ).fail(function(xhr, status, error) {
+    img.style.display = 'none';
     console.error('Error submitting form:', error);
   });
 
 }
-
-// document.addEventListener('click', function(event) {
-//   if (event.target.classList.contains('update-btn')) {
-//       const wrapper = event.target.closest('.action-container');
-//       const img = wrapper.querySelector('.loading-gif');
-//       if (img) {
-//           img.style.display = img.style.display === 'none' ? 'inline' : 'none';
-//       }
-//   }
-// });
