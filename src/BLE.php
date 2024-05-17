@@ -4,14 +4,13 @@ require_once("info.php");
 require_once("doValence.php");
 require_once("engage.php");
 
-function shareWithOrgUnit($orgUnitId) {
-    global $config;
-    $data = array(
-        "SharingOrgUnitId" => $orgUnitId,
-        "ShareWithOrgUnit" => true,
-        "ShareWithDescendants" => false
-    );
-    $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/29/sharing/', $data);
+//converts given UTC time to EDT and  returns the formatted string.
+function dateToString($date){
+    date_default_timezone_set('America/New_York');
+    $dateTime = new DateTime($date);
+    $dateTime->setTimezone(new DateTimeZone('America/New_York'));
+    $formattedDateTime = $dateTime->format('Y-m-d H:i A');
+    return (string) $formattedDateTime;
 }
 
 //creates a new section in BLD (links engage event with an offering)
@@ -70,40 +69,10 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     }
 }
 
-// returns a row of table with BLE sections informations and delet action button. 
-function printLinkedEvents($orgUnitId){
-    $tablerows='';
-    $linkedEvents = getLinkedEvents($orgUnitId);
-    foreach($linkedEvents as $event){
-        $tablerows .= "<tr>
-                        <td style='display:none;'>".$event['sectionId']."</td>
-                        <td style='display:none;'>".$event['eventId']."</td>
-                        <td>".$event['eventName']."</td>
-                        <td>".dateToString($event['startDate'])."</td>
-                        <td>".dateToString($event['endDate'])."</td>
-                        <td style='display:none;'>".$event['gradeId']."</td>
-                        <td>".$event['gradeObjectName']."</td>
-                        <td>
-                            <div class='action-container'>
-                                <img src='img/loading.gif' alt='Loading...' class='loading-gif' style='display: none;'>
-                                <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
-                                <button type='button' class='btn btn-red btn-sm delete-btn' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
-                            </div>
-                        </td>
-                    </tr>";
-    }
-    return $tablerows;
+function unEnrollEngageUsers($orgUnitId, $sectionId, $usersToEnroll){
+    global $config;
+    
 }
-
-//converts given UTC time to EDT and  returns the formatted string.
-function dateToString($date){
-    date_default_timezone_set('America/New_York');
-    $dateTime = new DateTime($date);
-    $dateTime->setTimezone(new DateTimeZone('America/New_York'));
-    $formattedDateTime = $dateTime->format('Y-m-d H:i A');
-    return (string) $formattedDateTime;
-}
-
 
 //returns all the grade items  for a given orgUnitId
 function getGradeItems($orgUnitId){
@@ -186,6 +155,43 @@ function getLinkedEvents($orgUnitId){
         }
     }
     return $linkedEvents;
+}
+
+// returns a row of table with BLE sections informations and delet action button. 
+function printLinkedEvents($orgUnitId){
+    $tablerows='';
+    $linkedEvents = getLinkedEvents($orgUnitId);
+    foreach($linkedEvents as $event){
+        $tablerows .= "<tr>
+                        <td style='display:none;'>".$event['sectionId']."</td>
+                        <td style='display:none;'>".$event['eventId']."</td>
+                        <td>".$event['eventName']."</td>
+                        <td>".dateToString($event['startDate'])."</td>
+                        <td>".dateToString($event['endDate'])."</td>
+                        <td style='display:none;'>".$event['gradeId']."</td>
+                        <td>".$event['gradeObjectName']."</td>
+                        <td>
+                            <div class='action-container'>
+                                <img src='img/loading.gif' alt='Loading...' class='loading-gif' style='display: none;'>
+                                <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
+                                <button type='button' class='btn btn-red btn-sm delete-btn' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
+                            </div>
+                        </td>
+                    </tr>";
+    }
+    return $tablerows;
+}
+
+//adds the orgUnitId to sharing list of the LTI tool
+//that how scheduled sync will now which orgunits to check for
+function shareWithOrgUnit($orgUnitId) {
+    global $config;
+    $data = array(
+        "SharingOrgUnitId" => $orgUnitId,
+        "ShareWithOrgUnit" => true,
+        "ShareWithDescendants" => false
+    );
+    $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/29/sharing/', $data);
 }
 
 //Returns orgUnitId type 3 that usign the tool provider
