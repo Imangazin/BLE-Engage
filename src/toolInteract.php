@@ -87,35 +87,20 @@ function handleInitialOrganizationList($userName) {
     echo json_encode($orgs_response);
 }
 
-// Route conditions to handlers
-$routes = [
-    'mainSync' => 'handleMainSync',
-    'organizationSelection' => 'handleOrganizationSelection',
-    'gradeItemSelection' => 'handleGradeItemSelection',
-    'sectionUpdateOrDelete' => 'handleSectionUpdateOrDelete',
-    'initialOrganizationList' => 'handleInitialOrganizationList',
-];
 
 // Determine which route to take
 if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])) {
-    $route = 'mainSync';
+    handleMainSync($orgUnitId);
 } elseif (isset($_GET['organizationId'])) {
-    $route = 'organizationSelection';
+    handleOrganizationSelection();
 } elseif (isset($_GET['gradeSyncEnabled'])) {
-    $route = 'gradeItemSelection';
+    handleGradeItemSelection($orgUnitId);
 } elseif (isset($_POST['sectionId'])) {
-    $route = 'sectionUpdateOrDelete';
+    handleSectionUpdateOrDelete($orgUnitId);
 } else {
-    $route = 'initialOrganizationList';
+    handleInitialOrganizationList($userName);
 }
 
-// Execute the handler for the determined route
-if (isset($routes[$route])) {
-    // Pass necessary variables to the handler
-    call_user_func($routes[$route], $orgUnitId, $userName);
-} else {
-    echo 'No valid route found.';
-}
 
 
 // // Verify LTI authentication
