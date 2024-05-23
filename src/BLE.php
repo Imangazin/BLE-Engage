@@ -80,7 +80,7 @@ function unEnrollEngageUsers($orgUnitId, $sectionId){
     // since instructor roles will never show up in $userToEnroll array, we should be good 
     $allEnrollments = array();
     foreach ($allSections['response'] as $section) {
-        if ($section->SectionId !== $sectionId){
+        if ($section->SectionId != $sectionId){
             echo "SectionId: ", $section->SectionId;
             $allEnrollments = array_merge($allEnrollments, $section->Enrollments);
         }
