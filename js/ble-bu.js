@@ -44,7 +44,8 @@ $(document).ready(function() {
     };
     $.post('src/toolInteract.php', requestData, function(response){
       $('#deleteConfirmModal').modal('hide');
-      location.reload();
+      console.log(response);
+      //location.reload();
     }
     ).fail(function(xhr, status, error) {
       console.error('Error submitting delete form:', error);

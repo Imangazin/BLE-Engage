@@ -86,6 +86,8 @@ function unEnrollEngageUsers($orgUnitId, $sectionId){
     }
 
     $usersToEnroll = $sectionToDelete['response']->Enrollments;
+    echo "All enrollments ", var_dump($allEnrollments);
+    echo "users to delete ", var_dump($usersToEnroll); 
     foreach($usersToEnroll as $userId){
         if(!in_array($userId, $allEnrollments)){
             //it has response unlike other delete options, could be used for logging
