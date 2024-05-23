@@ -81,11 +81,13 @@ function unEnrollEngageUsers($orgUnitId, $sectionId){
     $allEnrollments = array();
     foreach ($allSections['response'] as $section) {
         if ($section->SectionId !== $sectionId){
+            echo "SectionId: ", $section->SectionId;
             $allEnrollments = array_merge($allEnrollments, $section->Enrollments);
         }
     }
 
     $usersToEnroll = $sectionToDelete['response']->Enrollments;
+    echo "sectionId: ", $sectionId;
     echo "All enrollments ", var_dump($allEnrollments);
     echo "users to delete ", var_dump($usersToEnroll); 
     foreach($usersToEnroll as $userId){
