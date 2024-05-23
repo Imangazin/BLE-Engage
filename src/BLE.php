@@ -69,9 +69,30 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     }
 }
 
-function unEnrollEngageUsers($orgUnitId, $sectionId, $usersToEnroll){
+//checks each user if it also enrolled in other sections
+//if not deletes from the offering, otherwise do nothing
+function unEnrollEngageUsers($orgUnitId, $sectionId){
     global $config;
+    $allSections = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
+    $sectionToDelete = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId);
     
+    // all section enrollments except $sectionId, not included instructor role
+    // since instructor roles will never show up in $userToEnroll array, we should be good 
+    $allEnrollments = array();
+    foreach ($allSections['response'] as $section) {
+        if ($section->SectionId !== $sectionId){
+            $allEnrollments = array_merge($allEnrollments, $section->Enrollments);
+        }
+    }
+
+    $usersToEnroll = $sectionToDelete['response']->Enrollments;
+    foreach($usersToEnroll as $userId){
+        if(!in_array($userId, $allEnrollments)){
+            //it has response unlike other delete options, could be used for logging
+            doValenceRequest('DELETE', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId);
+        }
+    }
+
 }
 
 //returns all the grade items  for a given orgUnitId
