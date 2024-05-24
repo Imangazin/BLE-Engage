@@ -153,7 +153,7 @@ function updateEventById(button){
   };
   $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
     img.style.display = 'none';
-    console.log(response);
+    location.reload();
   }
   ).fail(function(xhr, status, error) {
     img.style.display = 'none';
