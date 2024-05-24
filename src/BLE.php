@@ -209,8 +209,8 @@ function printLinkedEvents($orgUnitId){
                         <td style='display:none;'>".$event['gradeId']."</td>
                         <td>".$event['gradeObjectName']."</td>
                         <td>
-                            <span style='font-size:14px; grid-column: 2;'>Last updated on <br>".$event['lastSync']."</span>
                             <div class='action-container'>
+                                <span style='font-size:14px; grid-column: 2;'>Last updated on <br>".$event['lastSync']."</span>
                                 <img src='img/loading.gif' alt='Loading...' class='loading-gif' style='display: none;'>
                                 <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
                                 <button type='button' class='btn btn-red btn-sm delete-btn' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
