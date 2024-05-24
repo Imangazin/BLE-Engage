@@ -102,16 +102,17 @@ tr:first-child th:last-child{
 /* Ensure the image is properly sized */
 .loading-gif {
     grid-column: 1; /* Place in the first column */
+    grid-row: 2;
     width: 20px; /* Adjust size as needed */
     height: 20px; /* Adjust size as needed */
 }
 
 .update-btn {
     grid-column: 2; /* Place in the second column */
-    grid-row: 1;
+    grid-row: 2;
 }
 
 .delete-btn {
     grid-column: 2; /* Place in the second column */
-    grid-row: 2; /* Place in the second row */
+    grid-row: 3; /* Place in the second row */
 }
