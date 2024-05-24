@@ -22,7 +22,7 @@ function createSection($orgUnitId, $eventId, $gradeId){
     $data = array(
         "Name"=> $eventName." (".$eventDate.")",
         "Code"=> "engage-".$eventId."-".$gradeId,
-        "Description"=> array ("Content"=>"","Type"=>"Html")
+        "Description"=> array ("Content"=>"","Type"=>"Text")
     );
     $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
     return $response['response']->SectionId;
@@ -47,6 +47,22 @@ function isSectionExist($orgUnitId, $eventId){
     }
     return false;
 }
+
+//update section, adding update logs into section description
+function updateSection($orgUnitId, $sectionId){
+    global $config;
+    date_default_timezone_set('America/New_York');
+    // Get the current date and time
+    $currentDateTime = date('Y-m-d H:i:s');
+    $sectionInfo = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId);
+    $data = array(
+        "Name"=> $sectionInfo['response']->Name,
+        "Code"=> $sectionInfo['response']->Code,
+        "Description"=> array ("Content"=>$currentDateTime,"Type"=>"Text")
+    );
+    doValenceRequest('PUT', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId, $data);
+}
+
 
 //enrolls engage RSVP users into the offering and to specific section dedicated to engage event
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
@@ -239,6 +255,7 @@ function syncEngageBLE($orgUnitId){
             if (!empty($event['gradeId'])){
                 gradeEventAttendence($orgUnitId, $event['eventId'], $event['gradeId']);
             }
+            updateSection($orgUnitId, $event['sectionId']);
         }  
     }
 }
