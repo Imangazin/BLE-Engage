@@ -108,6 +108,7 @@ tr:first-child th:last-child{
 
 .update-btn {
     grid-column: 2; /* Place in the second column */
+    grid-row: 1;
 }
 
 .delete-btn {
