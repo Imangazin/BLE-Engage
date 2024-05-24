@@ -43,6 +43,7 @@ function handleMainSync($orgUnitId) {
         if (!empty($_POST['gradeItem'])) {
             gradeEventAttendence($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem']);
         }
+        updateSection($orgUnitId, $sectionId);
     }
 }
 

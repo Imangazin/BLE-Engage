@@ -187,6 +187,7 @@ function getLinkedEvents($orgUnitId){
             $event['endDate'] = $engageEvent->endsOn;
             $event['gradeId'] = $sectionCode[2];
             $event['gradeObjectName'] = $gradeObject->Name;
+            $event['lastSync'] = $section->Description->Text;
             
             $linkedEvents[] = $event;
         }
@@ -208,6 +209,7 @@ function printLinkedEvents($orgUnitId){
                         <td style='display:none;'>".$event['gradeId']."</td>
                         <td>".$event['gradeObjectName']."</td>
                         <td>
+                            <span style='font-size:14px;'>".$event['lastSync']."</span>
                             <div class='action-container'>
                                 <img src='img/loading.gif' alt='Loading...' class='loading-gif' style='display: none;'>
                                 <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
