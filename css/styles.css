@@ -114,5 +114,5 @@ tr:first-child th:last-child{
 
 .delete-btn {
     grid-column: 2; /* Place in the second column */
-    grid-row: 3; /* Place in the second row */
+    grid-row: 2; /* Place in the second row */
 }
