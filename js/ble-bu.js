@@ -141,7 +141,8 @@ function reloadPageAfterDelay(delay) {
 function updateEventById(button){
   // Find the closest row to the button
   var closestRow = $(button).closest('tr');
-  var img = $(button).prev('.loading-gif');
+  //var img = $(button).prev('.loading-gif');
+  var img = button.parentElement.previousElementSibling;
   img.style.display = 'inline';
   var sectionId = $(closestRow).find('td:eq(0)').text();
   var eventId = $(closestRow).find('td:eq(1)').text();
