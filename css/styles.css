@@ -107,12 +107,9 @@ tr:first-child th:last-child{
     height: 20px; /* Adjust size as needed */
 }
 
-.update-btn {
-    grid-column: 2; /* Place in the second column */
-    grid-row: 2;
-}
-
-.delete-btn {
+.button-container {
     grid-column: 2; /* Place in the second column */
     grid-row: 2; /* Place in the second row */
+    display: flex; /* Use flexbox to align buttons horizontally */
+    gap: 10px; /* Space between the buttons */
 }
