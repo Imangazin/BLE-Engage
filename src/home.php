@@ -43,20 +43,21 @@
           </form>
           <div id="responseContainer" tabindex="-1"></div>
           <h2>Linked experience BU events</h2><br>
-          <table id="linked_events" class="d2l-table">
-          <tbody>
-            <tr>
-              <th style="display:none;"></th>
-              <th style="display:none;"></th>
-              <th>Event Name</th>
-              <th>Starts on</th>
-              <th>Ends on</th>
-              <th style="display:none;">GradeId</th>
-              <th>Grade Item</th>
-              <th>Actions</th>
-            </tr>
-            <?php echo  $linkedEvents;?>
-
+          <div class="container mt-4">
+            <table id="linked_events" class="d2l-table">
+            <tbody>
+              <tr>
+                <th style="display:none;"></th>
+                <th style="display:none;"></th>
+                <th>Event Name</th>
+                <th>Starts on</th>
+                <th>Ends on</th>
+                <th style="display:none;">GradeId</th>
+                <th>Grade Item</th>
+                <th>Actions</th>
+              </tr>
+              <?php echo  $linkedEvents;?>
+          </div>
           <!-- Modal -->
           <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
