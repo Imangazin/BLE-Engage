@@ -78,6 +78,7 @@ tr:first-child th:last-child{
 .ble-color{color:#006fbf;}
 .pagination .page-item.active .page-link {
     background-color:#cdd5dc; /* Your custom active background color */
+    border-color:#cdd5dc;
   }
 /*hide the div */
 .hidden {
