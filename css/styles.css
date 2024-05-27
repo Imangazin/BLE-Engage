@@ -77,7 +77,7 @@ tr:first-child th:last-child{
 .max-height-500{max-height: 600px;}
 .ble-color{color:#006fbf;}
 .pagination .page-item.active .page-link {
-    background-color:#006fbf; /* Your custom active background color */
+    background-color:#cdd5dc; /* Your custom active background color */
   }
 /*hide the div */
 .hidden {
