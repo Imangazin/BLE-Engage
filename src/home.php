@@ -56,8 +56,7 @@
               <th>Actions</th>
             </tr>
             <?php echo  $linkedEvents;?>
-          </tbody>
-          </table>
+
           <!-- Modal -->
           <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">

@@ -205,6 +205,7 @@ function printLinkedEvents($orgUnitId){
     $itemsPerPage = 2;
     $offset = ($page - 1) * $itemsPerPage;
     $pageSections = array_slice($linkedEvents, $offset, $itemsPerPage);
+    $totalPages = ceil(count($linkedEvents) / $itemsPerPage);
 
     //printing paged result
     foreach($pageSections as $event){
@@ -228,7 +229,58 @@ function printLinkedEvents($orgUnitId){
                         </td>
                     </tr>";
     }
+    $tablerows .= "</tbody></table>";
+    $tablerows .= setupPagination($totalPages, $page);
+
     return $tablerows;
+}
+
+//setup pagination to the section/event display
+function setupPagination($totalPages, $currentPage){
+    $maxVisibleButtons = 5;
+    $paginationHtml = '<nav aria-label="Page navigation example"><ul class="pagination">';
+    
+    $startPage = max(1, $currentPage - floor($maxVisibleButtons / 2));
+    $endPage = min($totalPages, $startPage + $maxVisibleButtons - 1);
+
+    if ($endPage - $startPage < $maxVisibleButtons - 1) {
+        $startPage = max(1, $endPage - $maxVisibleButtons + 1);
+    }
+
+    $paginationHtml .= '<li class="page-item ' . ($currentPage == 1 ? 'disabled' : '') . '">
+        <a class="page-link" href="?page=' . ($currentPage - 1) . '" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>';
+
+    if ($startPage > 1) {
+        $paginationHtml .= '<li class="page-item"><a class="page-link" href="?page=1">1</a></li>';
+        if ($startPage > 2) {
+            $paginationHtml .= '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+        }
+    }
+
+    for ($i = $startPage; $i <= $endPage; $i++) {
+        $paginationHtml .= '<li class="page-item ' . ($i == $currentPage ? 'active' : '') . '">
+            <a class="page-link" href="?page=' . $i . '">' . $i . '</a>
+        </li>';
+    }
+
+    if ($endPage < $totalPages) {
+        if ($endPage < $totalPages - 1) {
+            $paginationHtml .= '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+        }
+        $paginationHtml .= '<li class="page-item"><a class="page-link" href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
+    }
+
+    $paginationHtml .= '<li class="page-item ' . ($currentPage == $totalPages ? 'disabled' : '') . '">
+        <a class="page-link" href="?page=' . ($currentPage + 1) . '" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>';
+
+    $paginationHtml .= '</ul></nav>';
+    return $paginationHtml;
 }
 
 //adds the orgUnitId to sharing list of the LTI tool
