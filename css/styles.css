@@ -76,6 +76,7 @@ tr:first-child th:last-child{
 .scrolling{overflow-y: scroll;}
 .max-height-500{max-height: 600px;}
 .ble-color{color:black;}
+.ble-color:hover{color:black;}
 .pagination .page-item.active .page-link {
     background-color:#cdd5dc; /* Your custom active background color */
     border-color:#cdd5dc;
