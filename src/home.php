@@ -43,7 +43,6 @@
           </form>
           <div id="responseContainer" tabindex="-1"></div>
           <h2>Linked experience BU events</h2><br>
-          <div class="container mt-4">
             <table id="linked_events" class="d2l-table">
             <tbody>
               <tr>
@@ -57,7 +56,6 @@
                 <th>Actions</th>
               </tr>
               <?php echo  $linkedEvents;?>
-          </div>
           <!-- Modal -->
           <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
