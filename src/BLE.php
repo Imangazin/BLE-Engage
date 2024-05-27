@@ -202,7 +202,7 @@ function printLinkedEvents($orgUnitId){
 
     //paged sections, sefault set to 10 sections at a time
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $itemsPerPage = 10;
+    $itemsPerPage = 2;
     $offset = ($page - 1) * $itemsPerPage;
     $pageSections = array_slice($linkedEvents, $offset, $itemsPerPage);
 
