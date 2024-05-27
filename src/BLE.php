@@ -199,7 +199,15 @@ function getLinkedEvents($orgUnitId){
 function printLinkedEvents($orgUnitId){
     $tablerows='';
     $linkedEvents = getLinkedEvents($orgUnitId);
-    foreach($linkedEvents as $event){
+
+    //paged sections, sefault set to 10 sections at a time
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $itemsPerPage = 10;
+    $offset = ($page - 1) * $itemsPerPage;
+    $pageSections = array_slice($linkedEvents, $offset, $itemsPerPage);
+
+    //printing paged result
+    foreach($pageSections as $event){
         $tablerows .= "<tr>
                         <td style='display:none;'>".$event['sectionId']."</td>
                         <td style='display:none;'>".$event['eventId']."</td>
