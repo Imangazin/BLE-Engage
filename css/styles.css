@@ -75,7 +75,7 @@ tr:first-child th:last-child{
 #delete_schedule{text-align: right;}
 .scrolling{overflow-y: scroll;}
 .max-height-500{max-height: 600px;}
-.ble-color{color:#006fbf; background-color:#006fbf}
+.ble-color{color:#006fbf;}
 /*hide the div */
 .hidden {
     display: none;
