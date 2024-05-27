@@ -268,9 +268,9 @@ function setupPagination($totalPages, $currentPage){
 
     if ($endPage < $totalPages) {
         if ($endPage < $totalPages - 1) {
-            $paginationHtml .= '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+            $paginationHtml .= '<li class="page-item disabled"><a class="page-link ble-color" href="#">...</a></li>';
         }
-        $paginationHtml .= '<li class="page-item"><a class="page-link" href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
+        $paginationHtml .= '<li class="page-item"><a class="page-link ble-color" href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
     }
 
     $paginationHtml .= '<li class="page-item ' . ($currentPage == $totalPages ? 'disabled' : '') . '">
