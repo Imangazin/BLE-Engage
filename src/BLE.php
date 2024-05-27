@@ -238,7 +238,7 @@ function printLinkedEvents($orgUnitId){
 //setup pagination to the section/event display
 function setupPagination($totalPages, $currentPage){
     $maxVisibleButtons = 5;
-    $paginationHtml = '<nav aria-label="Section page navigation" class="mt-3"><ul class="pagination">';
+    $paginationHtml = '<nav aria-label="Section page navigation" class="mt-3"><ul class="pagination justify-content-center">';
     
     $startPage = max(1, $currentPage - floor($maxVisibleButtons / 2));
     $endPage = min($totalPages, $startPage + $maxVisibleButtons - 1);
