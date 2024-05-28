@@ -71,7 +71,8 @@ $(document).ready(function() {
   });
 
     //Setup table and pagination
-    setupTablePagination()
+    setupTablePagination();
+    printTable(currentPage);
 });
 
   //Load BU events for given organization
@@ -278,7 +279,7 @@ function createPaginationButton(text, page, className) {
   a.addEventListener('click', (e) => {
       e.preventDefault();
       currentPage = page;
-      printTable(currentPage)
+      printTable(currentPage);
       setupPagination(document.getElementById('pagination'));
   });
   li.appendChild(a);
