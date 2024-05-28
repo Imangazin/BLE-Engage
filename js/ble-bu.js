@@ -228,7 +228,7 @@ function setupPagination(wrapper){
   const pageCount = Math.ceil(totalPages / rowsPerPage);
   let startPage = Math.max(1, currentPage - Math.floor(maxVisibleButtons / 2));
   let endPage = Math.min(totalPages, startPage + maxVisibleButtons - 1);
- 
+  console.log('start page: ', startPage, ' End page: ', endPage);
   if (endPage - startPage < maxVisibleButtons - 1) {
     startPage = Math.max(1, endPage - maxVisibleButtons + 1);
   }
