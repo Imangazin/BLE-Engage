@@ -71,8 +71,9 @@ $(document).ready(function() {
   });
 
     //Setup table and pagination
-    setupTablePagination();
     printTable(currentPage);
+    setupTablePagination();
+    
 });
 
   //Load BU events for given organization
