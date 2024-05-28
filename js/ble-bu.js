@@ -44,7 +44,7 @@ $(document).ready(function() {
     };
     $.post('src/toolInteract.php', requestData, function(response){
       $('#deleteConfirmModal').modal('hide');
-      //location.reload();
+      location.reload();
     }
     ).fail(function(xhr, status, error) {
       console.error('Error submitting delete form:', error);
@@ -157,7 +157,7 @@ function updateEventById(button){
   };
   $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
     img.style.display = 'none';
-    //location.reload();
+    location.reload();
   }
   ).fail(function(xhr, status, error) {
     img.style.display = 'none';
