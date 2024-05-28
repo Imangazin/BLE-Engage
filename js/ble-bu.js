@@ -179,7 +179,7 @@ function setupTablePagination(){
 //printing events to table
 function printTable(tableData) {
   let tableRows = '';
-  var tableBody = $('#linked_events tbody');
+  var tableBody = document.getElementById("eventsList");
   tableData.forEach(event=>{
     tableRows += `<tr>
                     <td style='display:none;'>${event.sectionId}</td>

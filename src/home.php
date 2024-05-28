@@ -56,7 +56,7 @@
                   <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="eventsList">
             </tbody>
             </table>
             <div id="pagination"></div>
