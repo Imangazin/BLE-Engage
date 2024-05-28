@@ -138,6 +138,7 @@ function reloadPageAfterDelay(delay) {
   }, delay);
 }
 
+//handling update button on the table
 function updateEventById(button){
   // Find the closest row to the button
   var closestRow = $(button).closest('tr');
@@ -161,4 +162,30 @@ function updateEventById(button){
     console.error('Error submitting form:', error);
   });
 
+}
+
+//handling pagination button clicks
+function fetchPage(page) {
+  // $.get('src/toolInteract.php?page=' + page, function(result) {
+  //     const tableBody = $('#linked_events tbody');
+  //     tableBody.empty();
+
+  //     // $.each(result.data, function(index, row) {
+  //     //     tableBody.append('<tr><td>' + row + '</td><td>Name ' + row + '</td></tr>');
+  //     // });
+
+  //     $('#pagination').html(result.pagination);
+  //     setupPaginationLinks();
+  // }, 'json');
+}
+
+//setup pagination
+function setupPaginationLinks() {
+  $('.page-link').on('click', function(e) {
+      e.preventDefault();
+      const page = parseInt($(this).data('page'));
+      if (!isNaN(page)) {
+          fetchPage(page);
+      }
+  });
 }

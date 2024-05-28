@@ -229,10 +229,8 @@ function printLinkedEvents($orgUnitId){
                         </td>
                     </tr>";
     }
-    $tablerows .= "</tbody></table>";
-    $tablerows .= setupPagination($totalPages, $page);
-
-    return $tablerows;
+    $printTableAndPagination = array("tableRows"=>$tablerows, "pagination"=>setupPagination($totalPages, $page));
+    return $printTableAndPagination;
 }
 
 //setup pagination to the section/event display
@@ -248,13 +246,13 @@ function setupPagination($totalPages, $currentPage){
     }
 
     $paginationHtml .= '<li class="page-item ' . ($currentPage == 1 ? 'disabled' : '') . '">
-        <a class="page-link ble-color" href="?page=' . ($currentPage - 1) . '" aria-label="Previous">
+        <a class="page-link ble-color" href="#' . ($currentPage - 1) . '" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
         </a>
     </li>';
 
     if ($startPage > 1) {
-        $paginationHtml .= '<li class="page-item"><a class="page-link ble-color" href="?page=1">1</a></li>';
+        $paginationHtml .= '<li class="page-item"><a class="page-link ble-color" href="#" data-page="1">1</a></li>';
         if ($startPage > 2) {
             $paginationHtml .= '<li class="page-item disabled"><a class="page-link ble-color" href="#">...</a></li>';
         }
@@ -262,7 +260,7 @@ function setupPagination($totalPages, $currentPage){
 
     for ($i = $startPage; $i <= $endPage; $i++) {
         $paginationHtml .= '<li class="page-item ' . ($i == $currentPage ? 'active' : '') . '">
-            <a class="page-link ble-color" href="?page=' . $i . '">' . $i . '</a>
+            <a class="page-link ble-color" href="#" data-page="' . $i . '">' . $i . '</a>
         </li>';
     }
 
@@ -270,11 +268,11 @@ function setupPagination($totalPages, $currentPage){
         if ($endPage < $totalPages - 1) {
             $paginationHtml .= '<li class="page-item disabled"><a class="page-link ble-color" href="#">...</a></li>';
         }
-        $paginationHtml .= '<li class="page-item"><a class="page-link ble-color" href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
+        $paginationHtml .= '<li class="page-item"><a class="page-link ble-color" href="#" data-page="' . $totalPages . '">' . $totalPages . '</a></li>';
     }
 
     $paginationHtml .= '<li class="page-item ' . ($currentPage == $totalPages ? 'disabled' : '') . '">
-        <a class="page-link ble-color" href="?page=' . ($currentPage + 1) . '" aria-label="Next">
+        <a class="page-link ble-color" href="#" data-page="' . ($currentPage + 1) . '" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
         </a>
     </li>';
