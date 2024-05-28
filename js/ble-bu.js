@@ -172,7 +172,7 @@ function updateEventById(button){
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
     data = JSON.parse(data);
-    printTable(paginatedData, currentPage);
+    printTable(data, currentPage);
   }).fail(function (xhr, status, error) {
     console.error('Failed to get data to print to table:', status, error);
   });
@@ -184,9 +184,9 @@ function printTable(tableData, page) {
   var tableBody = document.getElementById("eventsList");
   const start = (page - 1) * rowsPerPage;
   const end = start + rowsPerPage;
-  const paginatedData = data.slice(start, end);
+  const paginatedData = tableData.slice(start, end);
 
-  tableData.forEach(event=>{
+  paginatedData.forEach(event=>{
         // Replace null values with empty string
         for (const prop in event) {
           if (event[prop] === null) {
