@@ -6,6 +6,7 @@ let eventSelectTag = document.getElementById("ebuEvent");
 let responseContainer = document.getElementById("responseContainer");
 const rowsPerPage = 2;
 let currentPage = 1;
+let allSections = {};
 
 
 $(document).ready(function() {
@@ -168,23 +169,23 @@ function updateEventById(button){
 
 }
 
-
+//request sections data and call print a table and pagination
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
-    data = JSON.parse(data);
-    printTable(data, currentPage);
+    allSections = JSON.parse(data);
+    printTable(currentPage);
   }).fail(function (xhr, status, error) {
     console.error('Failed to get data to print to table:', status, error);
   });
 }
 
 //printing events to table
-function printTable(tableData, page) {
+function printTable(page) {
   let tableRows = '';
   var tableBody = document.getElementById("eventsList");
   const start = (page - 1) * rowsPerPage;
   const end = start + rowsPerPage;
-  const paginatedData = tableData.slice(start, end);
+  const paginatedData = allSections.slice(start, end);
 
   paginatedData.forEach(event=>{
         // Replace null values with empty string
@@ -217,6 +218,9 @@ function printTable(tableData, page) {
   tableBody.innerHTML = tableRows;
 }
 
+function setupPagination(){
+
+}
 // //handling pagination button clicks
 // function fetchPage(page) {
 //   $.get('src/toolInteract.php?page='+page, function (data) {
