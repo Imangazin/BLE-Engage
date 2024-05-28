@@ -174,8 +174,9 @@ function updateEventById(button){
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
     allSections = JSON.parse(data);
-    console.log(allSections.length);
-    printTable(currentPage);
+    totalPages = allSections.length;
+    //printTable(currentPage);
+    setupPagination(document.getElementById('pagination'));
   }).fail(function (xhr, status, error) {
     console.error('Failed to get data to print to table:', status, error);
   });
@@ -219,18 +220,69 @@ function printTable(page) {
   tableBody.innerHTML = tableRows;
 }
 
-function setupPagination(){
-  const maxVisibility = 3;
-  paginationHtml = "<nav aria-label='Section page navigation' class='mt-3'><ul class='pagination justify-content-center'>";
-  startPage = max(1, $currentPage - floor($maxVisibleButtons / 2));
-  endPage = min($totalPages, $startPage + $maxVisibleButtons - 1);
+function setupPagination(wrapper){
+  wrapper.innerHTML = '';
+  const maxVisibleButtons = 3;
+  const pageCount = Math.ceil(data.length / rowsPerPage);
+  let startPage = max(1, currentPage - floor(maxVisibleButtons / 2));
+  let endPage = min(totalPages, startPage + maxVisibleButtons - 1);
+ 
+  if (endPage - startPage < maxVisibleButtons - 1) {
+    startPage = max(1, endPage - maxVisibleButtons + 1);
+  }
+
+  const prevButton = createPaginationButton('&laquo;', currentPage > 1 ? currentPage - 1 : 1, 'Previous');
+  wrapper.appendChild(prevButton);
+  
+  if (startPage > 1) {
+    const firstButton = createPaginationButton('1', 1, '');
+    wrapper.appendChild(firstButton);
+
+    if (startPage > 2) {
+        const dots = document.createElement('li');
+        dots.className = 'page-item disabled';
+        dots.innerHTML = '<a class="page-link ble-color" href="#">...</a>';
+        wrapper.appendChild(dots);
+    }
+  }
+
+  for (let i = startPage; i <= endPage; i++) {
+      const btn = createPaginationButton(i, i, i === currentPage ? 'active' : '');
+      wrapper.appendChild(btn);
+  }
+
+  if (endPage < pageCount) {
+      if (endPage < pageCount - 1) {
+          const dots = document.createElement('li');
+          dots.className = 'page-item disabled';
+          dots.innerHTML = '<a class="page-link ble-color" href="#">...</a>';
+          wrapper.appendChild(dots);
+      }
+
+      const lastButton = createPaginationButton(pageCount, pageCount, '');
+      wrapper.appendChild(lastButton);
+  }
+
+  const nextButton = createPaginationButton('&raquo;', currentPage < pageCount ? currentPage + 1 : pageCount, 'Next');
+  wrapper.appendChild(nextButton);
+}
 
 
-
-
-
-
-
+function createPaginationButton(text, page, className) {
+  const li = document.createElement('li');
+  li.className = `page-item ${className}`;
+  const a = document.createElement('a');
+  a.className = 'page-link ble-color';
+  a.href = '#';
+  a.innerHTML = text;
+  a.addEventListener('click', (e) => {
+      e.preventDefault();
+      currentPage = page;
+      printTable(currentPage)
+      setupPagination(document.getElementById('pagination'));
+  });
+  li.appendChild(a);
+  return li;
 }
 // //handling pagination button clicks
 // function fetchPage(page) {

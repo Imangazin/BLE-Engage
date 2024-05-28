@@ -59,7 +59,11 @@
             <tbody id="eventsList">
             </tbody>
             </table>
-            <div id="pagination"></div>
+            <nav aria-label="Page navigation example" class='mt-3'>
+              <ul class="pagination justify-content-center" id="pagination">
+                  <!-- Pagination buttons will be inserted here by JavaScript -->
+              </ul>
+            </nav>
           <!-- Modal -->
           <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
