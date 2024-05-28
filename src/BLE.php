@@ -236,7 +236,7 @@ function printLinkedEvents($orgUnitId){
 //setup pagination to the section/event display
 function setupPagination($totalPages, $currentPage){
     $maxVisibleButtons = 3;
-    $paginationHtml = '<nav aria-label="Section page navigation" class="mt-3"><ul class="pagination justify-content-center">';
+    $paginationHtml = "<nav aria-label='Section page navigation' class='mt-3'><ul class='pagination justify-content-center'>";
     
     $startPage = max(1, $currentPage - floor($maxVisibleButtons / 2));
     $endPage = min($totalPages, $startPage + $maxVisibleButtons - 1);
@@ -245,39 +245,39 @@ function setupPagination($totalPages, $currentPage){
         $startPage = max(1, $endPage - $maxVisibleButtons + 1);
     }
 
-    $paginationHtml .= '<li class="page-item ' . ($currentPage == 1 ? 'disabled' : '') . '">
-        <a class="page-link ble-color" href="#' . ($currentPage - 1) . '" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
+    $paginationHtml .= "<li class='page-item " . ($currentPage == 1 ? 'disabled' : '') . "'>
+        <a class='page-link ble-color' href='#' data-page='" . ($currentPage - 1) . "' aria-label='Previous'>
+            <span aria-hidden='true'>&laquo;</span>
         </a>
-    </li>';
+    </li>";
 
     if ($startPage > 1) {
-        $paginationHtml .= '<li class="page-item"><a class="page-link ble-color" href="#" data-page="1">1</a></li>';
+        $paginationHtml .= "<li class='page-item'><a class='page-link ble-color' href='#' data-page='1'>1</a></li>";
         if ($startPage > 2) {
-            $paginationHtml .= '<li class="page-item disabled"><a class="page-link ble-color" href="#">...</a></li>';
+            $paginationHtml .= "<li class='page-item disabled'><a class='page-link ble-color' href='#'>...</a></li>";
         }
     }
 
     for ($i = $startPage; $i <= $endPage; $i++) {
-        $paginationHtml .= '<li class="page-item ' . ($i == $currentPage ? 'active' : '') . '">
-            <a class="page-link ble-color" href="#" data-page="' . $i . '">' . $i . '</a>
-        </li>';
+        $paginationHtml .= "<li class='page-item " . ($i == $currentPage ? 'active' : '') . ">
+            <a class='page-link ble-color' href='#' data-page='" . $i . "'>" . $i . "</a>
+        </li>";
     }
 
     if ($endPage < $totalPages) {
         if ($endPage < $totalPages - 1) {
-            $paginationHtml .= '<li class="page-item disabled"><a class="page-link ble-color" href="#">...</a></li>';
+            $paginationHtml .= "<li class='page-item disabled'><a class='page-link ble-color' href='#'>...</a></li>";
         }
-        $paginationHtml .= '<li class="page-item"><a class="page-link ble-color" href="#" data-page="' . $totalPages . '">' . $totalPages . '</a></li>';
+        $paginationHtml .= "<li class='page-item'><a class='page-link ble-color' href='#' data-page='" . $totalPages . "'>" . $totalPages . "</a></li>";
     }
 
-    $paginationHtml .= '<li class="page-item ' . ($currentPage == $totalPages ? 'disabled' : '') . '">
-        <a class="page-link ble-color" href="#" data-page="' . ($currentPage + 1) . '" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
+    $paginationHtml .= "<li class='page-item " . ($currentPage == $totalPages ? 'disabled' : '') . "'>
+        <a class='page-link ble-color' href='#' data-page='" . ($currentPage + 1) . "' aria-label='Next'>
+            <span aria-hidden='true'>&raquo;</span>
         </a>
-    </li>';
+    </li>";
 
-    $paginationHtml .= '</ul></nav>';
+    $paginationHtml .= "</ul></nav>";
     return $paginationHtml;
 }
 
