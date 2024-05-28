@@ -181,6 +181,12 @@ function printTable(tableData) {
   let tableRows = '';
   var tableBody = document.getElementById("eventsList");
   tableData.forEach(event=>{
+        // Replace null values with empty string
+        for (const prop in event) {
+          if (event[prop] === null) {
+              event[prop] = '';
+          }
+        }
     tableRows += `<tr>
                     <td style='display:none;'>${event.sectionId}</td>
                     <td style='display:none;'>${event.eventId}</td>
