@@ -86,6 +86,9 @@ $('#ebuOrganization').on('select2:select', function (e) {
   }).fail(function (xhr, status, error) {
     console.error('GET request failed:', status, error);
   });
+
+  //loading pagination
+  setupPaginationLinks();
 });
 
 // formats the UTC date 
@@ -166,17 +169,18 @@ function updateEventById(button){
 
 //handling pagination button clicks
 function fetchPage(page) {
-  // $.get('src/toolInteract.php?page=' + page, function(result) {
-  //     const tableBody = $('#linked_events tbody');
-  //     tableBody.empty();
-
-  //     // $.each(result.data, function(index, row) {
-  //     //     tableBody.append('<tr><td>' + row + '</td><td>Name ' + row + '</td></tr>');
-  //     // });
-
-  //     $('#pagination').html(result.pagination);
-  //     setupPaginationLinks();
-  // }, 'json');
+  $.get('src/toolInteract.php?page=', function (data) {
+    data = JSON.parse(data); 
+    var tableBody = document.getElementById("linked_events");
+    var pageDive = document.getElementById("pagination");
+    tableBody.innerHTML='';
+    tableBody.innerHTML = data['tableRows'];
+    pageDive.innerHTML='';
+    pageDive.innerHTML = data['pagination'];
+    setupPaginationLinks();
+  }).fail(function (xhr, status, error) {
+    console.error('Failed to get paginations:', status, error);
+  });
 }
 
 //setup pagination

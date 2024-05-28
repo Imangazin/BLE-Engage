@@ -90,6 +90,13 @@ function handleInitialOrganizationList($userName) {
     echo json_encode($orgs_response);
 }
 
+/**
+ * Handle pagination
+ */
+function handlePagination($orgUnitId) {
+    $page_response = printLinkedEvents($orgUnitId);
+    echo json_encode($page_response);
+}
 
 // Determine which route to take
 if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])) {
@@ -100,6 +107,8 @@ if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])) {
     handleGradeItemSelection($orgUnitId);
 } elseif (isset($_POST['sectionId'])) {
     handleSectionUpdateOrDelete($orgUnitId);
+} elseif (isset($_GET['page'])){
+    handlePagination($orgUnitId);
 } else {
     handleInitialOrganizationList($userName);
 }
