@@ -6,7 +6,7 @@ let eventSelectTag = document.getElementById("ebuEvent");
 let responseContainer = document.getElementById("responseContainer");
 const rowsPerPage = 2;
 let currentPage = 1;
-let allSections = {};
+let allSections = [];
 let totalPages = 1;
 
 
