@@ -7,6 +7,7 @@ let responseContainer = document.getElementById("responseContainer");
 const rowsPerPage = 2;
 let currentPage = 1;
 let allSections = {};
+let totalPages = 1;
 
 
 $(document).ready(function() {
@@ -173,6 +174,7 @@ function updateEventById(button){
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
     allSections = JSON.parse(data);
+    console.log(allSections);
     printTable(currentPage);
   }).fail(function (xhr, status, error) {
     console.error('Failed to get data to print to table:', status, error);
@@ -219,6 +221,16 @@ function printTable(page) {
 }
 
 function setupPagination(){
+  const maxVisibility = 3;
+  paginationHtml = "<nav aria-label='Section page navigation' class='mt-3'><ul class='pagination justify-content-center'>";
+  startPage = max(1, $currentPage - floor($maxVisibleButtons / 2));
+  endPage = min($totalPages, $startPage + $maxVisibleButtons - 1);
+
+
+
+
+
+
 
 }
 // //handling pagination button clicks
