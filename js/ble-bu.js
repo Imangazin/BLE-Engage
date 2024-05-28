@@ -5,7 +5,7 @@ let orgSelectTag = document.getElementById("ebuOrganization");
 let eventSelectTag = document.getElementById("ebuEvent");
 let responseContainer = document.getElementById("responseContainer");
 const rowsPerPage = 2;
-let currentPage = 0;
+let currentPage = 1;
 let allSections = [];
 let totalPages = 0;
 
@@ -177,6 +177,7 @@ function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
     allSections = JSON.parse(data);
     totalPages = allSections.length;
+    console.log(totalPages);
     //printTable(currentPage);
     setupPagination(document.getElementById('pagination'));
   }).fail(function (xhr, status, error) {
