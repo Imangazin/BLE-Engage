@@ -223,7 +223,7 @@ function printTable(page) {
 function setupPagination(wrapper){
   wrapper.innerHTML = '';
   const maxVisibleButtons = 3;
-  const pageCount = Math.ceil(data.length / rowsPerPage);
+  const pageCount = Math.ceil(totalPages / rowsPerPage);
   let startPage = max(1, currentPage - floor(maxVisibleButtons / 2));
   let endPage = min(totalPages, startPage + maxVisibleButtons - 1);
  
