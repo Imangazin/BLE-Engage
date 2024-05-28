@@ -160,7 +160,7 @@ function updateEventById(button){
   };
   $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
     img.style.display = 'none';
-    location.reload();
+    $(closestRow).find('span:eq(0)').innerHTML = 'Last updated on <br>'+response;
   }
   ).fail(function(xhr, status, error) {
     img.style.display = 'none';
@@ -282,31 +282,3 @@ function createPaginationButton(text, page, className) {
   li.appendChild(a);
   return li;
 }
-// //handling pagination button clicks
-// function fetchPage(page) {
-//   $.get('src/toolInteract.php?page='+page, function (data) {
-//     data = JSON.parse(data); 
-//     console.log(data);
-//     var tableBody = $('#linked_events tbody');
-//     var pageDive = document.getElementById("pagination");
-//     tableBody.innerHTML='';
-//     tableBody.innerHTML = data['tableRows'];
-//     pageDive.innerHTML='';
-//     pageDive.innerHTML = data['pagination'];
-//     setupPaginationLinks();
-//   }).fail(function (xhr, status, error) {
-//     console.error('Failed to get paginations:', status, error);
-//   });
-// }
-
-// //setup pagination
-// function setupPaginationLinks() {
-//   $('.page-link').on('click', function(e) {
-//       e.preventDefault();
-//       const page = parseInt($(this).data('page'));
-//       console.log(page);
-//       if (!isNaN(page)) {
-//           fetchPage(page);
-//       }
-//   });
-// }

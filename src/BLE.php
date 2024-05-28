@@ -60,7 +60,8 @@ function updateSection($orgUnitId, $sectionId){
         "Code"=> $sectionInfo['response']->Code,
         "Description"=> array ("Content"=>$currentDateTime,"Type"=>"Text")
     );
-    doValenceRequest('PUT', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId, $data);
+    $response = doValenceRequest('PUT', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId, $data);
+    return $response['response']->Description->Text;
 }
 
 

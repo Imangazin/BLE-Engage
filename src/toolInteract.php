@@ -74,8 +74,7 @@ function handleSectionUpdateOrDelete($orgUnitId) {
         if (!empty($_POST['gradeId'])) {
             gradeEventAttendence($orgUnitId, $_POST['eventId'], $_POST['gradeId']);
         }
-        echo "Event successfully updated";
-        updateSection($orgUnitId, $_POST['sectionId']);
+        echo updateSection($orgUnitId, $_POST['sectionId']);
     } else {
         unEnrollEngageUsers($orgUnitId, $_POST['sectionId']);
         deleteSection($orgUnitId, $_POST['sectionId']);
