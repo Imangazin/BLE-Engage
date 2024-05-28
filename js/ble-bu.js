@@ -160,6 +160,7 @@ function updateEventById(button){
   };
   $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
     img.style.display = 'none';
+    console.log($(closestRow).find('span:eq(0)'));
     $(closestRow).find('span:eq(0)').innerHTML = 'Last updated on <br>'+response;
   }
   ).fail(function(xhr, status, error) {
