@@ -175,7 +175,7 @@ function updateEventById(button){
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
     allSections = JSON.parse(data);
-    totalPages = allSections.length;
+    totalPages = allSections.length/rowsPerPage;
     console.log(totalPages);
     printTable(currentPage);
     setupPagination(document.getElementById('pagination'));
