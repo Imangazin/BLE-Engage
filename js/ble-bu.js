@@ -188,6 +188,7 @@ function setupPaginationLinks() {
   $('.page-link').on('click', function(e) {
       e.preventDefault();
       const page = parseInt($(this).data('page'));
+      console.log(page);
       if (!isNaN(page)) {
           fetchPage(page);
       }
