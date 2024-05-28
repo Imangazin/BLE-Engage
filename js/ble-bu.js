@@ -7,8 +7,6 @@ let responseContainer = document.getElementById("responseContainer");
 const rowsPerPage = 2;
 let currentPage = 1;
 let allSections = [];
-let totalPages = 0;
-
 
 $(document).ready(function() {
   $('.select2').select2({
@@ -175,8 +173,6 @@ function updateEventById(button){
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
     allSections = JSON.parse(data);
-    totalPages = Math.ceil(allSections.length/rowsPerPage);
-    console.log(totalPages);
     printTable(currentPage);
     setupPagination(document.getElementById('pagination'));
   }).fail(function (xhr, status, error) {
@@ -225,9 +221,9 @@ function printTable(page) {
 function setupPagination(wrapper){
   wrapper.innerHTML = '';
   const maxVisibleButtons = 3;
-  const pageCount = Math.ceil(totalPages / rowsPerPage);
+  const pageCount = Math.ceil(allSections.length/ rowsPerPage);
   let startPage = Math.max(1, currentPage - Math.floor(maxVisibleButtons / 2));
-  let endPage = Math.min(totalPages, startPage + maxVisibleButtons - 1);
+  let endPage = Math.min(pageCount, startPage + maxVisibleButtons - 1);
   console.log('start page: ', startPage, ' End page: ', endPage);
   if (endPage - startPage < maxVisibleButtons - 1) {
     startPage = Math.max(1, endPage - maxVisibleButtons + 1);
