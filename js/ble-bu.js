@@ -4,6 +4,8 @@ let gradeItem = document.getElementById("gradeItem");
 let orgSelectTag = document.getElementById("ebuOrganization");
 let eventSelectTag = document.getElementById("ebuEvent");
 let responseContainer = document.getElementById("responseContainer");
+const rowsPerPage = 10;
+let currentPage = 1;
 
 
 $(document).ready(function() {
@@ -169,17 +171,21 @@ function updateEventById(button){
 
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
-    data = JSON.parse(data); 
-    printTable(data);
+    data = JSON.parse(data);
+    printTable(paginatedData, currentPage);
   }).fail(function (xhr, status, error) {
     console.error('Failed to get data to print to table:', status, error);
   });
 }
 
 //printing events to table
-function printTable(tableData) {
+function printTable(tableData, page) {
   let tableRows = '';
   var tableBody = document.getElementById("eventsList");
+  const start = (page - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const paginatedData = data.slice(start, end);
+
   tableData.forEach(event=>{
         // Replace null values with empty string
         for (const prop in event) {
