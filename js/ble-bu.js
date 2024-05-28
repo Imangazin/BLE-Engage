@@ -66,6 +66,8 @@ $(document).ready(function() {
     console.error('GET request failed:', status, error);
   });
 
+    //loading pagination
+    setupPaginationLinks();
 });
 
   //Load BU events for given organization
@@ -86,9 +88,6 @@ $('#ebuOrganization').on('select2:select', function (e) {
   }).fail(function (xhr, status, error) {
     console.error('GET request failed:', status, error);
   });
-
-  //loading pagination
-  setupPaginationLinks();
 });
 
 // formats the UTC date 
