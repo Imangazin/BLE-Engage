@@ -224,7 +224,7 @@ function setupPagination(wrapper){
   wrapper.innerHTML = '';
   const maxVisibleButtons = 3;
   const pageCount = Math.ceil(totalPages / rowsPerPage);
-  let startPage = Math.max(1, currentPage - floor(maxVisibleButtons / 2));
+  let startPage = Math.max(1, currentPage - Math.floor(maxVisibleButtons / 2));
   let endPage = Math.min(totalPages, startPage + maxVisibleButtons - 1);
  
   if (endPage - startPage < maxVisibleButtons - 1) {
