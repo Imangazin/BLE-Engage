@@ -259,7 +259,7 @@ function setupPagination($totalPages, $currentPage){
     }
 
     for ($i = $startPage; $i <= $endPage; $i++) {
-        $paginationHtml .= "<li class='page-item " . ($i == $currentPage ? 'active' : '') . ">
+        $paginationHtml .= "<li class='page-item " . ($i == $currentPage ? 'active' : '') . "'>
             <a class='page-link ble-color' href='#' data-page='" . $i . "'>" . $i . "</a>
         </li>";
     }
