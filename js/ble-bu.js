@@ -170,6 +170,7 @@ function updateEventById(button){
 function fetchPage(page) {
   $.get('src/toolInteract.php?page='+page, function (data) {
     data = JSON.parse(data); 
+    console.log(data);
     var tableBody = $('#linked_events tbody');;
     var pageDive = document.getElementById("pagination");
     tableBody.innerHTML='';
