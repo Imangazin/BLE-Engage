@@ -7,6 +7,7 @@ let responseContainer = document.getElementById("responseContainer");
 const rowsPerPage = 2;
 let currentPage = 1;
 let allSections = [];
+let rowToBeDeleted = document.createElement('tr');
 
 $(document).ready(function() {
   $('.select2').select2({
@@ -46,7 +47,7 @@ $(document).ready(function() {
     };
     $.post('src/toolInteract.php', requestData, function(response){
       $('#deleteConfirmModal').modal('hide');
-      location.reload();
+      $(rowToBeDeleted).remove();
     }
     ).fail(function(xhr, status, error) {
       console.error('Error submitting delete form:', error);
@@ -134,6 +135,7 @@ function setSessionId(button) {
   var closestRow = $(button).closest('tr');
   var sectionId = $(closestRow).find('td:eq(0)').text();
   document.getElementById("sessionIdToBedeleted").value = sectionId;
+  rowToBeDeleted = closestRow;
 }
 
 // Function to reload the page after a delay
