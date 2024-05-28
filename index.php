@@ -20,7 +20,7 @@ if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
     if($context->valid) { //True if LTI request was verified
         $orgUnitId = $context->info['context_id'];
 
-        $linkedEvents = printLinkedEvents($orgUnitId);
+        //$linkedEvents = printLinkedEvents($orgUnitId);
 
         shareWithOrgUnit($orgUnitId);
 

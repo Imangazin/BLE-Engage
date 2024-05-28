@@ -66,8 +66,8 @@ $(document).ready(function() {
     console.error('GET request failed:', status, error);
   });
 
-    //loading pagination
-    setupPaginationLinks();
+    //Setup table and pagination
+    setupTablePagination()
 });
 
   //Load BU events for given organization
@@ -166,12 +166,50 @@ function updateEventById(button){
 
 }
 
+
+function setupTablePagination(){
+  $.get('src/toolInteract.php?tablePrint=1', function (data) {
+    data = JSON.parse(data); 
+    printTable(data);
+  }).fail(function (xhr, status, error) {
+    console.error('Failed to get data to print to table:', status, error);
+  });
+}
+
+//printing events to table
+function printTable(tableData) {
+  let tableRows = '';
+  var tableBody = $('#linked_events tbody');
+  tableData.forEach(event=>{
+    tableRows += `<tr>
+                    <td style='display:none;'>${event.sectionId}</td>
+                    <td style='display:none;'>${event.eventId}</td>
+                    <td>${event.eventName}</td>
+                    <td>${event.startDate}</td>
+                    <td>${event.endDate}</td>
+                    <td style='display:none;'>${event.gradeId}</td>
+                    <td>${event.gradeObjectName}</td>
+                    <td>
+                        <div class='action-container'>
+                            <span style='font-size:14px; grid-column: 2; grid-row:1;'>Last updated on <br>${event.lastSync}</span>
+                            <img src='img/loading.gif' alt='Loading...' class='loading-gif' style='display: none;'>
+                            <div class='button-container'>
+                                <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
+                                <button type='button' class='btn btn-red btn-sm delete-btn' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
+                            </div>
+                        </div>
+                    </td>
+                  </tr>`;
+  });
+  tableBody.innerHTML = tableRows;
+}
+
 //handling pagination button clicks
 function fetchPage(page) {
   $.get('src/toolInteract.php?page='+page, function (data) {
     data = JSON.parse(data); 
     console.log(data);
-    var tableBody = $('#linked_events tbody');;
+    var tableBody = $('#linked_events tbody');
     var pageDive = document.getElementById("pagination");
     tableBody.innerHTML='';
     tableBody.innerHTML = data['tableRows'];

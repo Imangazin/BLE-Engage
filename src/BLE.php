@@ -183,8 +183,8 @@ function getLinkedEvents($orgUnitId){
             $event['sectionId'] = $section->SectionId;
             $event['eventId'] = $sectionCode[1];
             $event['eventName'] = $engageEvent->name;
-            $event['startDate'] = $engageEvent->startsOn;
-            $event['endDate'] = $engageEvent->endsOn;
+            $event['startDate'] = dateToString($engageEvent->startsOn);
+            $event['endDate'] = dateToString($engageEvent->endsOn);
             $event['gradeId'] = $sectionCode[2];
             $event['gradeObjectName'] = $gradeObject->Name;
             $event['lastSync'] = $section->Description->Text;
@@ -213,8 +213,8 @@ function printLinkedEvents($orgUnitId){
                         <td style='display:none;'>".$event['sectionId']."</td>
                         <td style='display:none;'>".$event['eventId']."</td>
                         <td>".$event['eventName']."</td>
-                        <td>".dateToString($event['startDate'])."</td>
-                        <td>".dateToString($event['endDate'])."</td>
+                        <td>".$event['startDate']."</td>
+                        <td>".$event['endDate']."</td>
                         <td style='display:none;'>".$event['gradeId']."</td>
                         <td>".$event['gradeObjectName']."</td>
                         <td>
