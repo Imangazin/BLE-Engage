@@ -229,7 +229,7 @@ function setupPagination(wrapper){
     startPage = Math.max(1, endPage - maxVisibleButtons + 1);
   }
 
-  const prevButton = createPaginationButton('&laquo;', currentPage > 1 ? currentPage - 1 : 1, 'Previous');
+  const prevButton = createPaginationButton('&laquo;', currentPage > 1 ? currentPage - 1 : 1, currentPage === 1 ? 'disabled' : '');
   wrapper.appendChild(prevButton);
   
   if (startPage > 1) {
@@ -261,7 +261,7 @@ function setupPagination(wrapper){
       wrapper.appendChild(lastButton);
   }
 
-  const nextButton = createPaginationButton('&raquo;', currentPage < pageCount ? currentPage + 1 : pageCount, 'Next');
+  const nextButton = createPaginationButton('&raquo;', currentPage < pageCount ? currentPage + 1 : pageCount, currentPage === pageCount ? 'disabled' : '');
   wrapper.appendChild(nextButton);
 }
 
