@@ -161,7 +161,7 @@ function updateEventById(button){
   $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
     img.style.display = 'none';
     console.log($(closestRow).find('span:eq(0)'));
-    $(closestRow).find('span:eq(0)').text('Last updated on <br>'+response);
+    $(closestRow).find('span:eq(0)').html('Last updated on <br>'+response);
   }
   ).fail(function(xhr, status, error) {
     img.style.display = 'none';
