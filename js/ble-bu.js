@@ -209,7 +209,7 @@ function printTable(page) {
                     <td>${event.gradeObjectName}</td>
                     <td>
                         <div class='action-container'>
-                            <span style='font-size:14px; grid-column: 2; grid-row:1;'>Last updated on <br>${event.lastSync}</span>
+                            <span style='font-size:14px; grid-column: span 2; grid-row:1;'>Last updated on <br>${event.lastSync}</span>
                             <img src='img/loading.gif' alt='Loading...' class='loading-gif' style='display: none;'>
                             <div class='button-container'>
                                 <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
