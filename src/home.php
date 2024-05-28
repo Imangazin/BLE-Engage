@@ -59,8 +59,7 @@
             <tbody>
             </tbody>
             </table>
-            <div id="pagination">
-            <div>
+            <div id="pagination"></div>
           <!-- Modal -->
           <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
