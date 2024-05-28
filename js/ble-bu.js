@@ -168,7 +168,7 @@ function updateEventById(button){
 
 //handling pagination button clicks
 function fetchPage(page) {
-  $.get('src/toolInteract.php?page=', function (data) {
+  $.get('src/toolInteract.php?page='+page, function (data) {
     data = JSON.parse(data); 
     var tableBody = $('#linked_events tbody');;
     var pageDive = document.getElementById("pagination");
