@@ -201,7 +201,7 @@ function printTable(tableData) {
                     </td>
                   </tr>`;
   });
-  console.log(tableRows);
+  console.log(tableBody);
   tableBody.innerHTML = tableRows;
 }
 
