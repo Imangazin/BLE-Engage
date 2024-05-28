@@ -7,7 +7,7 @@ let responseContainer = document.getElementById("responseContainer");
 const rowsPerPage = 2;
 let currentPage = 1;
 let allSections = [];
-let totalPages = 1;
+let totalPages = 0;
 
 
 $(document).ready(function() {
