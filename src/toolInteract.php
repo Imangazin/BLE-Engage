@@ -24,6 +24,7 @@ if ($_SESSION['_basic_lti_context']['oauth_consumer_key'] !== $lti_auth['key']) 
 
 $orgUnitId = $_SESSION['_basic_lti_context']['context_id'];
 $userName = $_SESSION['_basic_lti_context']['ext_d2l_username'];
+$ltiRole = substr(strrchr($_SESSION['_basic_lti_context']['roles'], ','), 1);
 
 /**
  * Handle main sync button submission. Checks if the event is already linked
