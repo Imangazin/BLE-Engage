@@ -44,17 +44,19 @@
           <div id="responseContainer" tabindex="-1"></div>
           <h2>Linked experience BU events</h2><br>
             <table id="linked_events" class="d2l-table">
-            <tbody>
+            <thead>
               <tr>
-                <th style="display:none;"></th>
-                <th style="display:none;"></th>
-                <th>Event Name</th>
-                <th>Starts on</th>
-                <th>Ends on</th>
-                <th style="display:none;">GradeId</th>
-                <th>Grade Item</th>
-                <th>Actions</th>
+                  <th style="display:none;"></th>
+                  <th style="display:none;"></th>
+                  <th>Event Name</th>
+                  <th>Starts on</th>
+                  <th>Ends on</th>
+                  <th style="display:none;">GradeId</th>
+                  <th>Grade Item</th>
+                  <th>Actions</th>
               </tr>
+            </thead>
+            <tbody>
               <?php echo  $linkedEvents['tableRows'];?>
             </tbody>
             </table>
