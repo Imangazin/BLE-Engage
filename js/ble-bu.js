@@ -71,7 +71,6 @@ $(document).ready(function() {
   });
 
     //Setup table and pagination
-    printTable(currentPage);
     setupTablePagination();
     
 });
@@ -178,7 +177,7 @@ function setupTablePagination(){
     allSections = JSON.parse(data);
     totalPages = allSections.length;
     console.log(totalPages);
-    //printTable(currentPage);
+    printTable(currentPage);
     setupPagination(document.getElementById('pagination'));
   }).fail(function (xhr, status, error) {
     console.error('Failed to get data to print to table:', status, error);
