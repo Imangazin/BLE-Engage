@@ -5,7 +5,7 @@ let orgSelectTag = document.getElementById("ebuOrganization");
 let eventSelectTag = document.getElementById("ebuEvent");
 let responseContainer = document.getElementById("responseContainer");
 const rowsPerPage = 2;
-let currentPage = 1;
+let currentPage = 0;
 let allSections = [];
 let totalPages = 0;
 
