@@ -174,7 +174,7 @@ function updateEventById(button){
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
     allSections = JSON.parse(data);
-    console.log(allSections);
+    console.log(allSections.length);
     printTable(currentPage);
   }).fail(function (xhr, status, error) {
     console.error('Failed to get data to print to table:', status, error);
@@ -216,7 +216,6 @@ function printTable(page) {
                     </td>
                   </tr>`;
   });
-  console.log(tableBody);
   tableBody.innerHTML = tableRows;
 }
 
