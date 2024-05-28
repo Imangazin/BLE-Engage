@@ -229,7 +229,7 @@ function setupPagination(wrapper){
   let endPage = Math.min(totalPages, startPage + maxVisibleButtons - 1);
  
   if (endPage - startPage < maxVisibleButtons - 1) {
-    startPage = max(1, endPage - maxVisibleButtons + 1);
+    startPage = Math.max(1, endPage - maxVisibleButtons + 1);
   }
 
   const prevButton = createPaginationButton('&laquo;', currentPage > 1 ? currentPage - 1 : 1, 'Previous');
