@@ -145,6 +145,8 @@ function setSessionId(button) {
 function reloadPageAfterDelay(delay) {
   setTimeout(function() {
     setupTablePagination();
+    responseContainer.className = '';
+    responseContainer.innerHTML = '';
   }, delay);
 }
 
