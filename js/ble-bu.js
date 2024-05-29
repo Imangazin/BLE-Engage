@@ -19,7 +19,6 @@ $(document).ready(function() {
   $('#ebuForm').submit(function(event) {
     event.preventDefault();
     var formData = $(this).serialize();
-    responseContainer.className = '';
     responseContainer.innerHTML = '<img src="img/loading.gif" alt="Loading...">';
     // Make the POST request
     $.post('src/toolInteract.php', formData, function(response) {
@@ -31,7 +30,7 @@ $(document).ready(function() {
       $('#ebuOrganization').val(null).trigger('change');
       $('#ebuEvent').val(null).trigger('change');
       $('#gradeItem').val(null).trigger('change');
-      //reloadPageAfterDelay(1000);
+      reloadPageAfterDelay(1000);
     }).fail(function(xhr, status, error) {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
