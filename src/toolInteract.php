@@ -18,6 +18,8 @@ session_start();
 
 // Check for valid session
 if ($_SESSION['_basic_lti_context']['oauth_consumer_key'] !== $lti_auth['key']) {
+    echo 'session data: '.$_SESSION['_basic_lti_context']['oauth_consumer_key'].'  lti_auth: '.$lti_auth['key'];
+    //die('Expired user session, please contact ' . $supportEmail . ' for support.');
     echo 'Expired user session, please contact ' . $supportEmail . ' for support.';
     exit;
 }
