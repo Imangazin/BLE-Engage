@@ -112,7 +112,7 @@ function unEnrollEngageUsers($orgUnitId, $sectionId){
 
 }
 
-//returns all the grade items  for a given orgUnitId
+//returns Numeric and PassFail grade items for a given orgUnitId
 function getGradeItems($orgUnitId){
     global $config;
     $response = doValenceRequest('GET', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/');
