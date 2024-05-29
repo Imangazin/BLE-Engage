@@ -87,7 +87,7 @@ function handleSectionUpdateOrDelete($orgUnitId) {
  */
 function handleInitialOrganizationList($userName, $ltiRole) {
     if (isset($ltiRole) && $ltiRole == 'Administrator'){
-        $orgs_response = gelAllOrganizations();
+        $orgs_response = getAllOrganizations();
     } else {
         $orgs_response = getOrganizationsByUsername($userName);
     }
