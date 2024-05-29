@@ -196,91 +196,91 @@ function getLinkedEvents($orgUnitId){
     return $linkedEvents;
 }
 
-// returns a row of table with BLE sections informations and delet action button. 
-function printLinkedEvents($orgUnitId){
-    $tablerows='';
-    $linkedEvents = getLinkedEvents($orgUnitId);
+// // returns a row of table with BLE sections informations and delet action button. 
+// function printLinkedEvents($orgUnitId){
+//     $tablerows='';
+//     $linkedEvents = getLinkedEvents($orgUnitId);
 
-    //paged sections, sefault set to 10 sections at a time
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $itemsPerPage = 2;
-    $offset = ($page - 1) * $itemsPerPage;
-    $pageSections = array_slice($linkedEvents, $offset, $itemsPerPage);
-    $totalPages = ceil(count($linkedEvents) / $itemsPerPage);
+//     //paged sections, sefault set to 10 sections at a time
+//     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+//     $itemsPerPage = 2;
+//     $offset = ($page - 1) * $itemsPerPage;
+//     $pageSections = array_slice($linkedEvents, $offset, $itemsPerPage);
+//     $totalPages = ceil(count($linkedEvents) / $itemsPerPage);
 
-    //printing paged result
-    foreach($pageSections as $event){
-        $tablerows .= "<tr>
-                        <td style='display:none;'>".$event['sectionId']."</td>
-                        <td style='display:none;'>".$event['eventId']."</td>
-                        <td>".$event['eventName']."</td>
-                        <td>".$event['startDate']."</td>
-                        <td>".$event['endDate']."</td>
-                        <td style='display:none;'>".$event['gradeId']."</td>
-                        <td>".$event['gradeObjectName']."</td>
-                        <td>
-                            <div class='action-container'>
-                                <span style='font-size:14px; grid-column: 2;grid-row:1;'>Last updated on <br>".$event['lastSync']."</span>
-                                <img src='img/loading.gif' alt='Loading...' class='loading-gif' style='display: none;'>
-                                <div class='button-container'>
-                                    <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
-                                    <button type='button' class='btn btn-red btn-sm delete-btn' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>";
-    }
-    $printTableAndPagination = array("tableRows"=>$tablerows, "pagination"=>setupPagination($totalPages, $page));
-    return $printTableAndPagination;
-}
+//     //printing paged result
+//     foreach($pageSections as $event){
+//         $tablerows .= "<tr>
+//                         <td style='display:none;'>".$event['sectionId']."</td>
+//                         <td style='display:none;'>".$event['eventId']."</td>
+//                         <td>".$event['eventName']."</td>
+//                         <td>".$event['startDate']."</td>
+//                         <td>".$event['endDate']."</td>
+//                         <td style='display:none;'>".$event['gradeId']."</td>
+//                         <td>".$event['gradeObjectName']."</td>
+//                         <td>
+//                             <div class='action-container'>
+//                                 <span style='font-size:14px; grid-column: 2;grid-row:1;'>Last updated on <br>".$event['lastSync']."</span>
+//                                 <img src='img/loading.gif' alt='Loading...' class='loading-gif' style='display: none;'>
+//                                 <div class='button-container'>
+//                                     <button type='button' class='btn btn-secondary btn-sm update-btn' onclick='updateEventById(this)'>Update</button>
+//                                     <button type='button' class='btn btn-red btn-sm delete-btn' data-bs-toggle='modal' data-bs-target='#deleteConfirmModal' onclick='setSessionId(this)'>Delete</button>
+//                                 </div>
+//                             </div>
+//                         </td>
+//                     </tr>";
+//     }
+//     $printTableAndPagination = array("tableRows"=>$tablerows, "pagination"=>setupPagination($totalPages, $page));
+//     return $printTableAndPagination;
+// }
 
-//setup pagination to the section/event display
-function setupPagination($totalPages, $currentPage){
-    $maxVisibleButtons = 3;
-    $paginationHtml = "<nav aria-label='Section page navigation' class='mt-3'><ul class='pagination justify-content-center'>";
+// //setup pagination to the section/event display
+// function setupPagination($totalPages, $currentPage){
+//     $maxVisibleButtons = 3;
+//     $paginationHtml = "<nav aria-label='Section page navigation' class='mt-3'><ul class='pagination justify-content-center'>";
     
-    $startPage = max(1, $currentPage - floor($maxVisibleButtons / 2));
-    $endPage = min($totalPages, $startPage + $maxVisibleButtons - 1);
+//     $startPage = max(1, $currentPage - floor($maxVisibleButtons / 2));
+//     $endPage = min($totalPages, $startPage + $maxVisibleButtons - 1);
 
-    if ($endPage - $startPage < $maxVisibleButtons - 1) {
-        $startPage = max(1, $endPage - $maxVisibleButtons + 1);
-    }
+//     if ($endPage - $startPage < $maxVisibleButtons - 1) {
+//         $startPage = max(1, $endPage - $maxVisibleButtons + 1);
+//     }
 
-    $paginationHtml .= "<li class='page-item " . ($currentPage == 1 ? 'disabled' : '') . "'>
-        <a class='page-link ble-color' href='#' data-page='" . ($currentPage - 1) . "' aria-label='Previous'>
-            <span aria-hidden='true'>&laquo;</span>
-        </a>
-    </li>";
+//     $paginationHtml .= "<li class='page-item " . ($currentPage == 1 ? 'disabled' : '') . "'>
+//         <a class='page-link ble-color' href='#' data-page='" . ($currentPage - 1) . "' aria-label='Previous'>
+//             <span aria-hidden='true'>&laquo;</span>
+//         </a>
+//     </li>";
 
-    if ($startPage > 1) {
-        $paginationHtml .= "<li class='page-item'><a class='page-link ble-color' href='#' data-page='1'>1</a></li>";
-        if ($startPage > 2) {
-            $paginationHtml .= "<li class='page-item disabled'><a class='page-link ble-color' href='#'>...</a></li>";
-        }
-    }
+//     if ($startPage > 1) {
+//         $paginationHtml .= "<li class='page-item'><a class='page-link ble-color' href='#' data-page='1'>1</a></li>";
+//         if ($startPage > 2) {
+//             $paginationHtml .= "<li class='page-item disabled'><a class='page-link ble-color' href='#'>...</a></li>";
+//         }
+//     }
 
-    for ($i = $startPage; $i <= $endPage; $i++) {
-        $paginationHtml .= "<li class='page-item " . ($i == $currentPage ? 'active' : '') . "'>
-            <a class='page-link ble-color' href='#' data-page='" . $i . "'>" . $i . "</a>
-        </li>";
-    }
+//     for ($i = $startPage; $i <= $endPage; $i++) {
+//         $paginationHtml .= "<li class='page-item " . ($i == $currentPage ? 'active' : '') . "'>
+//             <a class='page-link ble-color' href='#' data-page='" . $i . "'>" . $i . "</a>
+//         </li>";
+//     }
 
-    if ($endPage < $totalPages) {
-        if ($endPage < $totalPages - 1) {
-            $paginationHtml .= "<li class='page-item disabled'><a class='page-link ble-color' href='#'>...</a></li>";
-        }
-        $paginationHtml .= "<li class='page-item'><a class='page-link ble-color' href='#' data-page='" . $totalPages . "'>" . $totalPages . "</a></li>";
-    }
+//     if ($endPage < $totalPages) {
+//         if ($endPage < $totalPages - 1) {
+//             $paginationHtml .= "<li class='page-item disabled'><a class='page-link ble-color' href='#'>...</a></li>";
+//         }
+//         $paginationHtml .= "<li class='page-item'><a class='page-link ble-color' href='#' data-page='" . $totalPages . "'>" . $totalPages . "</a></li>";
+//     }
 
-    $paginationHtml .= "<li class='page-item " . ($currentPage == $totalPages ? 'disabled' : '') . "'>
-        <a class='page-link ble-color' href='#' data-page='" . ($currentPage + 1) . "' aria-label='Next'>
-            <span aria-hidden='true'>&raquo;</span>
-        </a>
-    </li>";
+//     $paginationHtml .= "<li class='page-item " . ($currentPage == $totalPages ? 'disabled' : '') . "'>
+//         <a class='page-link ble-color' href='#' data-page='" . ($currentPage + 1) . "' aria-label='Next'>
+//             <span aria-hidden='true'>&raquo;</span>
+//         </a>
+//     </li>";
 
-    $paginationHtml .= "</ul></nav>";
-    return $paginationHtml;
-}
+//     $paginationHtml .= "</ul></nav>";
+//     return $paginationHtml;
+// }
 
 //adds the orgUnitId to sharing list of the LTI tool
 //that how scheduled sync will now which orgunits to check for

@@ -48,7 +48,7 @@ function getOrganizationsByUsername($userName){
     $result = array();
     $isMore = true;
     $skip = 0;
-    $take = 20;
+    $take = 50;
     while($isMore){
         $response = experienceBUcall('/v3.0/organizations/positionholder/?userId.username=' . $userName . '&take=' . $take . '&skip=' . $skip);
         foreach ($response->items as $each){
@@ -56,6 +56,26 @@ function getOrganizationsByUsername($userName){
             $result[] = array(
                 "id"   => $each->organizationId,
                 "name" => $orgs->items[0]->name
+            );
+        }
+        $skip = $skip + $take;
+        if ($skip > $response->totalItems) $isMore = false;
+    }
+    return $result;
+}
+
+//returns list of all organizations in experience BU
+function getAllOrganizations(){
+    $result = array();
+    $isMore = true;
+    $skip = 0;
+    $take = 50;
+    while($isMore){
+        $response = experienceBUcall('/v3.0/organizations/organization/?statuses=Active&take=' . $take . '&skip=' . $skip);
+        foreach ($response->items as $each){
+            $result[] = array(
+                "id"   => $each->id,
+                "name" => $each->name
             );
         }
         $skip = $skip + $take;

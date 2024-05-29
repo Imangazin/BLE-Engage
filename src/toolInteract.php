@@ -85,8 +85,12 @@ function handleSectionUpdateOrDelete($orgUnitId) {
 /**
  * Handle initial organization list retrieval
  */
-function handleInitialOrganizationList($userName) {
-    $orgs_response = getOrganizationsByUsername($userName);
+function handleInitialOrganizationList($userName, $ltiRole) {
+    if (isset($ltiRole) && $ltiRole == 'Administrator'){
+        $orgs_response = gelAllOrganizations();
+    } else {
+        $orgs_response = getOrganizationsByUsername($userName);
+    }
     echo json_encode($orgs_response);
 }
 
@@ -110,7 +114,7 @@ if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])) {
 } elseif (isset($_GET['tablePrint'])){
     handleTableData($orgUnitId);
 } else {
-    handleInitialOrganizationList($userName);
+    handleInitialOrganizationList($userName, $ltiRole);
 }
 
 ?>
