@@ -35,7 +35,7 @@ function handleMainSync($orgUnitId) {
     if (isSectionExist($orgUnitId, $_POST['ebuEvent'])) {
         echo "The selected event is already linked.";
     } else {
-        $sectionId = createSection($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem']);
+        $sectionId = createSection($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem'], $_POST['ebuOrganization']);
         echo "The selected event successfully linked.";
 
         $engageUsers = getEventUsers($_POST['ebuEvent']);
@@ -97,8 +97,8 @@ function handleInitialOrganizationList($userName, $ltiRole) {
 /**
  * Handle pagination
  */
-function handleTableData($orgUnitId) {
-    $tableData = getLinkedEvents($orgUnitId);
+function handleTableData($orgUnitId, $ltiRole, $userName) {
+    $tableData = getLinkedEvents($orgUnitId, $ltiRole, $userName);
     echo json_encode($tableData);
 }
 
@@ -112,7 +112,7 @@ if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])) {
 } elseif (isset($_POST['sectionId'])) {
     handleSectionUpdateOrDelete($orgUnitId);
 } elseif (isset($_GET['tablePrint'])){
-    handleTableData($orgUnitId);
+    handleTableData($orgUnitId, $ltiRole, $userName);
 } else {
     handleInitialOrganizationList($userName, $ltiRole);
 }

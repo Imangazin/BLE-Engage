@@ -148,4 +148,19 @@ function getEventAttendees($eventId){
     return $result;
 }
 
+function userOrganizations($userName){
+    $result = array();
+    $isMore = true;
+    $skip = 0;
+    $take = 50;
+    while($isMore){
+        $response = experienceBUcall('/v3.0/organizations/positionholder/?userId.username=' . $userName . '&take=' . $take . '&skip=' . $skip);
+        foreach ($response->items as $each){
+            $result[] = $each->organizationId;
+        }
+        $skip = $skip + $take;
+        if ($skip > $response->totalItems) $isMore = false;
+    }
+    return $result;
+}
 ?>

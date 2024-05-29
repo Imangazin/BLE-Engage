@@ -14,14 +14,14 @@ function dateToString($date){
 }
 
 //creates a new section in BLD (links engage event with an offering)
-function createSection($orgUnitId, $eventId, $gradeId){
+function createSection($orgUnitId, $eventId, $gradeId, $organizationId){
     global $config;
     $engageEvent = getEventById($eventId);
     $eventName = $engageEvent->name;
     $eventDate = dateToString($engageEvent->startsOn);
     $data = array(
         "Name"=> $eventName." (".$eventDate.")",
-        "Code"=> "engage-".$eventId."-".$gradeId,
+        "Code"=> "engage-".$organizationId."-".$eventId."-".$gradeId,
         "Description"=> array ("Content"=>"","Type"=>"Text")
     );
     $response = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/', $data); 
@@ -168,29 +168,33 @@ function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
 }
 
 
-// returns linked event infos 
-function getLinkedEvents($orgUnitId){
+// returns BLE section (experience BU events) for privileged users
+function getLinkedEvents($orgUnitId, $ltiRole, $userName){
     global $config;
     $linkedEvents = array();
+
+    $userOrganizations = userOrganizations($userName);
+
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
     $sections = array_reverse($response['response']);
     foreach ($sections as $section) {
-        if (strpos($section->Code, 'engage') !== false) {
-            $event = array();
+        if (strpos($section->Code, 'engage') !== false){
             $sectionCode = explode('-', $section->Code);
-            $engageEvent = getEventById($sectionCode[1]);
-            $gradeObject = getGradeItemById($orgUnitId, $sectionCode[2]);
-
-            $event['sectionId'] = $section->SectionId;
-            $event['eventId'] = $sectionCode[1];
-            $event['eventName'] = $engageEvent->name;
-            $event['startDate'] = dateToString($engageEvent->startsOn);
-            $event['endDate'] = dateToString($engageEvent->endsOn);
-            $event['gradeId'] = $sectionCode[2];
-            $event['gradeObjectName'] = $gradeObject->Name;
-            $event['lastSync'] = $section->Description->Text;
-            
-            $linkedEvents[] = $event;
+            $engageEvent = getEventById($sectionCode[2]);
+            $gradeObject = getGradeItemById($orgUnitId, $sectionCode[3]);
+            if ($ltiRole=='Administrator' || in_array((int)$sectionCode[1], $userOrganizations)){
+                $event = array();
+                $event['sectionId'] = $section->SectionId;
+                $event['eventId'] = $sectionCode[2];
+                $event['eventName'] = $engageEvent->name;
+                $event['startDate'] = dateToString($engageEvent->startsOn);
+                $event['endDate'] = dateToString($engageEvent->endsOn);
+                $event['gradeId'] = $sectionCode[3];
+                $event['gradeObjectName'] = $gradeObject->Name;
+                $event['lastSync'] = $section->Description->Text;
+                $event['organizationId'] = $sectionCode[1];
+                $linkedEvents[] = $event;
+            }
         }
     }
     return $linkedEvents;
@@ -310,7 +314,7 @@ function getSharedOrgUnitIds($ltiToolProviderId){
 // syncs engage RSVP and attendance with BLE for linked events. Skippes events which ended 30 days ago.
 function syncEngageBLE($orgUnitId){
     global $config;
-    $linkedEvents = getLinkedEvents($orgUnitId);
+    $linkedEvents = getLinkedEvents($orgUnitId, 'Administrator', '');
     foreach($linkedEvents as $event){
         if (isDate30DaysOrMoreInPast($event['endDate'])){
             $eventRsvps = getEventUsers($event['eventId']);
