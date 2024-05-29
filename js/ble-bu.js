@@ -163,7 +163,6 @@ function updateEventById(button){
   };
   $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
     img.style.display = 'none';
-    console.log($(closestRow).find('span:eq(0)'));
     $(closestRow).find('span:eq(0)').html('Last updated on <br>'+response);
   }
   ).fail(function(xhr, status, error) {
@@ -228,7 +227,6 @@ function setupPagination(wrapper){
   const pageCount = Math.ceil(allSections.length/ rowsPerPage);
   let startPage = Math.max(1, currentPage - Math.floor(maxVisibleButtons / 2));
   let endPage = Math.min(pageCount, startPage + maxVisibleButtons - 1);
-  console.log('start page: ', startPage, ' End page: ', endPage);
   if (endPage - startPage < maxVisibleButtons - 1) {
     startPage = Math.max(1, endPage - maxVisibleButtons + 1);
   }
