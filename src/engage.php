@@ -81,6 +81,7 @@ function getAllOrganizations(){
         $skip = $skip + $take;
         if ($skip > $response->totalItems) $isMore = false;
     }
+    echo var_dum($result);
     return $result;
 }
 
