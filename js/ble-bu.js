@@ -144,7 +144,7 @@ function reloadPageAfterDelay(delay) {
     setupTablePagination();
     responseContainer.className = '';;
     responseContainer.innerHTML = '';
-    divHidden.style.visibility = 'hidden';
+    divHidden.classList.add("hidden");
   }, delay);
 }
 
