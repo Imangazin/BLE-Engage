@@ -145,6 +145,8 @@ function reloadPageAfterDelay(delay) {
     responseContainer.className = '';;
     responseContainer.innerHTML = '';
     divHidden.classList.add("hidden");
+    gradeItem.removeAttribute('required');
+    gradeItem.innerHTML = '<option></option>';
   }, delay);
 }
 
