@@ -12,7 +12,8 @@ function isSafari() {
     return (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') && !strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome'));
 }
 // Use session_id that is passed as hidden form data for Safari browser
-if (isSafari()) session_id($_POST["session_id"]);
+
+if (isSafari()) session_id($_REQUEST['session_id']);
 
 session_start();
 

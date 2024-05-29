@@ -4,6 +4,7 @@ let gradeItem = document.getElementById("gradeItem");
 let orgSelectTag = document.getElementById("ebuOrganization");
 let eventSelectTag = document.getElementById("ebuEvent");
 let responseContainer = document.getElementById("responseContainer");
+let sessionId = document.getElementById("session_id");
 const rowsPerPage = 10;
 let currentPage = 1;
 let allSections = [];
@@ -43,7 +44,8 @@ $(document).ready(function() {
   // event delete form submit
   $("#deleteEventButton").click(function(){
     var requestData = {
-      sectionId: document.getElementById("sessionIdToBedeleted").value
+      sectionId: document.getElementById("sessionIdToBedeleted").value,
+      session_id: sessionId
     };
     $.post('src/toolInteract.php', requestData, function(response){
       $('#deleteConfirmModal').modal('hide');
@@ -56,7 +58,7 @@ $(document).ready(function() {
   });
 
   //Load BU Organizations
-  $.get('src/toolInteract.php', function (data) {
+  $.get('src/toolInteract.php?session_id='+sessionId, function (data) {
     eventSelectTag.innerHTML = '<option></option>';
     gradeItem.innerHTML = '<option></option>';
     data = JSON.parse(data); 
@@ -81,7 +83,7 @@ $('#ebuOrganization').on('select2:select', function (e) {
   const selectedValue = e.params.data.id;
   const selectedText = e.params.data.text;
   const selectId = $(this).attr('id'); // Get the ID of the changed select
-  $.get('src/toolInteract.php?organizationId='+selectedValue, function (data) {
+  $.get('src/toolInteract.php?organizationId='+selectedValue+'&session_id='+sessionId, function (data) {
     data = JSON.parse(data); 
     data.forEach(function(each){
       const optionElement = document.createElement("option");
@@ -110,7 +112,7 @@ function formatDateTime(dateString) {
 ebuGradeSyncCheck.addEventListener("change", function () {
   if (ebuGradeSyncCheck.checked) {
     gradeItem.innerHTML = '<option></option>';
-    $.get('src/toolInteract.php?gradeSyncEnabled=true', function (data) {
+    $.get('src/toolInteract.php?gradeSyncEnabled=true&session_id='+sessionId, function (data) {
       data = JSON.parse(data); 
       data.forEach(function(each){
         const optionElement = document.createElement("option");
@@ -159,7 +161,8 @@ function updateEventById(button){
   var requestData = {
     sectionId: sectionId,
     eventId : eventId,
-    gradeId : gradeId
+    gradeId : gradeId,
+    session_id: sessionId
   };
   $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
     img.style.display = 'none';
@@ -174,7 +177,7 @@ function updateEventById(button){
 
 //request sections data and call print a table and pagination
 function setupTablePagination(){
-  $.get('src/toolInteract.php?tablePrint=1', function (data) {
+  $.get('src/toolInteract.php?tablePrint=1'+'&session_id='+sessionId, function (data) {
     allSections = JSON.parse(data);
     //allSections = data;
     printTable(currentPage);
