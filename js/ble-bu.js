@@ -144,7 +144,7 @@ function setSessionId(button) {
 // Function to reload the page after a delay
 function reloadPageAfterDelay(delay) {
   setTimeout(function() {
-    window.location.href = window.location.href;
+    location.reload();
   }, delay);
 }
 
