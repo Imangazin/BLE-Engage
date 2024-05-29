@@ -59,7 +59,7 @@ $(document).ready(function() {
   $.get('src/toolInteract.php', function (data) {
     eventSelectTag.innerHTML = '<option></option>';
     gradeItem.innerHTML = '<option></option>';
-    //data = JSON.parse(data); 
+    data = JSON.parse(data); 
     data.forEach(function(each){
       const optionElement = document.createElement("option");
       optionElement.value = each.id;
@@ -82,7 +82,7 @@ $('#ebuOrganization').on('select2:select', function (e) {
   const selectedText = e.params.data.text;
   const selectId = $(this).attr('id'); // Get the ID of the changed select
   $.get('src/toolInteract.php?organizationId='+selectedValue, function (data) {
-    //data = JSON.parse(data); 
+    data = JSON.parse(data); 
     data.forEach(function(each){
       const optionElement = document.createElement("option");
       optionElement.value = each.id;
@@ -111,7 +111,7 @@ ebuGradeSyncCheck.addEventListener("change", function () {
   if (ebuGradeSyncCheck.checked) {
     gradeItem.innerHTML = '<option></option>';
     $.get('src/toolInteract.php?gradeSyncEnabled=true', function (data) {
-      data = //JSON.parse(data); 
+      data = JSON.parse(data); 
       data.forEach(function(each){
         const optionElement = document.createElement("option");
         optionElement.value = each.id;
@@ -175,8 +175,8 @@ function updateEventById(button){
 //request sections data and call print a table and pagination
 function setupTablePagination(){
   $.get('src/toolInteract.php?tablePrint=1', function (data) {
-    //allSections = JSON.parse(data);
-    allSections = data;
+    allSections = JSON.parse(data);
+    //allSections = data;
     printTable(currentPage);
     setupPagination(document.getElementById('pagination'));
   }).fail(function (xhr, status, error) {
