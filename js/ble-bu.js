@@ -49,7 +49,7 @@ $(document).ready(function() {
     };
     $.post('src/toolInteract.php', requestData, function(response){
       $('#deleteConfirmModal').modal('hide');
-      $(rowToBeDeleted).remove();
+      //$(rowToBeDeleted).remove();
       setupTablePagination();
     }
     ).fail(function(xhr, status, error) {
