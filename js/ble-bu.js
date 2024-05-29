@@ -142,7 +142,7 @@ function setSessionId(button) {
 function reloadPageAfterDelay(delay) {
   setTimeout(function() {
     setupTablePagination();
-    responseContainer.className = '';
+    responseContainer.removeClass();
     responseContainer.innerHTML = '';
     divHidden.style.visibility = 'hidden';
   }, delay);
