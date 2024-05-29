@@ -8,7 +8,6 @@ let sessionId = document.getElementById("session_id").value;
 const rowsPerPage = 10;
 let currentPage = 1;
 let allSections = [];
-let rowToBeDeleted = document.createElement('tr');
 
 $(document).ready(function() {
   $('.select2').select2({
@@ -35,7 +34,6 @@ $(document).ready(function() {
       console.error('Error submitting form:', error);
       responseContainer.className = '';
       responseContainer.className = 'alert alert-danger';
-
       responseContainer.innerHTML = response;
       responseContainer.focus();
     });
@@ -138,7 +136,6 @@ function setSessionId(button) {
   var closestRow = $(button).closest('tr');
   var sectionId = $(closestRow).find('td:eq(0)').text();
   document.getElementById("sessionIdToBedeleted").value = sectionId;
-  rowToBeDeleted = closestRow;
 }
 
 // Function to reload the page after a delay
@@ -147,6 +144,7 @@ function reloadPageAfterDelay(delay) {
     setupTablePagination();
     responseContainer.className = '';
     responseContainer.innerHTML = '';
+    divHidden.style.visibility = 'hidden';
   }, delay);
 }
 
