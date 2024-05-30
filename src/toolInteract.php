@@ -55,7 +55,7 @@ function handleMainSync($orgUnitId) {
  * Handle organizaton selection, responds with a list of events for selected organization
  */
 function handleOrganizationSelection() {
-    $events_response = getEvents($_GET['organizationId']);
+    $events_response = getEvents($_POST['organizationId']);
     echo json_encode($events_response);
 }
 
@@ -71,7 +71,7 @@ function handleGradeItemSelection($orgUnitId) {
  * Handles Update and Delete requests from the action list
  */
 function handleSectionUpdateOrDelete($orgUnitId) {
-    if (isset($_GET['updateEvent'])) {
+    if (isset($_POST['updateEvent'])) {
         $engageUsers = getEventUsers($_POST['eventId']);
         enrollEngageEventUsers($orgUnitId, $_POST['sectionId'], $engageUsers);
 
@@ -108,13 +108,13 @@ function handleTableData($orgUnitId, $ltiRole, $userName) {
 // Determine which route to take
 if (isset($_POST['ebuOrganization']) && isset($_POST['ebuEvent'])) {
     handleMainSync($orgUnitId);
-} elseif (isset($_GET['organizationId'])) {
+} elseif (isset($_POST['organizationId'])) {
     handleOrganizationSelection();
-} elseif (isset($_GET['gradeSyncEnabled'])) {
+} elseif (isset($_POST['gradeSyncEnabled'])) {
     handleGradeItemSelection($orgUnitId);
 } elseif (isset($_POST['sectionId'])) {
     handleSectionUpdateOrDelete($orgUnitId);
-} elseif (isset($_GET['tablePrint'])){
+} elseif (isset($_POST['tablePrint'])){
     handleTableData($orgUnitId, $ltiRole, $userName);
 } else {
     handleInitialOrganizationList($userName, $ltiRole);

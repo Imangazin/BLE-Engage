@@ -56,7 +56,7 @@ $(document).ready(function() {
   });
 
   //Load BU Organizations
-  $.get('src/toolInteract.php?session_id='+sessionId, function (data) {
+  $.post('src/toolInteract.php', {session_id: sessionId}, function (data) {
     eventSelectTag.innerHTML = '<option></option>';
     gradeItem.innerHTML = '<option></option>';
     data = JSON.parse(data); 
@@ -67,7 +67,7 @@ $(document).ready(function() {
       orgSelectTag.appendChild(optionElement);
     });
   }).fail(function (xhr, status, error) {
-    console.error('GET request failed:', status, error);
+    console.error('Load BU Experience Organizations failed:', status, error);
   });
 
     //Setup table and pagination
@@ -81,7 +81,11 @@ $('#ebuOrganization').on('select2:select', function (e) {
   const selectedValue = e.params.data.id;
   const selectedText = e.params.data.text;
   const selectId = $(this).attr('id'); // Get the ID of the changed select
-  $.get('src/toolInteract.php?organizationId='+selectedValue+'&session_id='+sessionId, function (data) {
+  var requestData = {
+    organizationId: selectedValue,
+    session_id: sessionId
+  };
+  $.post('src/toolInteract.php', requestData, function (data) {
     data = JSON.parse(data); 
     data.forEach(function(each){
       const optionElement = document.createElement("option");
@@ -91,7 +95,7 @@ $('#ebuOrganization').on('select2:select', function (e) {
       eventSelectTag.appendChild(optionElement);
     });
   }).fail(function (xhr, status, error) {
-    console.error('GET request failed:', status, error);
+    console.error('Load BU Experience Events failed:', status, error);
   });
 });
 
@@ -110,7 +114,11 @@ function formatDateTime(dateString) {
 ebuGradeSyncCheck.addEventListener("change", function () {
   if (ebuGradeSyncCheck.checked) {
     gradeItem.innerHTML = '<option></option>';
-    $.get('src/toolInteract.php?gradeSyncEnabled=true&session_id='+sessionId, function (data) {
+    var requestData = {
+      gradeSyncEnabled: true,
+      session_id: sessionId
+    };
+    $.post('src/toolInteract.php', requestData, function (data) {
       data = JSON.parse(data); 
       data.forEach(function(each){
         const optionElement = document.createElement("option");
@@ -119,7 +127,7 @@ ebuGradeSyncCheck.addEventListener("change", function () {
         gradeItem.appendChild(optionElement);
       });
     }).fail(function (xhr, status, error) {
-      console.error('GET request failed:', status, error);
+      console.error('Failed to get BLE grade object ids:', status, error);
     });
     divHidden.classList.remove("hidden");
     gradeItem.setAttribute('required', '');
@@ -161,12 +169,13 @@ function updateEventById(button){
   var eventId = $(closestRow).find('td:eq(1)').text();
   var gradeId = $(closestRow).find('td:eq(4)').text();
   var requestData = {
+    updateEvent: true,
     sectionId: sectionId,
     eventId : eventId,
     gradeId : gradeId,
     session_id: sessionId
   };
-  $.post('src/toolInteract.php?updateEvent=true', requestData, function(response){
+  $.post('src/toolInteract.php', requestData, function(response){
     img.style.display = 'none';
     $(closestRow).find('span:eq(0)').html('Last updated on <br>'+response);
   }
@@ -179,7 +188,11 @@ function updateEventById(button){
 
 //request sections data and call print a table and pagination
 function setupTablePagination(){
-  $.get('src/toolInteract.php?tablePrint=1'+'&session_id='+sessionId, function (data) {
+  var requestData = {
+    tablePrint: 1,
+    session_id: sessionId
+  };
+  $.post('src/toolInteract.php', requestData, function (data) {
     allSections = JSON.parse(data);
     //allSections = data;
     printTable(currentPage);

@@ -1,8 +1,8 @@
 <?php
 require_once("src/info.php");
+require_once('src/BLE.php');
 // Load up the LTI Support code
 require_once('ims-blti/blti.php');
-require_once('src/BLE.php');
 
 // Session will have partitioned parameter that required for Chrome like browsers
 // Other browsers that does not support partitioned cookie, will still work under Samesite=None
