@@ -4,11 +4,10 @@
 <link rel="stylesheet" href="css/bootstrap.min.5.0.2.css">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/select2.min.4.1.0.css">
-<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script></script>
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.5.0.2.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
 <script type="text/javascript" src="js/select2-4.1.0.min.js"></script>
-
 </head>
 <body>
     <div class="container-fluid"><br>
@@ -32,7 +31,7 @@
               <label class="form-check-label" for="ebuGradeSync">Sync event with grade item (Attendance)</label>
             </div>
             <div class="mb-3 hidden" id="ebuGradeSyncDiv">
-                <label for="gradeItem" class="form-label">Grade Item (must exist and it supports Numeric or Pass/Fail types)</label>
+                <label for="gradeItem" class="form-label">Grade Item (must exist and it supports only Numeric or Pass/Fail types)</label>
                 <select class="form-select select2" id="gradeItem" name="gradeItem">
                   <option></option>
                 </select>

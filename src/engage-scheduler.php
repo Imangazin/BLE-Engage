@@ -10,7 +10,7 @@ if (php_sapi_name() !== 'cli') {
     die('This script can only be run from the command line.');
 }
 
-$sharingOrgUnitIds = getSharedOrgUnitIds(29);
+$sharingOrgUnitIds = getSharedOrgUnitIds($toolProviderId);
 
 foreach($sharingOrgUnitIds as $orgUnitId){
     syncEngageBLE($orgUnitId);

@@ -67,9 +67,9 @@ function updateSection($orgUnitId, $sectionId){
 
 //enrolls engage RSVP users into the offering and to specific section dedicated to engage event
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
-    global $config;
+    global $config, $domain;
     foreach($usersToEnroll as $userName){
-        $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');
+        $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.$domain);
         if($userId['Code']==200){
             $parentData = array(
                 "OrgUnitId"=> $orgUnitId,
@@ -128,15 +128,18 @@ function getGradeItems($orgUnitId){
     return  $result;
 }
 
+//returns gradeObject for given id
 function getGradeItemById($orgUnitId, $gradeId){
     global $config;
     $response = doValenceRequest('GET', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId);
     return $response['response'];
 }
 
-// grades user with value 1 for numeric type item
+// grades all users who attended the event
+// for Numeric type grade, it grades Max
+// for Pass/Fail type, it grades Pass
 function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
-    global $config;
+    global $config, $domain;
     $data = array(
         "Comments"=> array ("Content"=>"","Type"=>"Html"),
         "PrivateComments"=> array ("Content"=>"","Type"=>"Html")
@@ -161,7 +164,7 @@ function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
 
     $eventAttendees = getEventAttendees($eventId);
     foreach($eventAttendees as $userName){
-        $user = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.'@localhost.local');
+        $user = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?externalEmail='.$userName.$domain);
         if($user['Code']==200){
             doValenceRequest('PUT', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$user['response'][0]->UserId, $data);
         }
@@ -290,13 +293,13 @@ function getLinkedEvents($orgUnitId, $ltiRole, $userName){
 //adds the orgUnitId to sharing list of the LTI tool
 //that how scheduled sync will now which orgunits to check for
 function shareWithOrgUnit($orgUnitId) {
-    global $config;
+    global $config, $toolProviderId;
     $data = array(
         "SharingOrgUnitId" => $orgUnitId,
         "ShareWithOrgUnit" => true,
         "ShareWithDescendants" => false
     );
-    $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/29/sharing/', $data);
+    $response = doValenceRequest('POST', '/d2l/api/le/'.$config['LE_Version'].'/lti/tp/6606/'.$toolProviderId.'/sharing/', $data);
 }
 
 //Returns orgUnitId type 3 that usign the tool provider
