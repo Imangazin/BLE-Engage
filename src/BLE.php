@@ -321,6 +321,7 @@ function syncEngageBLE($orgUnitId){
     global $config;
     $linkedEvents = getLinkedEvents($orgUnitId, 'Administrator', '');
     foreach($linkedEvents as $event){
+        echo $event['sectionId'];
         if (isDate30DaysOrMoreInPast($event['endDate'])){
             $eventRsvps = getEventUsers($event['eventId']);
             enrollEngageEventUsers($orgUnitId, $event['sectionId'], $eventRsvps);
