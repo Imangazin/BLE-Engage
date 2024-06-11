@@ -334,7 +334,6 @@ function syncEngageBLE($orgUnitId){
                 gradeEventAttendence($orgUnitId, $event['eventId'], $event['gradeId']);
             }
             updateSection($orgUnitId, $event['sectionId']);
-            echo "OrgUnitID: ".$orgUnitId."  Section Id: ". $event['sectionId'];
         }  
     }
 }
