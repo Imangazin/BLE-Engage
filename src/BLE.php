@@ -9,7 +9,7 @@ function dateToString($date){
     date_default_timezone_set('America/New_York');
     $dateTime = new DateTime($date);
     $dateTime->setTimezone(new DateTimeZone('America/New_York'));
-    $formattedDateTime = $dateTime->format('Y-m-d H:i A');
+    $formattedDateTime = $dateTime->format('Y-m-d H:i');
     return (string) $formattedDateTime;
 }
 
@@ -193,10 +193,17 @@ function getLinkedEvents($orgUnitId, $ltiRole, $userName){
                 $event['eventName'] = $engageEvent->name;
                 $event['startDate'] = dateToString($engageEvent->startsOn);
                 $event['endDate'] = dateToString($engageEvent->endsOn);
-                $event['gradeId'] = $sectionCode[3];
-                $event['gradeObjectName'] = $gradeObject->Name;
                 $event['lastSync'] = $section->Description->Text;
                 $event['organizationId'] = $sectionCode[1];
+                if (!empty($sectionCode[3])){
+                    $event['gradeId'] = $sectionCode[3];
+                    $event['gradeObjectName'] = $gradeObject->Name;
+                } else {
+                    $event['gradeId'] = '';
+                    $event['gradeObjectName'] = '';
+                }
+                
+                
                 $linkedEvents[] = $event;
             }
         }
@@ -318,9 +325,9 @@ function getSharedOrgUnitIds($ltiToolProviderId){
 // syncs engage RSVP and attendance with BLE for linked events. Skippes events which ended 30 days ago.
 function syncEngageBLE($orgUnitId){
     global $config;
-    $linkedEvents = getLinkedEvents($orgUnitId, 'Administrator', '');
+    $linkedEvents = getLinkedEvents($orgUnitId, 'Administrator', 'none');
     foreach($linkedEvents as $event){
-        if (isDate30DaysOrMoreInPast($event['endDate'])){
+        if (!isDate30DaysOrMoreInPast($event['endDate'])){
             $eventRsvps = getEventUsers($event['eventId']);
             enrollEngageEventUsers($orgUnitId, $event['sectionId'], $eventRsvps);
             if (!empty($event['gradeId'])){

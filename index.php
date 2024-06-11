@@ -24,6 +24,7 @@ if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
 
         //main page
         include 'src/home.php';
+        //Just testing
     }
 }
 else { 
