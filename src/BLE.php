@@ -193,10 +193,17 @@ function getLinkedEvents($orgUnitId, $ltiRole, $userName){
                 $event['eventName'] = $engageEvent->name;
                 $event['startDate'] = dateToString($engageEvent->startsOn);
                 $event['endDate'] = dateToString($engageEvent->endsOn);
-                $event['gradeId'] = $sectionCode[3];
-                $event['gradeObjectName'] = $gradeObject->Name;
                 $event['lastSync'] = $section->Description->Text;
                 $event['organizationId'] = $sectionCode[1];
+                if (!empty($sectionCode[3])){
+                    $event['gradeId'] = $sectionCode[3];
+                    $event['gradeObjectName'] = $gradeObject->Name;
+                } else {
+                    $event['gradeId'] = '';
+                    $event['gradeObjectName'] = '';
+                }
+                
+                
                 $linkedEvents[] = $event;
             }
         }
@@ -310,7 +317,6 @@ function getSharedOrgUnitIds($ltiToolProviderId){
     foreach($response['response'] as $each){
         if ($each->SharingOrgUnitId!=6606){
             $sharedOrgUnitIds[] = $each->SharingOrgUnitId;
-            echo $each->SharingOrgUnitId;
         }
     }
     return $sharedOrgUnitIds;
@@ -321,7 +327,6 @@ function syncEngageBLE($orgUnitId){
     global $config;
     $linkedEvents = getLinkedEvents($orgUnitId, 'Administrator', 'none');
     foreach($linkedEvents as $event){
-        echo $event['sectionId'];
         if (isDate30DaysOrMoreInPast($event['endDate'])){
             $eventRsvps = getEventUsers($event['eventId']);
             enrollEngageEventUsers($orgUnitId, $event['sectionId'], $eventRsvps);
