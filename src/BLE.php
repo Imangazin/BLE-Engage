@@ -310,6 +310,7 @@ function getSharedOrgUnitIds($ltiToolProviderId){
     foreach($response['response'] as $each){
         if ($each->SharingOrgUnitId!=6606){
             $sharedOrgUnitIds[] = $each->SharingOrgUnitId;
+            echo $each->SharingOrgUnitId;
         }
     }
     return $sharedOrgUnitIds;
@@ -327,6 +328,7 @@ function syncEngageBLE($orgUnitId){
                 gradeEventAttendence($orgUnitId, $event['eventId'], $event['gradeId']);
             }
             updateSection($orgUnitId, $event['sectionId']);
+            echo "OrgUnitID: ".$orgUnitId."  Section Id: ". $event['sectionId'];
         }  
     }
 }
