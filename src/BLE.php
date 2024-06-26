@@ -22,6 +22,7 @@ function getClasslist ($orgUnitId){
     $instructors = array();
     while ($hasMore){
         $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/?roleId='.$instructor_role_id);
+        echo var_dump($response);
         if($response['response']->PagingInfo->HasMoreItems == false){
             $hasMore = false;
             echo "if worked";
@@ -31,7 +32,6 @@ function getClasslist ($orgUnitId){
             array_push($instructors, $user->Identifier);
         }
     }
-    echo var_dump($instructors);
     return $instructors;
 }
 
