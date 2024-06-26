@@ -17,12 +17,14 @@ function dateToString($date){
 function getClasslist ($orgUnitId){
     global $config, $instructor_role_id;
     $hasMore = true;
+    echo $hasMore;
     $bookmark = '';
     $instructors = array();
     while ($hasMore){
         $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/?roleId='.$instructor_role_id);
         if($response['response']->PagingInfo->HasMoreItems == false){
             $hasMore = false;
+            echo $hasMore;
         }
         $bookmark = $response['response']->PagingInfo->Bookmark;
         foreach($response['response']->Items as $user){
