@@ -21,7 +21,7 @@ if(isset($_REQUEST['lti_message_type'])) {    //Is this an LTI Request?
         $orgUnitId = $context->info['context_id'];
 
         shareWithOrgUnit($orgUnitId);
-
+        $classlist = getClasslist ($orgUnitId);
         //main page
         include 'src/home.php';
         //Just testing
