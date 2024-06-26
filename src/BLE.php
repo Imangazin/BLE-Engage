@@ -17,21 +17,18 @@ function dateToString($date){
 function getClasslist ($orgUnitId){
     global $config, $instructor_role_id;
     $hasMore = true;
-    echo $hasMore;
     $bookmark = '';
     $instructors = array();
     while ($hasMore){
         $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/?roleId='.$instructor_role_id);
         if($response['response']->PagingInfo->HasMoreItems == false){
             $hasMore = false;
-            echo "if worked";
         }
         $bookmark = $response['response']->PagingInfo->Bookmark;
         foreach($response['response']->Items as $user){
             array_push($instructors, $user->User->Identifier);
         }
     }
-    echo var_dump($instructors);
     return $instructors;
 }
 
@@ -91,6 +88,7 @@ function updateSection($orgUnitId, $sectionId){
 //enrolls engage RSVP users into the offering and to specific section dedicated to engage event
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config;
+    $instructors = getClasslist($orgUnitId);
     foreach($usersToEnroll as $userName){
         $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?userName='.$userName);
         if($userId['Code']==200){
@@ -103,9 +101,10 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
                 "UserId"=> $userId['response'][0]->UserId
             );
         }
-        $enrollToParent = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/', $parentData);
-        $enrollToSection = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $sectionData); 
-
+        if (in_array($userId['response'][0]->UserId, $instructors)==false){
+            $enrollToParent = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/', $parentData);
+            $enrollToSection = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $sectionData); 
+        }
     }
 }
 
