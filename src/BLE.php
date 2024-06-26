@@ -26,7 +26,7 @@ function getClasslist ($orgUnitId){
         }
         $bookmark = $response['response']->PagingInfo->Bookmark;
         foreach($response['response']->Items as $user){
-            $instructors[] = $user->Identifier;
+            array_push($instructors, $user->Identifier);
         }
     }
     echo var_dump($instructors);
