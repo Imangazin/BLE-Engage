@@ -8,6 +8,8 @@ $support_email = '';
 
 //instructor role id
 $instructor_role_id = '';
+//student role id
+$student_role_id = '';
 
 //Brightspace LTI tool provider id
 $toolProviderId = 0;

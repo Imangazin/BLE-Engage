@@ -87,7 +87,7 @@ function updateSection($orgUnitId, $sectionId){
 
 //enrolls engage RSVP users into the offering and to specific section dedicated to engage event
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
-    global $config;
+    global $config, $student_role_id;
     $instructors = getClasslist($orgUnitId);
     foreach($usersToEnroll as $userName){
         $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?userName='.$userName);
@@ -95,7 +95,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
             $parentData = array(
                 "OrgUnitId"=> $orgUnitId,
                 "UserId"=> $userId['response']->UserId,
-                "RoleId"=> 110
+                "RoleId"=> $student_role_id
             );
             $sectionData = array(
                 "UserId"=> $userId['response']->UserId
