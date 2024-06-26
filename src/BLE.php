@@ -101,7 +101,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
                 "UserId"=> $userId['response'][0]->UserId
             );
         }
-        echo $userId['response']->UserId;
+        echo "passed";
         if (!in_array($userId['response'][0]->UserId, $instructors)){
             $enrollToParent = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/', $parentData);
             $enrollToSection = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $sectionData); 
