@@ -91,7 +91,7 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     $instructors = getClasslist($orgUnitId);
     foreach($usersToEnroll as $userName){
         $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?userName='.$userName);
-        echo $userId;
+        echo var_dump($userId);
         if($userId['Code']==200){
             $parentData = array(
                 "OrgUnitId"=> $orgUnitId,
