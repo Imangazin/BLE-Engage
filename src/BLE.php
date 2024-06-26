@@ -188,7 +188,7 @@ function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
     foreach($eventAttendees as $userName){
         $user = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?userName='.$userName);
         if($user['Code']==200){
-            doValenceRequest('PUT', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$user['response'][0]->UserId, $data);
+            doValenceRequest('PUT', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$user['response']->UserId, $data);
         }
     }
 }
