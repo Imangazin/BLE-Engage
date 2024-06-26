@@ -24,7 +24,7 @@ function getClasslist ($orgUnitId){
         $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/?roleId='.$instructor_role_id);
         if($response['response']->PagingInfo->HasMoreItems == false){
             $hasMore = false;
-            echo $hasMore;
+            echo "if worked";
         }
         $bookmark = $response['response']->PagingInfo->Bookmark;
         foreach($response['response']->Items as $user){
