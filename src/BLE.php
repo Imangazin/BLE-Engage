@@ -22,16 +22,16 @@ function getClasslist ($orgUnitId){
     $instructors = array();
     while ($hasMore){
         $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/?roleId='.$instructor_role_id);
-        echo var_dump($response['response']->Items);
         if($response['response']->PagingInfo->HasMoreItems == false){
             $hasMore = false;
             echo "if worked";
         }
         $bookmark = $response['response']->PagingInfo->Bookmark;
         foreach($response['response']->Items as $user){
-            array_push($instructors, $user->Identifier);
+            array_push($instructors, $user->User->Identifier);
         }
     }
+    echo var_dump($instructors);
     return $instructors;
 }
 
