@@ -289,7 +289,6 @@ function getSharedOrgUnitIds($ltiToolProviderId){
 function updateRsvp($orgUnitId, $sectionId, $eventId){
     //people in event system
     $eventRsvpList = getEventUsers($eventId);
-    echo "RSVP:  \n";
     echo var_dum($eventRsvpList);
     $eventRsvpUserIds = userNameToUserId($eventRsvpList);
     //people in D2L
@@ -312,7 +311,6 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
 
 function updateAttendance($orgUnitId, $eventId, $gradeId){
     //attended list from event system
-    echo "Start";
     $eventAttendees = getEventAttendees($eventId);
     $eventAttendeeIds = userNameToUserId($eventAttendees);
     //graded list in d2l
