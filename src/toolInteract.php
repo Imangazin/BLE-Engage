@@ -77,7 +77,6 @@ function handleSectionUpdateOrDelete($orgUnitId) {
     global $config;
     if (isset($_POST['updateEvent'])) {
         if (!empty($_POST['gradeId'])) {
-            echo "No Grade item";
             updateAttendance($orgUnitId, $_POST['eventId'], $_POST['gradeId']);
         }
         updateRsvp($orgUnitId, $_POST['sectionId'], $_POST['eventId']);

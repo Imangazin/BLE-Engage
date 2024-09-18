@@ -312,6 +312,7 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
 
 function updateAttendance($orgUnitId, $eventId, $gradeId){
     //attended list from event system
+    echo "Start";
     $eventAttendees = getEventAttendees($eventId);
     $eventAttendeeIds = userNameToUserId($eventAttendees);
     //graded list in d2l
