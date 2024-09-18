@@ -296,10 +296,13 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     $usersToEnroll = array_diff($eventRsvpUserIds, $sectionRsvpList);
     //find dropped users
     $usersToUnEnroll = array_diff($sectionRsvpList, $eventRsvpUserIds);
-    echo var_dump($usersToUnEnroll);
 
-    enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
-    unenrollEngageEventUsers($orgUnitId, $sectionId, $usersToUnEnroll);
+    if(!empty($usersToEnroll)){
+        enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
+    }
+    if(!empty($usersToUnEnroll)){
+        unenrollEngageEventUsers($orgUnitId, $sectionId, $usersToUnEnroll);
+    }
 }
 
 function updateAttendance($orgUnitId, $eventId, $gradeId){
