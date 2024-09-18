@@ -43,8 +43,9 @@ function handleMainSync($orgUnitId) {
 
         $engageUsers = getEventUsers($_POST['ebuEvent']);
         $engageUserIds = userNameToUserId($engageUsers);
-        enrollEngageEventUsers($orgUnitId, $sectionId, $engageUserIds);
-
+        if(!empty($engageUserIds)){
+            enrollEngageEventUsers($orgUnitId, $sectionId, $engageUserIds);
+        }
         if (!empty($_POST['gradeItem'])) {
             $eventAttendees = getEventAttendees($_POST['ebuEvent']);
             $eventAttendeeIds = userNameToUserId ($eventAttendees);
