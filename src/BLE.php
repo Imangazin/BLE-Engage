@@ -308,8 +308,8 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
 function updateAttendance($orgUnitId, $eventId, $gradeId){
     //attended list from event system
     $eventAttendees = getEventAttendees($eventId);
-    echo var_dump($eventAttendees);
     $eventAttendeeIds = userNameToUserId($eventAttendees);
+    echo var_dump($eventAttendeeIds);
     //graded list in d2l
     $gradedUserIds = getGradedUsers($orgUnitId, $gradeId);
     //find new attendies
