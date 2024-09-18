@@ -290,9 +290,9 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     //people in event system
     $eventRsvpList = getEventUsers($eventId);
     $eventRsvpUserIds = userNameToUserId($eventRsvpList);
-    echo var_dump($eventRsvpUserIds);
     //people in D2L
     $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
+    echo var_dump($sectionRsvpList);
 
     // echo "RSVP:  \n";
     // echo var_dum($eventRsvpUserIds);
