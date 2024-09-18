@@ -100,7 +100,6 @@ function getSectionUsers($orgUnitId, $sectionId){
     global $config;
     $section = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId);
     $sectionUsers = $section['response']->Enrollments;
-    echo var_dump($sectionUsers);
     return $sectionUsers;
 } 
 
@@ -293,16 +292,9 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     $eventRsvpUserIds = userNameToUserId($eventRsvpList);
     //people in D2L
     $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
-    echo var_dump($sectionRsvpList);
-
-    // echo "RSVP:  \n";
-    // echo var_dum($eventRsvpUserIds);
-    // echo "Section Users:  \n";
-    // echo var_dum($sectionRsvpList);
-
-
     //find new enrollments
     $usersToEnroll = array_diff($eventRsvpUserIds, $sectionRsvpList);
+    echo var_dump($usersToEnroll);
     //find dropped users
     $usersToUnEnroll = array_diff($sectionRsvpList, $eventRsvpUserIds);
 
