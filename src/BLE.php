@@ -311,14 +311,17 @@ function updateAttendance($orgUnitId, $eventId, $gradeId){
     $eventAttendeeIds = userNameToUserId($eventAttendees);
     //graded list in d2l
     $gradedUserIds = getGradedUsers($orgUnitId, $gradeId);
-    echo var_dump($gradedUserIds);
     //find new attendies
     $usersToGrade = array_diff($eventAttendeeIds, $gradedUserIds);
     //find not attended users
     $usersToUnGrade = array_diff($gradedUserIds, $eventAttendeeIds);
 
-    gradeEventAttendence($orgUnitId, $eventId, $gradeId, $usersToGrade);
-    gradeEventAttendence($orgUnitId, $eventId, $gradeId, $usersToUnGrade, 'ungrade');
+    if(!empty($usersToGrade)){
+        gradeEventAttendence($orgUnitId, $eventId, $gradeId, $usersToGrade);
+    }
+    if(!empty($usersToUnGrade)){
+        gradeEventAttendence($orgUnitId, $eventId, $gradeId, $usersToUnGrade, 'ungrade');
+    }
 
 }
 
