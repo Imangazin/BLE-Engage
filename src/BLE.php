@@ -309,9 +309,9 @@ function updateAttendance($orgUnitId, $eventId, $gradeId){
     //attended list from event system
     $eventAttendees = getEventAttendees($eventId);
     $eventAttendeeIds = userNameToUserId($eventAttendees);
-    echo var_dump($eventAttendeeIds);
     //graded list in d2l
     $gradedUserIds = getGradedUsers($orgUnitId, $gradeId);
+    echo var_dump($gradedUserIds);
     //find new attendies
     $usersToGrade = array_diff($eventAttendeeIds, $gradedUserIds);
     //find not attended users
