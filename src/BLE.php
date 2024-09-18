@@ -85,23 +85,40 @@ function updateSection($orgUnitId, $sectionId){
 }
 
 
+function userNameToUserId ($userNames){
+    global $config;
+    $userIds = array();
+    foreach($userNames as $userName){
+        $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?userName='.$userName);
+        array_push($userIds, $userId['response']->UserId);
+    }
+    return $userIds;
+}
+
+
+function getSectionUsers($orgUnitId, $sectionId){
+    global $config;
+    $section = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId);
+    $sectionUsers = $sectionToDelete['response']->Enrollments;
+    return $sectionUsers;
+} 
+
+
 //enrolls engage RSVP users into the offering and to specific section dedicated to engage event
 function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
     global $config, $student_role_id;
     $instructors = getClasslist($orgUnitId);
-    foreach($usersToEnroll as $userName){
-        $userId = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?userName='.$userName);
-        if($userId['Code']==200){
-            $parentData = array(
-                "OrgUnitId"=> $orgUnitId,
-                "UserId"=> $userId['response']->UserId,
-                "RoleId"=> $student_role_id
-            );
-            $sectionData = array(
-                "UserId"=> $userId['response']->UserId
-            );
-        }
-        if (!in_array($userId['response']->UserId, $instructors)){
+    foreach($usersToEnroll as $userId){
+        $parentData = array(
+            "OrgUnitId"=> $orgUnitId,
+            "UserId"=> $userId,
+            "RoleId"=> $student_role_id
+        );
+        $sectionData = array(
+            "UserId"=> $userId
+        );
+    
+        if (!in_array($userId, $instructors)){
             $enrollToParent = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/', $parentData);
             $enrollToSection = doValenceRequest('POST', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId.'/enrollments/', $sectionData); 
         }
@@ -110,11 +127,9 @@ function enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll) {
 
 //checks each user if it also enrolled in other sections
 //if not deletes from the offering, otherwise do nothing
-function unEnrollEngageUsers($orgUnitId, $sectionId){
+function unEnrollEngageUsers($orgUnitId, $sectionId, $usersToUnEnroll){
     global $config;
     $allSections = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
-    $sectionToDelete = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId);
-    
     // all section enrollments except $sectionId, not included instructor role
     // since instructor roles will never show up in $userToEnroll array, we should be good 
     $allEnrollments = array();
@@ -123,9 +138,7 @@ function unEnrollEngageUsers($orgUnitId, $sectionId){
             $allEnrollments = array_merge($allEnrollments, $section->Enrollments);
         }
     }
-
-    $usersToEnroll = $sectionToDelete['response']->Enrollments;
-    foreach($usersToEnroll as $userId){
+    foreach($usersToUnEnroll as $userId){
         if(!in_array($userId, $allEnrollments)){
             //it has response unlike other delete options, could be used for logging
             doValenceRequest('DELETE', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId);
@@ -157,10 +170,27 @@ function getGradeItemById($orgUnitId, $gradeId){
     return $response['response'];
 }
 
+
+function getGradedUsers($orgUnitId, $gradeId){
+    global $config;
+    $gradedUsers = array();
+    $next = '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/?sort=lastname&pageSize=20&bookmark=&bookmarkUserId=';
+    while ($next != null){
+        $response = doValenceRequest('GET', $next);
+        foreach($response['response']->Objects as $user){
+            if (isset($user->GradeValue) && $user->GradeValue != null && isset($user->GradeValue->PointsNumerator) && $user->GradeValue->PointsNumerator != 0){
+                array_push($gradedUsers, (int)$user->User->Identifier);
+            }
+        }
+        $next = $response['response']->Next;
+    }
+    return $gradedUsers;
+}
+
 // grades all users who attended the event
 // for Numeric type grade, it grades Max
 // for Pass/Fail type, it grades Pass
-function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
+function gradeEventAttendence($orgUnitId, $eventId, $gradeId, $eventAttendees, $action='grade'){
     global $config;
     $data = array(
         "Comments"=> array ("Content"=>"","Type"=>"Html"),
@@ -173,23 +203,20 @@ function gradeEventAttendence($orgUnitId, $eventId, $gradeId){
     switch ($gradeType) {
         case 'Numeric':
             $data['GradeObjectType'] = 1;
-            $data['PointsNumerator'] = $gradeInfo['response']->MaxPoints;
+            $data['PointsNumerator'] = ($action=='grade') ? $gradeInfo['response']->MaxPoints : 0;
             break;
         case 'PassFail':
             $data['GradeObjectType'] = 2;
-            $data['Pass'] = true;
+            $data['Pass'] = (action=='grade') ? true : false;
             break;
         default:
             //break out from the function
             return;
     }
 
-    $eventAttendees = getEventAttendees($eventId);
-    foreach($eventAttendees as $userName){
-        $user = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/users/?userName='.$userName);
-        if($user['Code']==200){
-            doValenceRequest('PUT', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$user['response']->UserId, $data);
-        }
+    //$eventAttendees = getEventAttendees($eventId);
+    foreach($eventAttendees as $userId){
+        doValenceRequest('PUT', '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/'.$userId, $data);
     }
 }
 
@@ -258,17 +285,52 @@ function getSharedOrgUnitIds($ltiToolProviderId){
     return $sharedOrgUnitIds;
 }
 
+
+function updateRsvp($orgUnitId, $sectionId, $eventId){
+    //people in event system
+    $eventRsvpList = getEventUsers($eventId);
+    $eventRsvpUserIds = userNameToUserId($eventRsvpList);
+    //people in D2L
+    $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
+    //find new enrollments
+    $usersToEnroll = array_diff($eventRsvpUserIds, $sectionRsvpList);
+    //find dropped users
+    $usersToUnEnroll = array_diff($sectionRsvpList, $eventRsvpUserIds);
+
+    enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
+    unenrollEngageEventUsers($orgUnitId, $sectionId, $usersToUnEnroll);
+}
+
+function updateAttendance($orgUnitId, $eventId, $gradeId){
+    //attended list from event system
+    $eventAttendees = getEventAttendees($eventId);
+    $eventAttendeeIds = userNameToUserId($eventAttendees);
+    //graded list in d2l
+    $gradedUserIds = getGradedUsers($orgUnitId, $gradeId);
+    //find new attendies
+    $usersToGrade = array_diff($eventAttendeeIds, $gradedUserIds);
+    //find not attended users
+    $usersToUnGrade = array_diff($gradedUserIds, $eventAttendeeIds);
+
+    gradeEventAttendence($orgUnitId, $eventId, $gradeId, $usersToGrade);
+    gradeEventAttendence($orgUnitId, $eventId, $gradeId, $usersToUnGrade, 'ungrade');
+
+}
+
+
 // syncs engage RSVP and attendance with BLE for linked events. Skippes events which ended 30 days ago.
 function syncEngageBLE($orgUnitId){
     global $config;
     $linkedEvents = getLinkedEvents($orgUnitId, 'Administrator', 'none');
     foreach($linkedEvents as $event){
         if (!isDate30DaysOrMoreInPast($event['endDate'])){
-            $eventRsvps = getEventUsers($event['eventId']);
-            enrollEngageEventUsers($orgUnitId, $event['sectionId'], $eventRsvps);
+
             if (!empty($event['gradeId'])){
-                gradeEventAttendence($orgUnitId, $event['eventId'], $event['gradeId']);
+                updateAttendance($orgUnitId, $event['eventId'], $event['gradeId']);
             }
+
+            updateRsvp($orgUnitId, $event["sectionId"], $event["eventId"]);
+            
             updateSection($orgUnitId, $event['sectionId']);
         }  
     }

@@ -42,10 +42,13 @@ function handleMainSync($orgUnitId) {
         echo "The selected event successfully linked.";
 
         $engageUsers = getEventUsers($_POST['ebuEvent']);
-        enrollEngageEventUsers($orgUnitId, $sectionId, $engageUsers);
+        $engageUserIds = userNameToUserId($engageUsers);
+        enrollEngageEventUsers($orgUnitId, $sectionId, $engageUserIds);
 
         if (!empty($_POST['gradeItem'])) {
-            gradeEventAttendence($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem']);
+            $eventAttendees = getEventAttendees($_POST['ebuEvent']);
+            $eventAttendeeIds = userNameToUserId ($eventAttendees);
+            gradeEventAttendence($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem'], $eventAttendeeIds);
         }
         updateSection($orgUnitId, $sectionId);
     }
@@ -71,16 +74,16 @@ function handleGradeItemSelection($orgUnitId) {
  * Handles Update and Delete requests from the action list
  */
 function handleSectionUpdateOrDelete($orgUnitId) {
+    global $config;
     if (isset($_POST['updateEvent'])) {
-        $engageUsers = getEventUsers($_POST['eventId']);
-        enrollEngageEventUsers($orgUnitId, $_POST['sectionId'], $engageUsers);
-
         if (!empty($_POST['gradeId'])) {
-            gradeEventAttendence($orgUnitId, $_POST['eventId'], $_POST['gradeId']);
+            updateAttendance($orgUnitId, $_POST['eventId'], $_POST['gradeId']);
         }
+        updateRsvp($orgUnitId, $_POST['sectionId'], $_POST['eventId']);
         echo updateSection($orgUnitId, $_POST['sectionId']);
     } else {
-        unEnrollEngageUsers($orgUnitId, $_POST['sectionId']);
+        $usersToUnEnroll = getSectionUsers($orgUnitId, $_POST['sectionId']);
+        unEnrollEngageUsers($orgUnitId, $_POST['sectionId'], $usersToUnEnroll);
         deleteSection($orgUnitId, $_POST['sectionId']);
     }
 }
