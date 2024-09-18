@@ -167,7 +167,7 @@ function updateEventById(button){
   img.style.display = 'inline';
   var sectionId = $(closestRow).find('td:eq(0)').text();
   var eventId = $(closestRow).find('td:eq(1)').text();
-  var gradeId = $(closestRow).find('td:eq(4)').text();
+  var gradeId = $(closestRow).find('td:eq(5)').text();
   var requestData = {
     updateEvent: true,
     sectionId: sectionId,
