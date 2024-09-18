@@ -289,14 +289,16 @@ function getSharedOrgUnitIds($ltiToolProviderId){
 function updateRsvp($orgUnitId, $sectionId, $eventId){
     //people in event system
     $eventRsvpList = getEventUsers($eventId);
+    echo "RSVP:  \n";
+    echo var_dum($eventRsvpList);
     $eventRsvpUserIds = userNameToUserId($eventRsvpList);
     //people in D2L
     $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
 
-    echo "RSVP:  \n";
-    echo var_dum($eventRsvpUserIds);
-    echo "Section Users:  \n";
-    echo var_dum($sectionRsvpList);
+    // echo "RSVP:  \n";
+    // echo var_dum($eventRsvpUserIds);
+    // echo "Section Users:  \n";
+    // echo var_dum($sectionRsvpList);
 
 
     //find new enrollments
