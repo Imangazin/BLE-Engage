@@ -289,7 +289,7 @@ function getSharedOrgUnitIds($ltiToolProviderId){
 function updateRsvp($orgUnitId, $sectionId, $eventId){
     //people in event system
     $eventRsvpList = getEventUsers($eventId);
-    echo var_dum($eventRsvpList);
+    echo var_dump($eventRsvpList);
     $eventRsvpUserIds = userNameToUserId($eventRsvpList);
     //people in D2L
     $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
