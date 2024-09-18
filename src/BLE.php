@@ -100,6 +100,7 @@ function getSectionUsers($orgUnitId, $sectionId){
     global $config;
     $section = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId);
     $sectionUsers = $sectionToDelete['response']->Enrollments;
+    echo var_dump($sectionUsers);
     return $sectionUsers;
 } 
 
