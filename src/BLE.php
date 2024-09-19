@@ -308,7 +308,7 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     }
     if(!empty($usersToUnEnroll)){
         echo "about to do this task";
-        unenrollEngageEventUsers($orgUnitId, $sectionId, $usersToUnEnroll);
+        unEnrollEngageUsers($orgUnitId, $sectionId, $usersToUnEnroll);
         echo "did i unenroll";
     }
 }
