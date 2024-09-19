@@ -297,6 +297,11 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     //find dropped users
     $usersToUnEnroll = array_diff($sectionRsvpList, $eventRsvpUserIds);
 
+    echo "UserToEnroll:   ";
+    echo var_dump($usersToEnroll);
+    echo "UserToUnEnroll:   ";
+    echo var_dump($usersToUnEnroll);
+
     if(!empty($usersToEnroll)){
         enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
     }
