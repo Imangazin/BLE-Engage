@@ -138,10 +138,11 @@ function unEnrollEngageUsers($orgUnitId, $sectionId, $usersToUnEnroll){
             $allEnrollments = array_merge($allEnrollments, $section->Enrollments);
         }
     }
+    doValenceRequest('DELETE', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$sectionId.'/users/'.$userId);
     foreach($usersToUnEnroll as $userId){
         if(!in_array($userId, $allEnrollments)){
             //it has response unlike other delete options, could be used for logging
-            doValenceRequest('DELETE', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$sectionId.'/users/'.$userId);
+            doValenceRequest('DELETE', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId);
         }
     }
 
