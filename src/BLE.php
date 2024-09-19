@@ -141,7 +141,7 @@ function unEnrollEngageUsers($orgUnitId, $sectionId, $usersToUnEnroll){
     foreach($usersToUnEnroll as $userId){
         if(!in_array($userId, $allEnrollments)){
             //it has response unlike other delete options, could be used for logging
-            doValenceRequest('DELETE', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$orgUnitId.'/users/'.$userId);
+            doValenceRequest('DELETE', '/d2l/api/lp/'.$config['LP_Version'].'/enrollments/orgUnits/'.$sectionId.'/users/'.$userId);
         }
     }
 
