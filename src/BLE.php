@@ -84,7 +84,7 @@ function updateSection($orgUnitId, $sectionId){
     return $response['response']->Description->Text;
 }
 
-
+//takes usernames and returns BLE userIds
 function userNameToUserId ($userNames){
     global $config;
     $userIds = array();
@@ -95,7 +95,7 @@ function userNameToUserId ($userNames){
     return $userIds;
 }
 
-
+//returns userIds who is enrolled to given section in BLE 
 function getSectionUsers($orgUnitId, $sectionId){
     global $config;
     $section = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/'.$sectionId);
@@ -171,7 +171,7 @@ function getGradeItemById($orgUnitId, $gradeId){
     return $response['response'];
 }
 
-
+//returns BLE userIds who are graded in given grade item
 function getGradedUsers($orgUnitId, $gradeId){
     global $config;
     $gradedUsers = array();
@@ -286,7 +286,9 @@ function getSharedOrgUnitIds($ltiToolProviderId){
     return $sharedOrgUnitIds;
 }
 
-
+//compares the event RSVP list with BLE section user list
+//enrolls new RSVP users to BLE
+//unenrolls users from BLE who changed their status to "No"
 function updateRsvp($orgUnitId, $sectionId, $eventId){
     //people in event system
     $eventRsvpList = getEventUsers($eventId);
@@ -305,6 +307,9 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     }
 }
 
+//compares event attendee list with BLE graded users for given grade item
+//grades new attendeees 
+//grades 0 for Numeric and False for Pass/Fail items for unattended users
 function updateAttendance($orgUnitId, $eventId, $gradeId){
     //attended list from event system
     $eventAttendees = getEventAttendees($eventId);
