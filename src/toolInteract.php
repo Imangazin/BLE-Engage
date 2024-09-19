@@ -77,9 +77,9 @@ function handleGradeItemSelection($orgUnitId) {
 function handleSectionUpdateOrDelete($orgUnitId) {
     global $config;
     if (isset($_POST['updateEvent'])) {
-        // if (!empty($_POST['gradeId'])) {
-        //     updateAttendance($orgUnitId, $_POST['eventId'], $_POST['gradeId']);
-        // }
+        if (!empty($_POST['gradeId'])) {
+            updateAttendance($orgUnitId, $_POST['eventId'], $_POST['gradeId']);
+        }
         updateRsvp($orgUnitId, $_POST['sectionId'], $_POST['eventId']);
         echo updateSection($orgUnitId, $_POST['sectionId']);
     } else {

@@ -293,30 +293,15 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     $eventRsvpUserIds = userNameToUserId($eventRsvpList);
     //people in D2L
     $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
-
-    echo "eventRsvpIds  ";
-    echo var_dump($eventRsvpUserIds);
-    echo "sectionRsvp  ";
-    echo var_dump($sectionRsvpList);
-
     //find new enrollments
     $usersToEnroll = array_diff($eventRsvpUserIds, $sectionRsvpList);
     //find dropped users
     $usersToUnEnroll = array_diff($sectionRsvpList, $eventRsvpUserIds);
-
-    echo "UserToEnroll:   ";
-    echo var_dump($usersToEnroll);
-    echo "UserToUnEnroll:   ";
-    echo var_dump($usersToUnEnroll);
-
     if(!empty($usersToEnroll)){
-        echo "Should be not in console";
         enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
     }
     if(!empty($usersToUnEnroll)){
-        echo "about to do this task";
         unEnrollEngageUsers($orgUnitId, $sectionId, $usersToUnEnroll);
-        echo "did i unenroll";
     }
 }
 
