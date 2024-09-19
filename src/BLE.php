@@ -303,9 +303,11 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     echo var_dump($usersToUnEnroll);
 
     if(!empty($usersToEnroll)){
+        echo "Should be not in console";
         enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
     }
     if(!empty($usersToUnEnroll)){
+        echo "about to do this task";
         unenrollEngageEventUsers($orgUnitId, $sectionId, $usersToUnEnroll);
     }
 }
