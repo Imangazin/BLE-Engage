@@ -175,7 +175,7 @@ function getGradeItemById($orgUnitId, $gradeId){
 function getGradedUsers($orgUnitId, $gradeId){
     global $config;
     $gradedUsers = array();
-    $next = '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/?sort=lastname&pageSize=1&bookmark=&bookmarkUserId=';
+    $next = '/d2l/api/le/'.$config['LE_Version'].'/'.$orgUnitId.'/grades/'.$gradeId.'/values/?sort=lastname&pageSize=20&bookmark=&bookmarkUserId=';
     while ($next != null){
         $response = doValenceRequest('GET', $next);
         foreach($response['response']->Objects as $user){
