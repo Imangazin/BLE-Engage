@@ -292,6 +292,12 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     $eventRsvpUserIds = userNameToUserId($eventRsvpList);
     //people in D2L
     $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
+
+    echo "eventRsvpIds  ";
+    echo var_dump($eventRsvpUserIds);
+    echo "sectionRsvp  ";
+    echo var_dump($sectionRsvpList);
+
     //find new enrollments
     $usersToEnroll = array_diff($eventRsvpUserIds, $sectionRsvpList);
     //find dropped users
