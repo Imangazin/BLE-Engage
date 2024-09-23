@@ -85,6 +85,6 @@
             </div>
           </div>
     </div>
-<script type="text/javascript" src="js/ble-bu.js?vs=1.2"></script>
+<script type="text/javascript" src="js/ble-bu.js?vs=1.3"></script>
 </body>
 </html>
