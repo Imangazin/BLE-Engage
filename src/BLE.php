@@ -297,8 +297,15 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
     //find new enrollments
     $usersToEnroll = array_diff($eventRsvpUserIds, $sectionRsvpList);
-    //find dropped users
-    $usersToUnEnroll = array_diff($sectionRsvpList, $eventRsvpUserIds);
+    
+    //find dropped users.
+    //there is an odd case where someone is attended the event who is not in RSVP or said "No" to it.
+    //so we need to combine the RSVP and Attendance list then take the difference
+    $eventAttendees = getEventAttendees($eventId);
+    $eventAttendeeIds = userNameToUserId($eventAttendees);
+    $eventUserIds = array_unique(array_merge($eventRsvpUserIds, $eventAttendeeIds));
+    $usersToUnEnroll = array_diff($sectionRsvpList, $eventUserIds);
+    
     if(!empty($usersToEnroll)){
         enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
     }
