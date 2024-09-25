@@ -115,11 +115,9 @@ function getEventUsers($eventId){
     $skip = 0;
     $take = 20;
     while($isMore){
-        $response = experienceBUcall('/v3.0/events/event/'. $eventId . '/rsvp?take=' . $take . '&skip=' . $skip);
+        $response = experienceBUcall('/v3.0/events/event/'. $eventId . '/rsvp?responses=Yes&take=' . $take . '&skip=' . $skip);
         foreach ($response->items as $each){  
-            if ($each->response=="Yes"){
-                array_push($result, $each->userId->username);
-            }
+            array_push($result, $each->userId->username);
         }
         $skip = $skip + $take;
         if ($skip > $response->totalItems) $isMore = false;
@@ -140,11 +138,9 @@ function getEventAttendees($eventId){
     $skip = 0;
     $take = 20;
     while($isMore){
-        $response = experienceBUcall('/v3.0/events/event/'. $eventId . '/attendance?take=' . $take . '&skip=' . $skip);
+        $response = experienceBUcall('/v3.0/events/event/'. $eventId . '/attendance?status=Attended&take=' . $take . '&skip=' . $skip);
         foreach ($response->items as $each){
-            if ($each->status=="Attended"){ 
-                array_push($result, $each->userId->username);
-            }
+            array_push($result, $each->userId->username);
         }
         $skip = $skip + $take;
         if ($skip > $response->totalItems) $isMore = false;
