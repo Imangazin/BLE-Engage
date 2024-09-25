@@ -297,8 +297,15 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
     //find new enrollments
     $usersToEnroll = array_diff($eventRsvpUserIds, $sectionRsvpList);
-    //find dropped users
-    $usersToUnEnroll = array_diff($sectionRsvpList, $eventRsvpUserIds);
+    
+    //find dropped users.
+    //there is an odd case where someone is attended the event who is not in RSVP or said "No" to it.
+    //so we need to combine the RSVP and Attendance list then take the difference
+    $eventAttendees = getEventAttendees($eventId);
+    $eventAttendeeIds = userNameToUserId($eventAttendees);
+    $eventUserIds = array_unique(array_merge($eventRsvpUserIds, $eventAttendeeIds));
+    $usersToUnEnroll = array_diff($sectionRsvpList, $eventUserIds);
+    
     if(!empty($usersToEnroll)){
         enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
     }
@@ -310,7 +317,7 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
 //compares event attendee list with BLE graded users for given grade item
 //grades new attendeees 
 //grades 0 for Numeric and False for Pass/Fail items for unattended users
-function updateAttendance($orgUnitId, $eventId, $gradeId){
+function updateAttendance($orgUnitId, $eventId, $gradeId, $sectionId){
     //attended list from event system
     $eventAttendees = getEventAttendees($eventId);
     $eventAttendeeIds = userNameToUserId($eventAttendees);
@@ -320,6 +327,14 @@ function updateAttendance($orgUnitId, $eventId, $gradeId){
     $usersToGrade = array_diff($eventAttendeeIds, $gradedUserIds);
     //find not attended users
     $usersToUnGrade = array_diff($gradedUserIds, $eventAttendeeIds);
+
+    //experienceBU attendance list might include users who are not in RSVP list.
+    //so need to enroll these users into the section
+    $sectionRsvpList = getSectionUsers($orgUnitId, $sectionId);
+    $usersToEnroll = array_diff($eventAttendeeIds, $sectionRsvpList);
+    if(!empty($usersToEnroll)){
+        enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
+    }
 
     if(!empty($usersToGrade)){
         gradeEventAttendence($orgUnitId, $eventId, $gradeId, $usersToGrade);
@@ -339,7 +354,7 @@ function syncEngageBLE($orgUnitId){
         if (!isDate30DaysOrMoreInPast($event['endDate'])){
 
             if (!empty($event['gradeId'])){
-                updateAttendance($orgUnitId, $event['eventId'], $event['gradeId']);
+                updateAttendance($orgUnitId, $event['eventId'], $event['gradeId'], $event["sectionId"]);
             }
 
             updateRsvp($orgUnitId, $event["sectionId"], $event["eventId"]);

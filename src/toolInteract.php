@@ -50,6 +50,7 @@ function handleMainSync($orgUnitId) {
             $eventAttendees = getEventAttendees($_POST['ebuEvent']);
             $eventAttendeeIds = userNameToUserId ($eventAttendees);
             gradeEventAttendence($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem'], $eventAttendeeIds);
+            updateAttendance($orgUnitId, $_POST['ebuEvent'], $_POST['gradeItem'], $sectionId);
         }
         updateSection($orgUnitId, $sectionId);
     }
@@ -78,7 +79,7 @@ function handleSectionUpdateOrDelete($orgUnitId) {
     global $config;
     if (isset($_POST['updateEvent'])) {
         if (!empty($_POST['gradeId'])) {
-            updateAttendance($orgUnitId, $_POST['eventId'], $_POST['gradeId']);
+            updateAttendance($orgUnitId, $_POST['eventId'], $_POST['gradeId'], $_POST['sectionId']);
         }
         updateRsvp($orgUnitId, $_POST['sectionId'], $_POST['eventId']);
         echo updateSection($orgUnitId, $_POST['sectionId']);
