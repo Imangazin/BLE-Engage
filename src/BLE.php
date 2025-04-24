@@ -230,6 +230,7 @@ function getLinkedEvents($orgUnitId, $ltiRole, $userName){
     $userOrganizations = userOrganizations($userName);
 
     $response = doValenceRequest('GET', '/d2l/api/lp/'.$config['LP_Version'].'/'.$orgUnitId.'/sections/');
+    echo var_dump($response);
     $sections = array_reverse($response['response']);
     foreach ($sections as $section) {
         if (strpos($section->Code, 'engage') !== false){
