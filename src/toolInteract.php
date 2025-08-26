@@ -85,7 +85,7 @@ function handleSectionUpdateOrDelete($orgUnitId) {
         echo updateSection($orgUnitId, $_POST['sectionId']);
     } else {
         $usersToUnEnroll = getSectionUsers($orgUnitId, $_POST['sectionId']);
-        unEnrollEngageUsers($orgUnitId, $_POST['sectionId'], $usersToUnEnroll);
+        #unEnrollEngageUsers($orgUnitId, $_POST['sectionId'], $usersToUnEnroll);
         deleteSection($orgUnitId, $_POST['sectionId']);
     }
 }
