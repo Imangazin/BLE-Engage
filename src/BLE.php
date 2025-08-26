@@ -309,9 +309,9 @@ function updateRsvp($orgUnitId, $sectionId, $eventId){
     if(!empty($usersToEnroll)){
         enrollEngageEventUsers($orgUnitId, $sectionId, $usersToEnroll);
     }
-    if(!empty($usersToUnEnroll)){
-        unEnrollEngageUsers($orgUnitId, $sectionId, $usersToUnEnroll);
-    }
+    // if(!empty($usersToUnEnroll)){
+    //     unEnrollEngageUsers($orgUnitId, $sectionId, $usersToUnEnroll);
+    // }
 }
 
 //compares event attendee list with BLE graded users for given grade item
